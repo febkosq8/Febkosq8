@@ -3,6 +3,7 @@ import gstImage from "../../assets/Febkosq8/GStatTracker.jpeg";
 import cryptoGifImage from "../../assets/Febkosq8/CryptoGIF.png";
 import javaCryptoMessengerImage from "../../assets/Febkosq8/jcm.png";
 import jappanImage from "../../assets/Febkosq8/jdb.png";
+import shortURLImage from "../../assets/Febkosq8/ShortURL.png";
 import CourseContentDelivery from "../../assets/Febkosq8/CourseContentDelivery.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGithub, faDiscord } from "@fortawesome/free-brands-svg-icons";
@@ -21,6 +22,14 @@ export default function Projects() {
         "https://discord.com/api/oauth2/authorize?client_id=732230135671029831&permissions=8&scope=applications.commands%20bot",
       btnName2: "Know More",
       btn2Url: "/Jappan",
+    },
+    {
+      imgSrc: shortURLImage,
+      title: "ShortURL",
+      btnName1: "View Live Application",
+      btn1Url: "/ShortURL",
+      btnName2: "",
+      btn2Url: "",
     },
     {
       imgSrc: gstImage,

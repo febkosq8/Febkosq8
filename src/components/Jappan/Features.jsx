@@ -1,6 +1,9 @@
 import React from "react";
 
 import MusicPlay1 from "../../assets/Jappan/MusicPlay1.png";
+import MusicPlay2 from "../../assets/Jappan/MusicPlay2.png";
+import FunCommand1 from "../../assets/Jappan/FunCommand1.png";
+import FunCommand2 from "../../assets/Jappan/FunCommand2.png";
 import Level1 from "../../assets/Jappan/Level1.png";
 import Level2 from "../../assets/Jappan/Level2.png";
 import Mod1 from "../../assets/Jappan/Mod1.png";
@@ -13,6 +16,7 @@ import {
   faMusic,
   faPersonArrowUpFromLine,
   faGavel,
+  faChampagneGlasses,
 } from "@fortawesome/free-solid-svg-icons";
 export default function Features() {
   const featureItems = [
@@ -22,7 +26,31 @@ export default function Features() {
       img: [
         {
           img: MusicPlay1,
-          title: "Play your favourite playlist",
+          title: "Set your playlist with a easy to remember name",
+          width: "20vw",
+          ratio: "auto",
+        },
+        {
+          img: MusicPlay2,
+          title: "Play your playlist using its name in any server",
+          width: "20vw",
+          ratio: "auto",
+        },
+      ],
+    },
+    {
+      title: " Fun Commands",
+      icon: <FontAwesomeIcon className="ms-2" icon={faChampagneGlasses} />,
+      img: [
+        {
+          img: FunCommand1,
+          title: "Clones a user and makes them say something that you want",
+          width: "20vw",
+          ratio: "auto",
+        },
+        {
+          img: FunCommand2,
+          title: "Choose to play from a refined selection of audio clips",
           width: "20vw",
           ratio: "auto",
         },

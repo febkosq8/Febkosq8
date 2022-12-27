@@ -20,7 +20,7 @@ export default function About() {
       <br />
       <p>A simple discord bot made to make someone's life easier</p>
       <p>
-        Currently features Music Playback, Leveling System & Moderation Tools
+        Currently features Music Playback, Fun Commands, Leveling System & Moderation Tools
       </p>
       <p>Built using Discord.js, Node.js and hosted on Heroku.</p>
       <div className="d-grid gap-2 d-md-block">
