@@ -47,6 +47,16 @@ export default function About() {
           </a>
         </p>
         <p>
+          <FontAwesomeIcon icon={faBriefcase} color="black" /> Graduate Security
+          Engineer at{" "}
+          <a
+            href="https://www.sita.aero/"
+            className="ms-2 btn-outline-dark btn btn-sm"
+          >
+            SITA
+          </a>
+        </p>
+        <p>
           <FontAwesomeIcon icon={faHouseLaptop} color="black" /> Actively
           developing
           <a href="/Jappan" className="ms-2 btn-outline-dark btn btn-sm">
@@ -79,10 +89,6 @@ export default function About() {
           <a href="/#projects" className="ms-2 btn-outline-dark btn btn-sm">
             Projects
           </a>
-        </p>
-        <p>
-          <FontAwesomeIcon icon={faBriefcase} color="black" /> Looking for a job
-          as a Software Developer / IT Support Engineer
         </p>
         <p>
           <FontAwesomeIcon icon={faPersonCircleQuestion} color="black" /> Ask me
