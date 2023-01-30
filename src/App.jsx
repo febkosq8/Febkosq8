@@ -8,7 +8,7 @@ const Fail = lazy(() => import("./components/Fail"));
 function App() {
   useEffect(() => {
     document.title = "Febkosq8";
-  },[]);
+  }, []);
   return (
     <Router>
       <Suspense fallback={<Loading />}>
