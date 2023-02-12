@@ -1,51 +1,51 @@
 {
-  "name": "febkosq8",
-  "version": "0.1.5",
-  "private": true,
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^6.2.1",
-    "@fortawesome/free-brands-svg-icons": "^6.2.1",
-    "@fortawesome/free-regular-svg-icons": "^6.2.1",
-    "@fortawesome/free-solid-svg-icons": "^6.2.1",
-    "@fortawesome/react-fontawesome": "^0.2.0",
-    "@popperjs/core": "^2.11.6",
-    "@tanstack/react-query": "^4.24.4",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^14.4.3",
-    "axios": "^1.2.6",
-    "bootstrap": "^5.2.3",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.8.0",
-    "web-vitals": "^3.1.1"
-  },
-  "scripts": {
-    "start": "vite",
-    "build": "vite build"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@vitejs/plugin-react": "^3.0.1",
-    "@vitejs/plugin-react-swc": "^3.0.1",
-    "nodemon": "^2.0.20",
-    "vite": "^4.0.4"
-  }
+	"name": "febkosq8",
+	"version": "0.1.5",
+	"private": true,
+	"dependencies": {
+		"@fortawesome/fontawesome-svg-core": "^6.3.0",
+		"@fortawesome/free-brands-svg-icons": "^6.3.0",
+		"@fortawesome/free-regular-svg-icons": "^6.3.0",
+		"@fortawesome/free-solid-svg-icons": "^6.3.0",
+		"@fortawesome/react-fontawesome": "^0.2.0",
+		"@popperjs/core": "^2.11.6",
+		"@tanstack/react-query": "^4.24.6",
+		"@testing-library/jest-dom": "^5.16.5",
+		"@testing-library/react": "^13.4.0",
+		"@testing-library/user-event": "^14.4.3",
+		"axios": "^1.3.2",
+		"bootstrap": "^5.2.3",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-router-dom": "^6.8.1",
+		"web-vitals": "^3.1.1"
+	},
+	"scripts": {
+		"start": "vite",
+		"build": "vite build"
+	},
+	"eslintConfig": {
+		"extends": [
+			"react-app",
+			"react-app/jest"
+		]
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"@vitejs/plugin-react": "^3.1.0",
+		"@vitejs/plugin-react-swc": "^3.1.0",
+		"nodemon": "^2.0.20",
+		"vite": "^4.1.1"
+	}
 }
