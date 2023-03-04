@@ -17,7 +17,7 @@
 		"bootstrap": "^5.2.3",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"react-router-dom": "^6.8.1",
+		"react-router-dom": "^6.8.2",
 		"web-vitals": "^3.1.1"
 	},
 	"scripts": {
@@ -45,7 +45,7 @@
 	"devDependencies": {
 		"@vitejs/plugin-react": "^3.1.0",
 		"@vitejs/plugin-react-swc": "^3.2.0",
-		"nodemon": "^2.0.20",
+		"nodemon": "^2.0.21",
 		"vite": "^4.1.4"
 	}
 }
