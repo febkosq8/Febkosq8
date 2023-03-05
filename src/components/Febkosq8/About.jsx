@@ -27,8 +27,8 @@ export default function About() {
 				</li>
 				<li>
 					<FontAwesomeIcon icon={faBlog} color="black" /> Blogging random tech stuff at
-					<a href="http://www.febkosq8.tk/ " className="ms-2 btn-outline-dark btn btn-sm">
-						febkosq8.tk
+					<a href="https://febkosq8.blogspot.com/ " className="ms-2 btn-outline-dark btn btn-sm">
+						febkosq8.blogspot.com
 					</a>
 				</li>
 				<li>

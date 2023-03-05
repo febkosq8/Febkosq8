@@ -5,7 +5,7 @@
 
 - 🙋‍♂️ Know more about me : **[febkosq8.me](https://www.febkosq8.me/)**
 
-- 🤔 Sometimes I blog on **[febkosq8.tk](https://www.febkosq8.tk/)**
+- 🤔 Sometimes I blog on **[febkosq8.blogspot.com](https://febkosq8.blogspot.com/)**
 
 ## 🤝 Support Me:
 
