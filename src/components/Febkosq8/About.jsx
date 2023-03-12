@@ -13,6 +13,7 @@ import {
 	faHeadset,
 	faHandSparkles,
 	faGlobe,
+	faBuildingColumns,
 } from "@fortawesome/free-solid-svg-icons";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 export default function About() {
@@ -60,6 +61,15 @@ export default function About() {
 					Engineering from
 					<a href="https://www.kluniversity.in/" className="ms-2 btn-outline-dark btn btn-sm">
 						KL University
+					</a>
+				</li>
+				<li>
+					<FontAwesomeIcon icon={faBuildingColumns} color="black" /> University Innovation Fellow - Fall 2019 Batch{" "}
+					<a
+						href="https://universityinnovation.org/wiki/Fellow:Febin_Koshy_Philip"
+						className="ms-2 btn-outline-dark btn btn-sm"
+					>
+						UIF Wiki
 					</a>
 				</li>
 				<li>
