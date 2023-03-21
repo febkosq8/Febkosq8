@@ -59,7 +59,7 @@ export default function Platforms() {
 							alt="Wear OS"
 							title="Wear OS"
 						/>
-						<a href="https://discord.gg/rhk7STH5py">
+						<a href="https://discord.com/users/407819516513484801">
 							<img
 								src="https://img.shields.io/badge/Discord-%237289DA.svg?style=for-the-badge&logo=discord&logoColor=white"
 								alt="Discord"
