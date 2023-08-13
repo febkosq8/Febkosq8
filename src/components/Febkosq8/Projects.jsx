@@ -3,6 +3,7 @@ import gstImage from "../../assets/Febkosq8/GStatTracker.jpeg";
 import cryptoGifImage from "../../assets/Febkosq8/CryptoGIF.png";
 import javaCryptoMessengerImage from "../../assets/Febkosq8/jcm.png";
 import jappanImage from "../../assets/Febkosq8/jdb.png";
+import dlgImage from "../../assets/Febkosq8/dlg.png";
 import shortURLImage from "../../assets/Febkosq8/ShortURL.png";
 import CourseContentDelivery from "../../assets/Febkosq8/CourseContentDelivery.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,6 +12,14 @@ import { faListCheck } from "@fortawesome/free-solid-svg-icons";
 import { css, cx } from "@emotion/css";
 export default function Projects() {
 	const projectItems = [
+		{
+			imgSrc: dlgImage,
+			title: "Defect List Generator",
+			btnName1: "",
+			btn1Url: "",
+			btnName2: "",
+			btn2Url: "",
+		},
 		{
 			imgSrc: jappanImage,
 			title: "Jappan - Discord Bot",
@@ -43,7 +52,7 @@ export default function Projects() {
 				</>
 			),
 			btnName2: "View Live Application",
-			btn2Url: "https://gstattracker.tk",
+			btn2Url: "https://gstatviewer.pages.dev",
 		},
 		{
 			imgSrc: cryptoGifImage,
