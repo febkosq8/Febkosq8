@@ -2,7 +2,7 @@ import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { faRobot, faLayerGroup, faBullhorn } from "@fortawesome/free-solid-svg-icons";
+import { faRobot, faLayerGroup, faBullhorn, faHandshakeAngle } from "@fortawesome/free-solid-svg-icons";
 import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 import profile from "../../assets/Jappan/ProfIle.png";
 export default function About() {
@@ -34,6 +34,9 @@ export default function About() {
 				</a>{" "}
 				<a href="https://discord.gg/3mRbVCjvmz" target="_blank" rel="noreferrer" className="ms-2 btn-outline-dark btn">
 					<FontAwesomeIcon icon={faBullhorn} /> Status Updates
+				</a>{" "}
+				<a href="https://discord.gg/rhk7STH5py" target="_blank" rel="noreferrer" className="ms-2 btn-outline-dark btn">
+					<FontAwesomeIcon icon={faHandshakeAngle} /> Support Server
 				</a>
 			</div>
 		</section>
