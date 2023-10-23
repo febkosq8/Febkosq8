@@ -1,5 +1,5 @@
 import "./ShortURL.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import APIHandler from "../../handlers/APIHandler";
@@ -8,18 +8,32 @@ const ShortURL = () => {
 	const { redirectUrl } = useParams();
 	const [fullURL, setFullURL] = useState("");
 	const [shortName, setShortName] = useState("");
-	useQuery(["shortUrlCheck", redirectUrl], () => APIHandler.getShortURL(redirectUrl), {
+	const {
+		data: redirectData,
+		isSuccess: isFetchedShortUrlCheckSuccess,
+		error: redirectDataError,
+		isError: isFetchedLogStatsError,
+	} = useQuery({
+		queryKey: ["ShortUrlCheck", redirectUrl],
+		queryFn: () => APIHandler.getShortURL(redirectUrl),
 		enabled: !!redirectUrl,
-		onSuccess: (data) => {
-			try {
-				new URL(data);
-				window.location.href = data;
-			} catch (e) {
-				setWarning(data);
-			}
-		},
 	});
-	const urlShortener = useMutation((shortName, fullURL) => APIHandler.shortURL(shortName, fullURL), {
+	useEffect(() => {
+		if (isFetchedShortUrlCheckSuccess) {
+			try {
+				new URL(redirectData);
+				window.location.href = redirectData;
+			} catch (e) {
+				setWarning(redirectData);
+			}
+		}
+		if (isFetchedLogStatsError) {
+			setWarning(redirectDataError?.response?.data);
+		}
+	}, [redirectData, isFetchedShortUrlCheckSuccess, redirectDataError, isFetchedLogStatsError]);
+
+	const urlShortener = useMutation({
+		mutationFn: (shortName, fullURL) => APIHandler.shortURL(shortName, fullURL),
 		onSuccess: (data) => {
 			setWarning(data);
 		},
