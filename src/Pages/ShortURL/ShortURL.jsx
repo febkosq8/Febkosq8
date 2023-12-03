@@ -8,6 +8,7 @@ const ShortURL = () => {
 	const { redirectUrl } = useParams();
 	const [fullURL, setFullURL] = useState("");
 	const [shortName, setShortName] = useState("");
+	const [output, setOutput] = useState("");
 	const {
 		data: redirectData,
 		isSuccess: isFetchedShortUrlCheckSuccess,
@@ -24,30 +25,29 @@ const ShortURL = () => {
 				new URL(redirectData);
 				window.location.href = redirectData;
 			} catch (e) {
-				setWarning(redirectData);
+				setOutput(redirectData);
 			}
 		}
 		if (isFetchedLogStatsError) {
-			setWarning(redirectDataError?.response?.data);
+			setOutput(redirectDataError?.response?.data);
 		}
 	}, [redirectData, isFetchedShortUrlCheckSuccess, redirectDataError, isFetchedLogStatsError]);
 
 	const urlShortener = useMutation({
-		mutationFn: (shortName, fullURL) => APIHandler.shortURL(shortName, fullURL),
+		mutationFn: (shortName, fullURL) => APIHandler.addShortURL({ shortName, fullURL }),
 		onSuccess: (data) => {
-			setWarning(data);
+			setOutput(data.message ?? "Success");
 		},
 		onError: (data) => {
-			setWarning(data?.response?.data);
+			setOutput(data?.response?.data.error ?? "Error");
 		},
 	});
-	const [warning, setWarning] = useState("");
 	return (
 		<div className="App pt-4">
 			<div className="header">
 				<nav id="navbar-ShortURL" className="navbar fixed-top bg-light py-2">
 					<a className="navbar-brand px-2" href="/">
-						Febkosq8 | ShortURL
+						ShortURL
 					</a>
 				</nav>
 			</div>
@@ -61,7 +61,8 @@ const ShortURL = () => {
 				tabIndex="0"
 			>
 				<section align="left" className="section px-2" id="mainPage">
-					<h3>{warning}</h3>
+					<h3 className="py-5">{`Use \`${window.location.href}/{shortName}\` to redirect to the full URL`}</h3>
+					<h3 className="py-5">{output}</h3>
 					<div className="w-25">
 						<div className="form-floating mb-3">
 							<input
