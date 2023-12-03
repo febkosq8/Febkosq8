@@ -52,7 +52,7 @@ export default function Projects() {
 				</>
 			),
 			btnName2: "View Live Application",
-			btn2Url: "https://gstatviewer.pages.dev",
+			btn2Url: "https://gstattracker.febkosq8.me/",
 		},
 		{
 			imgSrc: cryptoGifImage,

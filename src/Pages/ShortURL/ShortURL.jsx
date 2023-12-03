@@ -17,29 +17,30 @@ const ShortURL = () => {
 	} = useQuery({
 		queryKey: ["ShortUrlCheck", redirectUrl],
 		queryFn: () => APIHandler.getShortURL(redirectUrl),
+		retry: 0,
 		enabled: !!redirectUrl,
 	});
 	useEffect(() => {
 		if (isFetchedShortUrlCheckSuccess) {
 			try {
-				new URL(redirectData);
-				window.location.href = redirectData;
+				new URL(redirectData.url);
+				window.location.href = redirectData.url;
 			} catch (e) {
 				setOutput(redirectData);
 			}
 		}
 		if (isFetchedLogStatsError) {
-			setOutput(redirectDataError?.response?.data);
+			setOutput(redirectDataError?.response?.data.error ?? "Error");
 		}
 	}, [redirectData, isFetchedShortUrlCheckSuccess, redirectDataError, isFetchedLogStatsError]);
 
 	const urlShortener = useMutation({
-		mutationFn: (shortName, fullURL) => APIHandler.addShortURL({ shortName, fullURL }),
+		mutationFn: (shortName, fullURL) => APIHandler.addShortURL(shortName, fullURL),
 		onSuccess: (data) => {
-			setOutput(data.message ?? "Success");
+			setOutput(data?.message ?? "Success");
 		},
 		onError: (data) => {
-			setOutput(data?.response?.data.error ?? "Error");
+			setOutput(data?.response?.data?.error ?? "Error");
 		},
 	});
 	return (
@@ -51,7 +52,6 @@ const ShortURL = () => {
 					</a>
 				</nav>
 			</div>
-
 			<div
 				className="body-container"
 				data-bs-spy="scroll"
@@ -61,8 +61,7 @@ const ShortURL = () => {
 				tabIndex="0"
 			>
 				<section align="left" className="section px-2" id="mainPage">
-					<h3 className="py-5">{`Use \`${window.location.href}/{shortName}\` to redirect to the full URL`}</h3>
-					<h3 className="py-5">{output}</h3>
+					<h3 className="py-5">{`Go to \`/{shortName}\` to redirect to the full URL`}</h3>
 					<div className="w-25">
 						<div className="form-floating mb-3">
 							<input
@@ -90,6 +89,7 @@ const ShortURL = () => {
 							Submit
 						</button>
 					</div>
+					<h3 className="py-5">{output}</h3>
 				</section>
 			</div>
 			<div className="footer"></div>
