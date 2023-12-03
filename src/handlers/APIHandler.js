@@ -1,6 +1,6 @@
 import axios from "axios";
-axios.defaults.baseURL = "https://febgoserve.me";
-// axios.defaults.baseURL = process.env.NODE_ENV === "production" ? "https://febgoserve.me" : "http://localhost:3030";
+// axios.defaults.baseURL = "https://febgoserve.me";
+axios.defaults.baseURL = process.env.NODE_ENV === "production" ? "https://febgoserve.me" : "http://localhost:3030";
 class APIHandler {
 	static async getShortURL(shortName) {
 		const response = await axios.get(`/shortURL?shortName=${shortName}`);
