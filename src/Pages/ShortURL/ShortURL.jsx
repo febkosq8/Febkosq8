@@ -47,7 +47,7 @@ const ShortURL = () => {
 		<div className="App pt-4">
 			<div className="header">
 				<nav id="navbar-ShortURL" className="navbar fixed-top bg-light py-2">
-					<a className="navbar-brand px-2" href="/">
+					<a className="navbar-brand px-2" href="/ShortURL">
 						ShortURL
 					</a>
 				</nav>
