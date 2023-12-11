@@ -1,6 +1,8 @@
 <!--
 **febkosq8/febkosq8** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.-->
 
+This is a old legacy branch, depreciated on 11 December 2023.
+
 ## About Me
 
 - 🙋‍♂️ Know more about me : **[febkosq8.me](https://www.febkosq8.me/)**
