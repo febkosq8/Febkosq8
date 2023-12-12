@@ -32,7 +32,7 @@ const projectItems = [
 			},
 			{
 				name: "Know More",
-				url: "/jappan",
+				url: "https://jappan.febkosq8.me",
 			},
 		],
 	},
