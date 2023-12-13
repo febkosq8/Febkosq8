@@ -18,4 +18,4 @@
 
 ![ ](https://github-readme-stats.vercel.app/api/top-langs/?username=febkosq8&theme=gruvbox&hide_border=false&include_all_commits=true&count_private=true&layout=compact)
 
-![ ](https://goserve.febkosq8.me/imgAnalytics/febkosq8)
+![ ](https://serve.febkosq8.me/imgAnalytics/febkosq8)
