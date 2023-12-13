@@ -10,7 +10,7 @@ export default function Header() {
 				<a href="#skillset">Skillset</a>
 				<a href="#projects">Projects</a>
 				<a href="#socials">Socials</a>
-				<ThemeSwitcher prefix={"feb"} />
+				<ThemeSwitcher />
 			</div>
 		</div>
 	);

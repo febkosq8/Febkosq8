@@ -3,9 +3,9 @@ import Pill from "@feb/components/ui/Pill";
 import { faLaptop, faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
-export default function ThemeSwitcher({ prefix = "ui" }) {
+export default function ThemeSwitcher() {
 	const colorModeIcon = { light: faSun, dark: faMoon, system: faLaptop };
-	const localStorageString = `${prefix}-theme`;
+	const localStorageString = `theme`;
 	useEffect(() => {
 		if (!(localStorageString in localStorage)) {
 			localStorage.setItem(localStorageString, "system");

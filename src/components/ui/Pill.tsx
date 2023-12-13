@@ -5,9 +5,8 @@ const Pill = ({ children, active, className, ...props }, ref) => {
 	return (
 		<a
 			className={cx(
-				`p-3  text-xl  font-bold ${
-					active ? "bg-blue-600 text-white" : "text-stone-400"
-				} hover:bg-blue-900 hover:text-white`,
+				`p-3  text-xl  font-bold text-foreground hover:bg-accent transition`,
+				active && "bg-primary",
 				className
 			)}
 			ref={ref}

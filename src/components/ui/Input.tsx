@@ -8,10 +8,10 @@ const Input = ({ className, ...rest }) => {
 			className={clsx(
 				className,
 				"h-10",
-				"placeholder:gray-800 rounded border border-blue-800 bg-slate-300 pl-5 text-black",
-				"focus:border-transparent focus:outline-none focus:ring-2 focus:ring-blue-600",
-				"disabled:cursor-not-allowed disabled:border-gray-500",
-				"dark:bg-zinc-900 dark:text-stone-400 dark:disabled:text-slate-400 whitespace-pre-wrap"
+				"placeholder:gray-800 rounded border border-border bg-input pl-5 text-foreground",
+				"focus:border-transparent focus:outline-none focus:ring-2 focus:ring-ring",
+				"disabled:cursor-not-allowed disabled:border-muted",
+				"whitespace-pre-wrap"
 			)}
 		/>
 	);

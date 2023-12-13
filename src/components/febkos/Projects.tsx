@@ -4,7 +4,7 @@ import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { clsx } from "clsx";
 import DefectListGeneratorImg from "@feb/assets/febkos/DefectListGenerator.png";
 import JappanImg from "@feb/assets/febkos/Jappan.png";
-import ShortURLImg from "@feb/assets/febkos/ShortURL.png";
+import smolURLImg from "@feb/assets/febkos/smolURL.png";
 import GStatTrackerImg from "@feb/assets/febkos/GStatTracker.png";
 import CryptoGIFImg from "@feb/assets/febkos/CryptoGIF.png";
 import JavaCryptoMessengerImg from "@feb/assets/febkos/JavaCryptoMessenger.png";
@@ -37,10 +37,10 @@ const projectItems = [
 		],
 	},
 	{
-		imgSrc: ShortURLImg,
-		title: "ShortURL",
+		imgSrc: smolURLImg,
+		title: "smolURL",
 		description: "Simple no-signups URL shortener",
-		actions: [{ name: "View Live Application", url: "/shorturl" }],
+		actions: [{ name: "View Live Application", url: "https://smolurl.febkosq8.me/" }],
 	},
 	{
 		imgSrc: GStatTrackerImg,

@@ -11,8 +11,8 @@ const Menu = ({ active, buttonText, children }) => {
 				<Float floatingAs={Fragment} offset={4} autoUpdate flip placement="bottom">
 					<MenuBase.Button
 						className={`rounded-md p-3 text-xl  font-bold ${
-							active ? "bg-blue-600 text-white" : ""
-						} inline-flex w-full items-center justify-center  text-stone-400 hover:bg-blue-800 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`}
+							active ? "bg-primary" : ""
+						} transition inline-flex w-full items-center justify-center text-foreground hover:bg-accent hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-opacity-75`}
 					>
 						{buttonText}
 						<FontAwesomeIcon icon={faChevronDown} className="-mr-1 ml-2 h-4 w-4" aria-hidden="true" />
@@ -25,7 +25,7 @@ const Menu = ({ active, buttonText, children }) => {
 						leaveFrom="transform scale-100 opacity-100"
 						leaveTo="transform scale-95 opacity-0"
 					>
-						<MenuBase.Items className="w-fit origin-top-right divide-y divide-gray-100 rounded-md bg-neutral-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+						<MenuBase.Items className="w-fit origin-top-right divide-y divide-border rounded-md bg-background shadow-lg border border-ring focus:outline-none fill-foreground">
 							{children}
 						</MenuBase.Items>
 					</Transition>

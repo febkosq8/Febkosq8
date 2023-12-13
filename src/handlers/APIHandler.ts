@@ -1,17 +1,5 @@
 import axios from "axios";
-// axios.defaults.baseURL = "https://goserve.febkosq8.me";
 axios.defaults.baseURL =
 	process.env.NODE_ENV === "production" ? "https://goserve.febkosq8.me" : "http://localhost:3030";
-class APIHandler {
-	static async getShortURL(shortName: string) {
-		const response = await axios.get(`/shortURL?shortName=${shortName}`);
-		const data = await response.data;
-		return data;
-	}
-	static async addShortURL({ shortName, fullURL }: { shortName: string; fullURL: string }) {
-		const response = await axios.post(`/shortURL?shortName=${shortName}&fullURL=${fullURL}`);
-		const data = await response.data;
-		return data;
-	}
-}
+class APIHandler {}
 export default APIHandler;
