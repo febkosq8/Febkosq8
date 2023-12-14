@@ -40,7 +40,18 @@ const projectItems = [
 		imgSrc: smolURLImg,
 		title: "smolURL",
 		description: "Simple no-signups URL shortener",
-		actions: [{ name: "View Live Application", url: "https://smolurl.febkosq8.me/" }],
+		actions: [
+			{
+				name: (
+					<>
+						View on
+						<FontAwesomeIcon icon={faGithub} size="lg" /> GitHub
+					</>
+				),
+				url: "https://github.com/febkosq8/smolURL",
+			},
+			{ name: "View Live Application", url: "https://smolurl.febkosq8.me/" },
+		],
 	},
 	{
 		imgSrc: GStatTrackerImg,
