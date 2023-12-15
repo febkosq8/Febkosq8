@@ -37,7 +37,7 @@ export default function Socials() {
 									<FontAwesomeIcon icon={faGithub} className="h-5 w-5" /> GitHub
 								</Button>
 							</a>
-							<a href="https://www.linkedin.com/in/febkosq8/" target="_blank" rel="noreferrer">
+							<a href="https://www.linkedin.com/in/febkosq8" target="_blank" rel="noreferrer">
 								<Button className="gap-2">
 									<FontAwesomeIcon icon={faLinkedin} className="h-5 w-5" /> LinkedIn
 								</Button>
@@ -51,7 +51,7 @@ export default function Socials() {
 									<FontAwesomeIcon icon={faFilePdf} className="h-5 w-5" /> CV
 								</Button>
 							</a>
-							<a href="https://febkosq8.blogspot.com/" target="_blank" rel="noreferrer">
+							<a href="https://blog.febkosq8.me" target="_blank" rel="noreferrer">
 								<Button className="gap-2">
 									<FontAwesomeIcon icon={faBlogger} className="h-5 w-5" /> Blog
 								</Button>
