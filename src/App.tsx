@@ -1,4 +1,5 @@
 import Febkos from "@feb/pages/Febkos";
+import Admin from "@feb/pages/Admin";
 import WrongPage from "@feb/pages/WrongPage";
 import { Route, Routes } from "react-router-dom";
 if (window.location.hash) {
@@ -12,6 +13,7 @@ function App() {
 		<div className="text-slate-600 dark:text-slate-100 bg-background">
 			<Routes>
 				<Route path="/" element={<Febkos />} />
+				<Route path="/admin" element={<Admin />} />
 				<Route path="*" element={<WrongPage />} />
 			</Routes>
 		</div>
