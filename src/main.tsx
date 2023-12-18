@@ -14,7 +14,8 @@ const queryClient = new QueryClient({
 	},
 });
 const isProd = process.env.NODE_ENV === "production";
-const backendURL = isProd ? "https://serve.febkosq8.me" : "http://localhost:3030";
+const backendURL = isProd ? "https://serve.febkosq8.me" : "http://localhost:3060";
+console.log({ isProd, backendURL });
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<StrictMode>
 		<SessionProvider baseUrl={backendURL}>
