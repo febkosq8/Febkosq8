@@ -13,9 +13,11 @@ const queryClient = new QueryClient({
 		},
 	},
 });
+const isProd = process.env.NODE_ENV === "production";
+const backendURL = isProd ? "https://serve.febkosq8.me" : "http://localhost:3030";
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<SessionProvider>
+		<SessionProvider baseUrl={backendURL}>
 			<QueryClientProvider client={queryClient}>
 				<Router>
 					<App />
