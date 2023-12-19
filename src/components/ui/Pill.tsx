@@ -1,15 +1,16 @@
-import { cx } from "@emotion/css";
-import { forwardRef } from "react";
+import { clsx } from "clsx";
+interface PillProps extends React.ComponentPropsWithoutRef<"a"> {
+	active?: boolean;
+}
 
-const Pill = ({ children, active, className, ...props }, ref) => {
+const Pill = ({ children, active, className, ...props }: PillProps) => {
 	return (
 		<a
-			className={cx(
-				`p-3  text-xl  font-bold text-foreground hover:bg-accent transition`,
-				active && "bg-primary",
+			className={clsx(
+				`inline-flex p-4 text-xl  font-bold transition w-full items-center justify-center text-foreground hover:text-secondary hover:bg-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-opacity-75 whitespace-nowrap`,
+				active ? "text-primary" : "text-foreground",
 				className
 			)}
-			ref={ref}
 			{...props}
 		>
 			{children}
@@ -17,4 +18,4 @@ const Pill = ({ children, active, className, ...props }, ref) => {
 	);
 };
 
-export default forwardRef(Pill);
+export default Pill;

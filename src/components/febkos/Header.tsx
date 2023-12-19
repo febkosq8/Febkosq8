@@ -1,4 +1,6 @@
+import Menu from "@feb/components/ui/Menu";
 import ThemeSwitcher from "@feb/components/ui/ThemeSwitcher";
+
 export default function Header() {
 	return (
 		<div className="flex text-2xl items-center w-full justify-between px-16 h-16 bg-background border-b-2 sticky top-0">
@@ -6,10 +8,10 @@ export default function Header() {
 				Febkosq8
 			</a>
 			<div className="flex items-center gap-4">
-				<a href="#about">About</a>
-				<a href="#skillset">Skillset</a>
-				<a href="#projects">Projects</a>
-				<a href="#socials">Socials</a>
+				<Menu href="#about" buttonContent={"About"} />
+				<Menu href="#skillset" buttonContent={"Skillset"} />
+				<Menu href="#projects" buttonContent={"Projects"} />
+				<Menu href="#socials" buttonContent={"Socials"} />
 				<ThemeSwitcher />
 			</div>
 		</div>

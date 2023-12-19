@@ -1,4 +1,3 @@
-import * as React from "react";
 import { clsx } from "clsx";
 interface CardProps extends React.ComponentPropsWithoutRef<"div"> {}
 const Card = (props: CardProps) => {
@@ -27,5 +26,7 @@ const Footer = (props: CardProps) => {
 		</div>
 	);
 };
-Object.assign(Card, { Header, Content, Footer });
+Card.Header = Header;
+Card.Content = Content;
+Card.Footer = Footer;
 export default Card;

@@ -1,8 +1,10 @@
-import Menu from "@feb/components/ui/Menu";
-import Pill from "@feb/components/ui/Pill";
 import { faLaptop, faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Menu from "@feb/components/ui/Menu";
+import Pill from "@feb/components/ui/Pill";
 import { useEffect, useState } from "react";
+type Color = "light" | "dark" | "system";
+
 export default function ThemeSwitcher() {
 	const colorModeIcon = { light: faSun, dark: faMoon, system: faLaptop };
 	const localStorageString = `theme`;
@@ -11,7 +13,7 @@ export default function ThemeSwitcher() {
 			localStorage.setItem(localStorageString, "system");
 		}
 	}, []);
-	const [colorMode, setColorMode] = useState(localStorage.getItem(localStorageString));
+	const [colorMode, setColorMode] = useState<Color>((localStorage.getItem(localStorageString) as Color) ?? "system");
 	useEffect(() => {
 		if (["light", "dark"].includes(colorMode)) {
 			if (colorMode === "dark") {
@@ -33,7 +35,7 @@ export default function ThemeSwitcher() {
 		}
 	}, [colorMode]);
 	return (
-		<Menu buttonText={<FontAwesomeIcon icon={colorModeIcon[colorMode] ?? faLaptop} />}>
+		<Menu buttonContent={<FontAwesomeIcon icon={colorModeIcon[colorMode] ?? faLaptop} />}>
 			<>
 				<Menu.Item>
 					<Pill

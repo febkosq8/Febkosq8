@@ -1,7 +1,13 @@
 import { Switch as SwitchBase } from "@headlessui/react";
 import { cva } from "class-variance-authority";
-
-const Switch = ({ checked = false, onChange, disabled, variant = "primary", children }) => {
+interface SwitchProps {
+	checked?: boolean;
+	onChange?: (checked: boolean) => void;
+	disabled?: boolean;
+	variant?: "primary" | "danger" | "success";
+	children: (checked: boolean) => JSX.Element;
+}
+const Switch = ({ checked = false, onChange, disabled = false, variant = "primary", children }: SwitchProps) => {
 	return (
 		<SwitchBase
 			checked={checked}
