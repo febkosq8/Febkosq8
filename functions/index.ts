@@ -1,6 +1,6 @@
 export const onRequest: PagesFunction = async (context) => {
 	const request = context.request;
-
+	console.log(`Incoming request to ${request.url}`);
 	// Check if the request is to the /api path
 	if (request.url.pathname.startsWith("/api")) {
 		console.log(`Proxying request : ${request.url.pathname} to API server`);
