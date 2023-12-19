@@ -1,8 +1,7 @@
-addEventListener("fetch", (event) => {
-	event.respondWith(handleRequest(event.request));
-});
-
-async function handleRequest(request) {
+/**
+ * @param {Request} request
+ */
+async function onRequest(request) {
 	// Check if the request is to the /api path
 	if (request.url.pathname.startsWith("/api")) {
 		// Proxy the request to your backend API server
@@ -20,3 +19,8 @@ async function handleRequest(request) {
 	// If it's not an API request, proceed with the regular request handling
 	return fetch(request);
 }
+
+// Set up the onRequest event handler
+addEventListener("fetch", (event) => {
+	event.respondWith(onRequest(event.request));
+});
