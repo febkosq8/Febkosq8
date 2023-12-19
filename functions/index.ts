@@ -1,7 +1,6 @@
-/**
- * @param {Request} request
- */
-async function onRequest(request) {
+export const onRequest: PagesFunction = async (context) => {
+	const request = context.request;
+
 	// Check if the request is to the /api path
 	if (request.url.pathname.startsWith("/api")) {
 		// Proxy the request to your backend API server
@@ -16,11 +15,6 @@ async function onRequest(request) {
 		return fetch(modifiedRequest);
 	}
 
-	// If it's not an API request, proceed with the regular request handling
+	// If it's not an API request, let the request proceed without modification
 	return fetch(request);
-}
-
-// Set up the onRequest event handler
-addEventListener("fetch", (event) => {
-	event.respondWith(onRequest(event.request));
-});
+};
