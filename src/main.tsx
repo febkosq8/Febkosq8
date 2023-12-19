@@ -18,7 +18,7 @@ const backendURL = isProd ? "https://serve.febkosq8.me/api/auth" : "http://local
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<>
 		<Router>
-			<SessionProvider basePath={backendURL}>
+			<SessionProvider>
 				<QueryClientProvider client={queryClient}>
 					<App />
 					<ReactQueryDevtools />
