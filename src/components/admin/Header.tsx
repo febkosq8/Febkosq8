@@ -4,7 +4,6 @@ import Pill from "@feb/components/ui/Pill";
 import { signIn, signOut, useSession } from "next-auth/react";
 export default function Header() {
 	const { data: session } = useSession();
-	console.log({ session });
 	return (
 		<div className="flex text-2xl items-center w-full justify-between px-16 h-16 bg-background border-b-2 sticky top-0">
 			<a href="/" className="font-bold">

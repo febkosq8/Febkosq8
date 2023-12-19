@@ -1,7 +1,7 @@
 import "@feb/index.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { SessionProvider } from "next-auth/react";
-import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App.tsx";
@@ -14,16 +14,16 @@ const queryClient = new QueryClient({
 	},
 });
 const isProd = process.env.NODE_ENV === "production";
-const backendURL = isProd ? "https://serve.febkosq8.me" : "http://localhost:3060";
-console.log({ isProd, backendURL });
+const backendURL = isProd ? "https://serve.febkosq8.me/api/auth" : "http://localhost:3030/api/auth";
 ReactDOM.createRoot(document.getElementById("root")!).render(
-	<StrictMode>
-		<SessionProvider baseUrl={backendURL}>
-			<QueryClientProvider client={queryClient}>
-				<Router>
+	<>
+		<Router>
+			<SessionProvider basePath={backendURL}>
+				<QueryClientProvider client={queryClient}>
 					<App />
-				</Router>
-			</QueryClientProvider>
-		</SessionProvider>
-	</StrictMode>
+					<ReactQueryDevtools />
+				</QueryClientProvider>
+			</SessionProvider>
+		</Router>
+	</>
 );
