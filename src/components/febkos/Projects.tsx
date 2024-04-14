@@ -8,6 +8,7 @@ import smolURLImg from "@feb/assets/febkos/smolURL.png";
 import GStatTrackerImg from "@feb/assets/febkos/GStatTracker.png";
 import CryptoGIFImg from "@feb/assets/febkos/CryptoGIF.png";
 import JavaCryptoMessengerImg from "@feb/assets/febkos/JavaCryptoMessenger.png";
+import ToolBoxImg from "@feb/assets/febkos/ToolBox.png";
 import CourseContentDeliveryImg from "@feb/assets/febkos/CourseContentDelivery.png";
 const projectItems = [
 	{
@@ -15,6 +16,12 @@ const projectItems = [
 		title: "Defect List Generator",
 		description: "Internal tool to manage and track security related defects across all products.",
 		actions: [],
+	},
+	{
+		imgSrc: ToolBoxImg,
+		title: "Tool Box",
+		description: "Collection of micro-services to support various tools.",
+		actions: [{ name: "View Live Application", url: "https://toolbox.febkosq8.me/" }],
 	},
 	{
 		imgSrc: JappanImg,
@@ -140,7 +147,7 @@ export default function Projects() {
 										className={clsx(
 											"inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
 											"bg-primary text-primary-foreground hover:bg-primary/90",
-											"h-10 px-4 py-2 gap-1 w-fit"
+											"h-10 px-4 py-2 gap-1 w-fit",
 										)}
 									>
 										{action.name}
