@@ -143,7 +143,7 @@ export default function Skillset() {
 			<h2 className="typography-heading-2 flex mb-10" id="skillsetTitle">
 				Skillset
 			</h2>
-			<div className="grid gap-3 grid-cols-12 grid-rows-8">
+			<div className="grid gap-3 grid-cols-12">
 				<Card className="col-span-12 row-span-3 justify-between flex flex-col">
 					<Card.Header>Languages</Card.Header>
 					<Card.Content>
