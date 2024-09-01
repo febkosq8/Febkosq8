@@ -14,6 +14,7 @@ function App() {
 			<Header />
 			<Routes>
 				<Route path="/" element={<Febkos />} />
+				<Route path="/cv" element={<Febkos />} />
 				<Route path="*" element={<WrongPage />} />
 			</Routes>
 		</div>

@@ -42,15 +42,17 @@ export default function Socials() {
 									<FontAwesomeIcon icon={faLinkedin} className="h-5 w-5" /> LinkedIn
 								</Button>
 							</a>
-							<a
-								href="https://drive.google.com/file/d/1zwQyTgVGklY2cdqoIK_QhESIPULzu_4A/view?usp=share_link"
-								target="_blank"
-								rel="noreferrer"
-							>
-								<Button className="gap-2">
-									<FontAwesomeIcon icon={faFilePdf} className="h-5 w-5" /> CV
-								</Button>
-							</a>
+							{document.location.href.includes("/cv") && (
+								<a
+									href="https://drive.google.com/file/d/1zwQyTgVGklY2cdqoIK_QhESIPULzu_4A/view?usp=share_link"
+									target="_blank"
+									rel="noreferrer"
+								>
+									<Button className="gap-2">
+										<FontAwesomeIcon icon={faFilePdf} className="h-5 w-5" /> CV
+									</Button>
+								</a>
+							)}
 							<a href="https://blog.febkosq8.me" target="_blank" rel="noreferrer">
 								<Button className="gap-2">
 									<FontAwesomeIcon icon={faBlogger} className="h-5 w-5" /> Blog
