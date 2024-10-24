@@ -65,9 +65,9 @@ export default function Socials() {
 					<Card.Header>Contact me through</Card.Header>
 					<Card.Content className="flex gap-2">
 						<div className="flex gap-2">
-							<a href="mailto:febkosq8@yahoo.com" target="_blank" rel="noreferrer">
+							<a href="mailto:contact@febkosq8.me" target="_blank" rel="noreferrer">
 								<Button className="gap-2">
-									<FontAwesomeIcon icon={faEnvelope} className="h-5 w-5" /> febkosq8@yahoo.com
+									<FontAwesomeIcon icon={faEnvelope} className="h-5 w-5" /> contact@febkosq8.me
 								</Button>
 							</a>
 							<a href="https://discord.com/users/407819516513484801" target="_blank" rel="noreferrer">
