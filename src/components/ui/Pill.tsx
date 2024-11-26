@@ -1,21 +1,34 @@
-import { clsx } from "clsx";
-interface PillProps extends React.ComponentPropsWithoutRef<"a"> {
+import { cx } from "@rinzai/zen";
+import { forwardRef, ReactNode } from "react";
+import { Link } from "react-router-dom";
+
+interface PillProps {
+	as?: React.ElementType;
+	children: ReactNode;
 	active?: boolean;
+	className?: string;
+	href?: string;
+	[key: string]: any;
 }
 
-const Pill = ({ children, active, className, ...props }: PillProps) => {
+const Pill = forwardRef<any, PillProps>(({ as, children, active, className, href, ...props }, ref) => {
+	const Tag = as || Link;
 	return (
-		<a
-			className={clsx(
-				`inline-flex p-4 text-xl  font-bold transition w-full items-center justify-center text-foreground hover:text-secondary hover:bg-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-opacity-75 whitespace-nowrap`,
-				active ? "text-primary" : "text-foreground",
+		<Tag
+			to={href}
+			className={cx(
+				`p-3  text-xl  font-bold ${
+					active ? "bg-blue-600 text-white" : "text-stone-400"
+				} hover:bg-blue-900 hover:text-white`,
 				className
 			)}
+			ref={ref}
 			{...props}
+			viewTransition
 		>
 			{children}
-		</a>
+		</Tag>
 	);
-};
+});
 
 export default Pill;
