@@ -1,16 +1,16 @@
-import Card from "@feb/components/ui/Card";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
-import { clsx } from "clsx";
-import DefectListGeneratorImg from "@feb/assets/febkos/DefectListGenerator.png";
-import LocalSaveImg from "@feb/assets/febkos/localSave.png";
-import JappanImg from "@feb/assets/febkos/Jappan.png";
-import smolURLImg from "@feb/assets/febkos/smolURL.png";
-import GStatTrackerImg from "@feb/assets/febkos/GStatTracker.png";
-import CryptoGIFImg from "@feb/assets/febkos/CryptoGIF.png";
-import JavaCryptoMessengerImg from "@feb/assets/febkos/JavaCryptoMessenger.png";
-import ToolBoxImg from "@feb/assets/febkos/ToolBox.png";
 import CourseContentDeliveryImg from "@feb/assets/febkos/CourseContentDelivery.png";
+import CryptoGIFImg from "@feb/assets/febkos/CryptoGIF.png";
+import DefectListGeneratorImg from "@feb/assets/febkos/DefectListGenerator.png";
+import GStatTrackerImg from "@feb/assets/febkos/GStatTracker.png";
+import JappanImg from "@feb/assets/febkos/Jappan.png";
+import JavaCryptoMessengerImg from "@feb/assets/febkos/JavaCryptoMessenger.png";
+import LocalSaveImg from "@feb/assets/febkos/localSave.png";
+import smolURLImg from "@feb/assets/febkos/smolURL.png";
+import ToolBoxImg from "@feb/assets/febkos/ToolBox.png";
+import Card from "@feb/components/ui/Card";
+import { faDiscord, faGithub, faNpm } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { cx } from "@rinzai/zen";
 const projectItems = [
 	{
 		imgSrc: DefectListGeneratorImg,
@@ -27,12 +27,21 @@ const projectItems = [
 				name: (
 					<>
 						View on
-						<FontAwesomeIcon icon={faGithub} size="lg" /> GitHub
+						<FontAwesomeIcon icon={faNpm} size="lg" />
+					</>
+				),
+				url: "https://www.npmjs.com/package/@febkosq8/local-save",
+			},
+			{ name: "View Demo", url: "https://local-save.febkosq8.me/" },
+			{
+				name: (
+					<>
+						View on
+						<FontAwesomeIcon icon={faGithub} size="lg" />
 					</>
 				),
 				url: "https://github.com/febkosq8/local-save",
 			},
-			{ name: "View Demo", url: "https://local-save.febkosq8.me/" },
 		],
 	},
 	{
@@ -70,7 +79,7 @@ const projectItems = [
 				name: (
 					<>
 						View on
-						<FontAwesomeIcon icon={faGithub} size="lg" /> GitHub
+						<FontAwesomeIcon icon={faGithub} size="lg" />
 					</>
 				),
 				url: "https://github.com/febkosq8/smolURL",
@@ -87,7 +96,7 @@ const projectItems = [
 				name: (
 					<>
 						View on
-						<FontAwesomeIcon icon={faGithub} size="lg" /> GitHub
+						<FontAwesomeIcon icon={faGithub} size="lg" />
 					</>
 				),
 				url: "https://github.com/febkosq8/GStatTracker",
@@ -106,7 +115,7 @@ const projectItems = [
 			{
 				name: (
 					<>
-						View on <FontAwesomeIcon icon={faGithub} size="lg" /> GitHub
+						View on <FontAwesomeIcon icon={faGithub} size="lg" />
 					</>
 				),
 				url: "https://github.com/febkosq8/CryptoGIF",
@@ -121,7 +130,7 @@ const projectItems = [
 			{
 				name: (
 					<>
-						View on <FontAwesomeIcon icon={faGithub} size="lg" /> GitHub
+						View on <FontAwesomeIcon icon={faGithub} size="lg" />
 					</>
 				),
 				url: "https://github.com/febkosq8/java_cryptographic_messenger",
@@ -144,9 +153,12 @@ export default function Projects() {
 			<h1 className="typography-heading-2 mb-10" id="projectsTitle">
 				Projects
 			</h1>
-			<div className="grid gap-3 md:grid-cols-12 grid-cols-6 items-center justify-center">
+			<div className="w-full flex flex-row items-center justify-center flex-wrap gap-2">
 				{projectItems.map((item, index) => (
-					<Card key={index} className="col-span-6 row-span-3 h-[200px] flex overflow-hidden w-[80dvh] !p-0">
+					<Card
+						key={index}
+						className="col-span-6 row-span-3 h-[200px] flex overflow-hidden min-w-[650px] w-[700px] max-w-[750px] !p-0"
+					>
 						<img
 							className="min-w-[theme(spacing.80)] max-w-[theme(spacing.80)] object-center object-cover"
 							src={item.imgSrc}
@@ -162,10 +174,10 @@ export default function Projects() {
 										href={action.url}
 										target="_blank"
 										rel="noopener noreferrer"
-										className={clsx(
+										className={cx(
 											"inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
 											"bg-primary text-primary-foreground hover:bg-primary/90 text-nowrap",
-											"h-10 px-4 py-2 gap-1 w-fit"
+											"h-10 px-3 py-2 gap-1 w-fit"
 										)}
 									>
 										{action.name}
