@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { clsx } from "clsx";
 import DefectListGeneratorImg from "@feb/assets/febkos/DefectListGenerator.png";
+import LocalSaveImg from "@feb/assets/febkos/localSave.png";
 import JappanImg from "@feb/assets/febkos/Jappan.png";
 import smolURLImg from "@feb/assets/febkos/smolURL.png";
 import GStatTrackerImg from "@feb/assets/febkos/GStatTracker.png";
@@ -16,6 +17,23 @@ const projectItems = [
 		title: "Defect List Generator",
 		description: "Internal tool to manage and track security related defects across all products.",
 		actions: [],
+	},
+	{
+		imgSrc: LocalSaveImg,
+		title: "local-save",
+		description: "Lightweight wrapper around IndexedDB for secure and structured client-side data storage.",
+		actions: [
+			{
+				name: (
+					<>
+						View on
+						<FontAwesomeIcon icon={faGithub} size="lg" /> GitHub
+					</>
+				),
+				url: "https://github.com/febkosq8/local-save",
+			},
+			{ name: "View Demo", url: "https://local-save.febkosq8.me/" },
+		],
 	},
 	{
 		imgSrc: ToolBoxImg,
@@ -146,8 +164,8 @@ export default function Projects() {
 										rel="noopener noreferrer"
 										className={clsx(
 											"inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-											"bg-primary text-primary-foreground hover:bg-primary/90",
-											"h-10 px-4 py-2 gap-1 w-fit",
+											"bg-primary text-primary-foreground hover:bg-primary/90 text-nowrap",
+											"h-10 px-4 py-2 gap-1 w-fit"
 										)}
 									>
 										{action.name}
