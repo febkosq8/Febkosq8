@@ -1,6 +1,6 @@
 import { cx } from "@rinzai/zen";
 import { forwardRef, ReactNode } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 interface PillProps {
 	as?: React.ElementType;

@@ -1,7 +1,7 @@
 import Febkos from "@feb/pages/Febkos";
 import WrongPage from "@feb/pages/WrongPage";
 import Header from "@feb/components/febkos/Header";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router";
 if (window.location.hash) {
 	const element = document.querySelector(window.location.hash);
 	if (element) {
