@@ -1,6 +1,9 @@
 {
-	"name": "feb-react-tail",
-	"private": true,
+	"name": "febkosq8",
+	"private": false,
+	"description": "It's for me, by me",
+	"homepage": "www.febkosq8.me",
+	"repository": "https://github.com/febkosq8/febkosq8",
 	"version": "2.0.0",
 	"type": "module",
 	"scripts": {
