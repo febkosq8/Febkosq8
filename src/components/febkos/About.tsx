@@ -17,7 +17,7 @@ export default function About() {
 						}
 					</Card.Content>
 					<Card.Footer>
-						<a href="#projects" target="_blank" rel="noreferrer">
+						<a href="#projects" rel="noreferrer">
 							<Button>Projects</Button>
 						</a>
 					</Card.Footer>
