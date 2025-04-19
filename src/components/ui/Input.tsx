@@ -10,9 +10,9 @@ const Input = ({ className, ...rest }: ComponentPropsWithoutRef<"input">) => {
 				className,
 				"h-10",
 				"placeholder:gray-800 rounded border border-border bg-input pl-5 text-foreground",
-				"focus:border-transparent focus:outline-hidden focus:ring-2 focus:ring-ring",
+				"focus:border-transparent focus:ring-2 focus:ring-ring focus:outline-hidden",
 				"disabled:cursor-not-allowed disabled:border-muted",
-				"whitespace-pre-wrap"
+				"whitespace-pre-wrap",
 			)}
 		/>
 	);

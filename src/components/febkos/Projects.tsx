@@ -146,28 +146,25 @@ const projectItems = [
 ];
 export default function Projects() {
 	return (
-		<div
-			className="projects p-5 flex flex-col items-center justify-center min-h-(--spacing-fit-screen)"
-			id="projects"
-		>
+		<div className="projects flex min-h-(--spacing-fit-screen) flex-col items-center justify-center p-5" id="projects">
 			<h1 className="typography-heading-2 mb-10" id="projectsTitle">
 				Projects
 			</h1>
-			<div className="w-full flex flex-row items-center justify-center flex-wrap gap-2">
+			<div className="flex w-full flex-row flex-wrap items-center justify-center gap-2">
 				{projectItems.map((item, index) => (
 					<Card
 						key={index}
-						className="col-span-6 row-span-3 h-[200px] flex overflow-hidden min-w-[650px] w-[700px] max-w-[750px] p-0!"
+						className="col-span-6 row-span-3 flex h-[200px] w-[700px] max-w-[750px] min-w-[650px] overflow-hidden p-0!"
 					>
 						<img
-							className="min-w-[--spacing(80)] max-w-[--spacing(80)] object-center object-cover"
+							className="max-w-[--spacing(80)] min-w-[--spacing(80)] object-cover object-center"
 							src={item.imgSrc}
 							alt={item.title}
 						/>
-						<Card.Content className="projectItemBtns px-5 py-3 flex flex-col">
+						<Card.Content className="projectItemBtns flex flex-col px-5 py-3">
 							<h2 className="typography-heading-3">{item.title}</h2>
 							<p className="text-lg">{item.description}</p>
-							<div className="flex gap-2 mt-auto">
+							<div className="mt-auto flex gap-2">
 								{item.actions.map((action, index) => (
 									<a
 										key={`${index}_Project`}
@@ -175,9 +172,9 @@ export default function Projects() {
 										target="_blank"
 										rel="noopener noreferrer"
 										className={cx(
-											"inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
-											"bg-primary text-primary-foreground hover:bg-primary/90 text-nowrap",
-											"h-10 px-3 py-2 gap-1 w-fit"
+											"inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50",
+											"bg-primary text-nowrap text-primary-foreground hover:bg-primary/90",
+											"h-10 w-fit gap-1 px-3 py-2",
 										)}
 									>
 										{action.name}

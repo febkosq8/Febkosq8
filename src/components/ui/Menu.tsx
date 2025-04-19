@@ -21,9 +21,9 @@ const MenuComponent: React.FC<MenuProps> = ({ className, active, buttonText, chi
 		<DropdownBaseMenu.Root>
 			<DropdownBaseMenu.Trigger
 				className={cx(
-					`w-fit rounded-md p-3 text-xl font-bold inline-flex items-center justify-center  text-stone-400 hover:bg-blue-800 hover:text-white focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75`,
+					`focus-visible:ring-opacity-75 inline-flex w-fit items-center justify-center rounded-md p-3 text-xl font-bold text-stone-400 hover:bg-blue-800 hover:text-white focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white`,
 					active ? "bg-blue-600 text-white" : "",
-					className
+					className,
 				)}
 			>
 				{buttonText}
@@ -33,7 +33,7 @@ const MenuComponent: React.FC<MenuProps> = ({ className, active, buttonText, chi
 				<DropdownBaseMenu.Content
 					loop={true}
 					sideOffset={2}
-					className="w-fit origin-top-right divide-y border-2 border-gray-600 divide-gray-100 rounded-md bg-neutral-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden"
+					className="ring-opacity-5 w-fit origin-top-right divide-y divide-gray-100 rounded-md border-2 border-gray-600 bg-neutral-900 shadow-lg ring-1 ring-black focus:outline-hidden"
 				>
 					{children}
 				</DropdownBaseMenu.Content>
@@ -66,10 +66,10 @@ const MenuSub = ({ active, buttonText, children }: MenuSubProps) => {
 					loop={true}
 					sideOffset={2}
 					arrowPadding={2}
-					className="w-fit origin-top-right divide-y border-2 border-gray-600 divide-gray-100 rounded-md bg-neutral-900 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-hidden"
+					className="ring-opacity-5 w-fit origin-top-right divide-y divide-gray-100 rounded-md border-2 border-gray-600 bg-neutral-900 shadow-lg ring-1 ring-black focus:outline-hidden"
 				>
 					{children}
-					<DropdownBaseMenu.Arrow className="fill-black dark:fill-stone-200 size-2" />
+					<DropdownBaseMenu.Arrow className="size-2 fill-black dark:fill-stone-200" />
 				</DropdownBaseMenu.SubContent>
 			</DropdownBaseMenu.Portal>
 		</DropdownBaseMenu.Sub>

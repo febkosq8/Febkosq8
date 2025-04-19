@@ -120,7 +120,7 @@
 }
 
 @utility typography-small {
-	@apply text-sm font-medium leading-none;
+	@apply text-sm leading-none font-medium;
 }
 
 @utility typography-muted {
@@ -195,8 +195,8 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: hsl(var(--primary));
 	border-radius: 5px;
+	background: hsl(var(--primary));
 }
 
 /* Handle on hover */

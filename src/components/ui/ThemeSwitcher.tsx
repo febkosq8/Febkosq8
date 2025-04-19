@@ -1,7 +1,7 @@
-import { faLaptop, faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Menu } from "@feb/components/ui/Menu";
 import Pill from "@feb/components/ui/Pill";
+import { faLaptop, faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 type Color = "light" | "dark" | "system";
 
@@ -44,7 +44,7 @@ export default function ThemeSwitcher() {
 						onClick={() => {
 							setColorMode("system");
 						}}
-						className="flex w-full whitespace-nowrap p-6 rounded-t-sm"
+						className="flex w-full rounded-t-sm p-6 whitespace-nowrap"
 					>
 						<FontAwesomeIcon icon={faLaptop} className={`inline-block h-4 w-4 transform rounded-full transition`} />
 					</Pill>
@@ -56,7 +56,7 @@ export default function ThemeSwitcher() {
 						onClick={() => {
 							setColorMode("light");
 						}}
-						className="flex w-full whitespace-nowrap p-6"
+						className="flex w-full p-6 whitespace-nowrap"
 					>
 						<FontAwesomeIcon icon={faSun} className={`inline-block h-4 w-4 transform rounded-full transition`} />
 					</Pill>
@@ -68,7 +68,7 @@ export default function ThemeSwitcher() {
 						onClick={() => {
 							setColorMode("dark");
 						}}
-						className="flex w-full whitespace-nowrap p-6 rounded-b-sm"
+						className="flex w-full rounded-b-sm p-6 whitespace-nowrap"
 					>
 						<FontAwesomeIcon icon={faMoon} className={`inline-block h-4 w-4 transform rounded-full transition`} />
 					</Pill>

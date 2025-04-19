@@ -1,5 +1,13 @@
 {
 	"tabWidth": 2,
 	"useTabs": true,
-	"printWidth": 120
+	"printWidth": 120,
+	"plugins": [
+		"prettier-plugin-organize-imports",
+		"prettier-plugin-jsdoc",
+		"prettier-plugin-css-order",
+		"prettier-plugin-organize-attributes",
+		"prettier-plugin-tailwindcss"
+	],
+	"tailwindStylesheet": "./src/index.css"
 }

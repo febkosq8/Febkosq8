@@ -2,18 +2,18 @@ import { clsx } from "clsx";
 interface CardProps extends React.ComponentPropsWithoutRef<"div"> {}
 const Card = (props: CardProps) => {
 	const { className, ...rest } = props;
-	return <div className={clsx("card p-4 rounded-lg border shadow-xs", className)} {...rest} />;
+	return <div className={clsx("card rounded-lg border p-4 shadow-xs", className)} {...rest} />;
 };
 
 const Header = (props: CardProps) => {
 	const { className, ...rest } = props;
-	return <h2 className={clsx("card-header flex flex-col typography-heading-2", className)} {...rest} />;
+	return <h2 className={clsx("card-header typography-heading-2 flex flex-col", className)} {...rest} />;
 };
 const Content = (props: CardProps) => {
 	const { className, ...rest } = props;
 	return (
 		<div
-			className={clsx("card-content typography-heading-4 justify-between whitespace-pre-wrap py-2", className)}
+			className={clsx("card-content typography-heading-4 justify-between py-2 whitespace-pre-wrap", className)}
 			{...rest}
 		/>
 	);
@@ -21,7 +21,7 @@ const Content = (props: CardProps) => {
 const Footer = (props: CardProps) => {
 	const { className, ...rest } = props;
 	return (
-		<div className="border-t flex justify-start items-center pt-2">
+		<div className="flex items-center justify-start border-t pt-2">
 			<h2 className={clsx("card-footer text-2xl", className)} {...rest} />
 		</div>
 	);

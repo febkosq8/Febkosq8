@@ -28,14 +28,14 @@ const Switch = ({
 			{children ? (
 				children(checked)
 			) : (
-				<div className="relative w-full h-full">
+				<div className="relative h-full w-full">
 					<FontAwesomeIcon
 						icon={faCircle}
 						className={cx(
-							`absolute top-1/2 transform -translate-y-1/2 `,
+							`absolute top-1/2 -translate-y-1/2 transform`,
 							checked ? "left-6 text-gray-400 dark:text-gray-200" : "left-1 text-blue-600",
 							disabled && "text-gray-400 dark:text-gray-200",
-							`inline-block h-4 w-4 rounded-full border border-blue-500 [transition:_all_0.5s_cubic-bezier(1,0,0,1)]`
+							`inline-block h-4 w-4 rounded-full border border-blue-500 [transition:_all_0.5s_cubic-bezier(1,0,0,1)]`,
 						)}
 					/>
 				</div>

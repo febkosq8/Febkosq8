@@ -1,7 +1,7 @@
 export default function Intro() {
 	return (
 		<div
-			className="intro p-5 flex flex-col items-center justify-center whitespace-pre-wrap text-center text-5xl min-h-(--spacing-fit-screen)"
+			className="intro flex min-h-(--spacing-fit-screen) flex-col items-center justify-center p-5 text-center text-5xl whitespace-pre-wrap"
 			id="intro"
 		>
 			<p>Hello</p>

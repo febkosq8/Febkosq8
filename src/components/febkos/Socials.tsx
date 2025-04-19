@@ -10,20 +10,17 @@ import {
 	faSteam,
 	faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
-import { faFilePdf, faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import { faEnvelope, faFilePdf } from "@fortawesome/free-regular-svg-icons";
 import { faHandHoldingDollar } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function Socials() {
 	return (
-		<div
-			className="socials p-5 flex flex-col items-center justify-center min-h-(--spacing-fit-screen)"
-			id="socials"
-		>
-			<h2 className="typography-heading-2 flex mb-10" id="socialsTitle">
+		<div className="socials flex min-h-(--spacing-fit-screen) flex-col items-center justify-center p-5" id="socials">
+			<h2 className="typography-heading-2 mb-10 flex" id="socialsTitle">
 				Socials
 			</h2>
-			<div className="grid gap-3 grid-cols-4 grid-rows-8">
-				<Card className="col-span-4 row-span-2 justify-between flex flex-col">
+			<div className="grid grid-cols-4 grid-rows-8 gap-3">
+				<Card className="col-span-4 row-span-2 flex flex-col justify-between">
 					<Card.Header>Know more</Card.Header>
 					<Card.Content className="flex gap-2">
 						<div className="flex gap-2">
@@ -61,7 +58,7 @@ export default function Socials() {
 						</div>
 					</Card.Content>
 				</Card>
-				<Card className="col-span-4 row-span-2 justify-between flex flex-col">
+				<Card className="col-span-4 row-span-2 flex flex-col justify-between">
 					<Card.Header>Contact me through</Card.Header>
 					<Card.Content className="flex gap-2">
 						<div className="flex gap-2">
@@ -88,7 +85,7 @@ export default function Socials() {
 						</div>
 					</Card.Content>
 				</Card>
-				<Card className="col-span-4 row-span-2 justify-between flex flex-col">
+				<Card className="col-span-4 row-span-2 flex flex-col justify-between">
 					<Card.Header>Support me</Card.Header>
 					<Card.Content className="flex gap-2">
 						<div className="flex gap-2">

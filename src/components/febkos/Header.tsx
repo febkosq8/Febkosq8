@@ -10,7 +10,7 @@ export default function Header() {
 		});
 	}, []);
 	return (
-		<div className="flex text-2xl items-center w-full justify-between px-16 h-16 bg-background border-b-2 sticky top-0">
+		<div className="sticky top-0 flex h-16 w-full items-center justify-between border-b-2 bg-background px-16 text-2xl">
 			<a href="/" className="font-bold">
 				Febkosq8
 			</a>

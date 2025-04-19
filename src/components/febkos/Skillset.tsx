@@ -136,18 +136,15 @@ const technologiesList = [
 ];
 export default function Skillset() {
 	return (
-		<div
-			className="skillset p-5 flex flex-col items-center justify-center min-h-(--spacing-fit-screen)"
-			id="skillset"
-		>
-			<h2 className="typography-heading-2 flex mb-10" id="skillsetTitle">
+		<div className="skillset flex min-h-(--spacing-fit-screen) flex-col items-center justify-center p-5" id="skillset">
+			<h2 className="typography-heading-2 mb-10 flex" id="skillsetTitle">
 				Skillset
 			</h2>
-			<div className="grid gap-3 grid-cols-12">
-				<Card className="col-span-12 row-span-3 justify-between flex flex-col">
+			<div className="grid grid-cols-12 gap-3">
+				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
 					<Card.Header>Languages</Card.Header>
 					<Card.Content>
-						<div className="grid grid-cols-4 grid-flow-row gap-2">
+						<div className="grid grid-flow-row grid-cols-4 gap-2">
 							{languagesList.map((language) => {
 								return (
 									<div key={`${language.name}_Badge`} style={{ backgroundColor: `#${language.bgColor}` }}>
@@ -165,10 +162,10 @@ export default function Skillset() {
 						</div>
 					</Card.Content>
 				</Card>
-				<Card className="col-span-12 row-span-3 justify-between flex flex-col">
+				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
 					<Card.Header>Frameworks</Card.Header>
 					<Card.Content>
-						<div className="grid grid-cols-4 grid-flow-row gap-2">
+						<div className="grid grid-flow-row grid-cols-4 gap-2">
 							{frameworksList.map((framwork) => {
 								return (
 									<div key={`${framwork.name}_Badge`} style={{ backgroundColor: `#${framwork.bgColor}` }}>
@@ -186,10 +183,10 @@ export default function Skillset() {
 						</div>
 					</Card.Content>
 				</Card>
-				<Card className="col-span-12 row-span-3 justify-between flex flex-col">
+				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
 					<Card.Header>Technologies</Card.Header>
 					<Card.Content>
-						<div className="grid grid-cols-4 grid-flow-row gap-2">
+						<div className="grid grid-flow-row grid-cols-4 gap-2">
 							{technologiesList.map((technology) => {
 								return (
 									<div key={`${technology.name}_Badge`} style={{ backgroundColor: `#${technology.bgColor}` }}>
