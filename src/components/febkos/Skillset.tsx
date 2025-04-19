@@ -137,7 +137,7 @@ const technologiesList = [
 export default function Skillset() {
 	return (
 		<div
-			className="skillset p-5 flex flex-col items-center justify-center min-h-[theme(spacing.fit-screen)]"
+			className="skillset p-5 flex flex-col items-center justify-center min-h-(--spacing-fit-screen)"
 			id="skillset"
 		>
 			<h2 className="typography-heading-2 flex mb-10" id="skillsetTitle">

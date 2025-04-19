@@ -147,7 +147,7 @@ const projectItems = [
 export default function Projects() {
 	return (
 		<div
-			className="projects p-5 flex flex-col items-center justify-center min-h-[theme(spacing.fit-screen)]"
+			className="projects p-5 flex flex-col items-center justify-center min-h-(--spacing-fit-screen)"
 			id="projects"
 		>
 			<h1 className="typography-heading-2 mb-10" id="projectsTitle">
@@ -157,10 +157,10 @@ export default function Projects() {
 				{projectItems.map((item, index) => (
 					<Card
 						key={index}
-						className="col-span-6 row-span-3 h-[200px] flex overflow-hidden min-w-[650px] w-[700px] max-w-[750px] !p-0"
+						className="col-span-6 row-span-3 h-[200px] flex overflow-hidden min-w-[650px] w-[700px] max-w-[750px] p-0!"
 					>
 						<img
-							className="min-w-[theme(spacing.80)] max-w-[theme(spacing.80)] object-center object-cover"
+							className="min-w-[--spacing(80)] max-w-[--spacing(80)] object-center object-cover"
 							src={item.imgSrc}
 							alt={item.title}
 						/>
@@ -175,7 +175,7 @@ export default function Projects() {
 										target="_blank"
 										rel="noopener noreferrer"
 										className={cx(
-											"inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+											"inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
 											"bg-primary text-primary-foreground hover:bg-primary/90 text-nowrap",
 											"h-10 px-3 py-2 gap-1 w-fit"
 										)}

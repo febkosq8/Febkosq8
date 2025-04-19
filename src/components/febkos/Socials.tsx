@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function Socials() {
 	return (
 		<div
-			className="socials p-5 flex flex-col items-center justify-center min-h-[theme(spacing.fit-screen)]"
+			className="socials p-5 flex flex-col items-center justify-center min-h-(--spacing-fit-screen)"
 			id="socials"
 		>
 			<h2 className="typography-heading-2 flex mb-10" id="socialsTitle">
