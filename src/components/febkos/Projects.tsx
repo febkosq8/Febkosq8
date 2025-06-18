@@ -44,7 +44,7 @@ const projectItems = [
 				url: "https://github.com/febkosq8/local-save",
 			},
 		],
-		tech: ["React", "TypeScript", "IndexedDB", "Oracle Cloud"],
+		tech: ["React", "TypeScript", "IndexedDB", "NPM"],
 	},
 	{
 		imgSrc: ToolBoxImg,
