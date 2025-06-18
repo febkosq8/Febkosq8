@@ -100,11 +100,11 @@
 }
 
 @utility typography-heading-3 {
-	@apply scroll-m-20 text-2xl font-semibold tracking-tight;
+	@apply scroll-m-20 border-b pb-2 text-2xl font-semibold tracking-tight;
 }
 
 @utility typography-heading-4 {
-	@apply scroll-m-20 text-xl font-semibold tracking-tight;
+	@apply scroll-m-20 border-b pb-2 text-xl font-semibold tracking-tight;
 }
 
 @utility typography-paragraph {

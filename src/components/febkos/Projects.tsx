@@ -157,31 +157,33 @@ export default function Projects() {
 						className="col-span-6 row-span-3 flex h-[200px] w-[700px] max-w-[750px] min-w-[650px] overflow-hidden p-0!"
 					>
 						<img
-							className="max-w-[--spacing(80)] min-w-[--spacing(80)] object-cover object-center"
+							className="card-image max-w-[--spacing(80)] min-w-[--spacing(80)] object-cover object-center"
 							src={item.imgSrc}
 							alt={item.title}
 						/>
-						<Card.Content className="projectItemBtns flex flex-col px-5 py-3">
-							<h2 className="typography-heading-3">{item.title}</h2>
-							<p className="text-lg">{item.description}</p>
-							<div className="mt-auto flex gap-2">
-								{item.actions.map((action, index) => (
-									<a
-										key={`${index}_Project`}
-										href={action.url}
-										target="_blank"
-										rel="noopener noreferrer"
-										className={cx(
-											"inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50",
-											"bg-primary text-nowrap text-primary-foreground hover:bg-primary/90",
-											"h-10 w-fit gap-1 px-3 py-2",
-										)}
-									>
-										{action.name}
-									</a>
-								))}
-							</div>
-						</Card.Content>
+						<div className="card-body flex h-full w-full flex-col items-start py-2">
+							<Card.Header>{item.title}</Card.Header>
+							<Card.Content>{item.description}</Card.Content>
+							{item.actions.length > 0 && (
+								<Card.Footer className="projectItemBtns flex flex-row gap-2">
+									{item.actions.map((action, index) => (
+										<a
+											key={`${index}_Project`}
+											href={action.url}
+											target="_blank"
+											rel="noopener noreferrer"
+											className={cx(
+												"inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50",
+												"bg-primary text-nowrap text-primary-foreground hover:bg-primary/90",
+												"h-10 w-fit gap-1 px-3 py-2",
+											)}
+										>
+											{action.name}
+										</a>
+									))}
+								</Card.Footer>
+							)}
+						</div>
 					</Card>
 				))}
 			</div>
