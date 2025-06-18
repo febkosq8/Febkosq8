@@ -17,6 +17,7 @@ const projectItems = [
 		title: "Defect List Generator",
 		description: "Internal tool to manage and track security related defects across all products.",
 		actions: [],
+		tech: ["React", "Express.js", "MongoDB", "Nginx", "Docker", "Azure"],
 	},
 	{
 		imgSrc: LocalSaveImg,
@@ -43,12 +44,14 @@ const projectItems = [
 				url: "https://github.com/febkosq8/local-save",
 			},
 		],
+		tech: ["React", "TypeScript", "IndexedDB", "Oracle Cloud"],
 	},
 	{
 		imgSrc: ToolBoxImg,
 		title: "Tool Box",
 		description: "Collection of micro-services to support various tools.",
 		actions: [{ name: "View Live Application", url: "https://toolbox.febkosq8.me/" }],
+		tech: ["React", "Express.js", "MongoDB", "Oracle Cloud"],
 	},
 	{
 		imgSrc: JappanImg,
@@ -69,6 +72,7 @@ const projectItems = [
 				url: "https://jappan.febkosq8.me",
 			},
 		],
+		tech: ["Discord.js", "MongoDB", "Google Cloud"],
 	},
 	{
 		imgSrc: smolURLImg,
@@ -86,6 +90,7 @@ const projectItems = [
 			},
 			{ name: "View Live Application", url: "https://smolurl.febkosq8.me/" },
 		],
+		tech: ["React", "Express.js", "MongoDB", "Oracle Cloud"],
 	},
 	{
 		imgSrc: GStatTrackerImg,
@@ -106,6 +111,7 @@ const projectItems = [
 				url: "https://gstattracker.febkosq8.me",
 			},
 		],
+		tech: ["React", "Express.js", "MongoDB", "Oracle Cloud"],
 	},
 	{
 		imgSrc: CryptoGIFImg,
@@ -121,6 +127,7 @@ const projectItems = [
 				url: "https://github.com/febkosq8/CryptoGIF",
 			},
 		],
+		tech: ["HTML", "Python"],
 	},
 	{
 		imgSrc: JavaCryptoMessengerImg,
@@ -136,6 +143,7 @@ const projectItems = [
 				url: "https://github.com/febkosq8/java_cryptographic_messenger",
 			},
 		],
+		tech: ["Java"],
 	},
 	{
 		imgSrc: CourseContentDeliveryImg,
@@ -154,13 +162,35 @@ export default function Projects() {
 				{projectItems.map((item, index) => (
 					<Card
 						key={index}
-						className="col-span-6 row-span-3 flex h-[200px] w-[700px] max-w-[750px] min-w-[650px] overflow-hidden p-0!"
+						className="col-span-6 row-span-3 flex h-[200px] w-[700px] max-w-[750px] min-w-[650px] overflow-clip p-0!"
 					>
-						<img
-							className="card-image max-w-[--spacing(80)] min-w-[--spacing(80)] object-cover object-center"
-							src={item.imgSrc}
-							alt={item.title}
-						/>
+						<div className="relative h-full! max-w-[--spacing(80)] min-w-[--spacing(80)] overflow-hidden">
+							<img
+								className={cx(
+									"card-image size-full object-cover transition-[scale,filter] duration-300",
+									!!item?.tech && item.tech.length > 0
+										? "group-hover:scale-250 group-hover:object-center group-hover:blur-xs"
+										: "",
+								)}
+								src={item.imgSrc}
+								alt={item.title}
+							/>
+							{!!item?.tech && item.tech.length > 0 && (
+								<div className="invisible absolute -bottom-[500px] z-10 flex h-full max-w-[--spacing(80)] min-w-[--spacing(80)] items-center justify-center p-2 transition-all duration-300 group-hover:visible group-hover:bottom-0">
+									<div className="flex flex-row flex-wrap items-center justify-center-safe gap-2 whitespace-pre-wrap">
+										{item.tech.map((tech, index) => (
+											<span
+												key={`${index}_tech`}
+												className="size-fit rounded-md bg-secondary px-2 py-1 text-xs font-semibold whitespace-nowrap text-secondary-foreground"
+											>
+												{tech}
+											</span>
+										))}
+									</div>
+								</div>
+							)}
+						</div>
+
 						<div className="card-body flex h-full w-full flex-col items-start py-2">
 							<Card.Header>{item.title}</Card.Header>
 							<Card.Content>{item.description}</Card.Content>

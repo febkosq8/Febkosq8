@@ -3,7 +3,7 @@ import { clsx } from "clsx";
 interface CardProps extends React.ComponentPropsWithoutRef<"div"> {}
 const Card = (props: CardProps) => {
 	const { className, ...rest } = props;
-	return <div className={clsx("card rounded-lg border p-4 shadow-xs", className)} {...rest} />;
+	return <div className={clsx("group card rounded-lg border p-4 shadow-xs", className)} {...rest} />;
 };
 
 const Header = (props: CardProps) => {
