@@ -18,7 +18,4 @@ export default defineConfig({
 		outDir: "build",
 	},
 	plugins: [react(), tailwindcss(), tsconfigPaths()],
-	define: {
-		"process.env": process.env,
-	},
 });
