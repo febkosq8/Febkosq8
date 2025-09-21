@@ -5,6 +5,67 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 
+function AnimatedText({ text }: { text: string }) {
+	const [colorIndex, setColorIndex] = useState(0);
+	const [animatingLetters, setAnimatingLetters] = useState<number[]>([]);
+	const colors = [
+		"text-red-500",
+		"text-blue-500",
+		"text-green-500",
+		"text-yellow-500",
+		"text-purple-500",
+		"text-pink-500",
+		"text-cyan-500",
+		"text-indigo-500",
+		"text-orange-500",
+		"text-teal-500",
+		"text-rose-500",
+		"text-lime-500",
+		"text-emerald-500",
+		"text-fuchsia-500",
+		"text-violet-500",
+	];
+
+	useEffect(() => {
+		// Start animation letter by letter after 5000ms
+		const startDelay = setTimeout(() => {
+			// Start each letter with a 750ms delay between them
+			text.split("").forEach((_, index) => {
+				setTimeout(() => {
+					setAnimatingLetters((prev) => [...prev, index]);
+				}, index * 750);
+			});
+		}, 5000);
+
+		return () => clearTimeout(startDelay);
+	}, [text]);
+
+	useEffect(() => {
+		if (animatingLetters.length === 0) return;
+
+		const interval = setInterval(() => {
+			setColorIndex((prev) => (prev + 1) % colors.length);
+		}, 1500); // Change letter color every 1500ms
+
+		return () => clearInterval(interval);
+	}, [colors.length, animatingLetters.length]);
+
+	return (
+		<span>
+			{text.split("").map((letter, index) => (
+				<span
+					key={index}
+					className={`transition-colors duration-500 ${
+						animatingLetters.includes(index) ? colors[(colorIndex + index) % colors.length] : "text-foreground"
+					}`}
+				>
+					{letter}
+				</span>
+			))}
+		</span>
+	);
+}
+
 export default function Header() {
 	const [currHref, setCurrHref] = useState(window.location.hash);
 	useEffect(() => {
@@ -23,7 +84,7 @@ export default function Header() {
 	return (
 		<div className="z-50 flex w-full items-center justify-between border border-b-2 bg-background px-8 py-1 text-lg lg:text-2xl">
 			<a href="/" className="font-bold">
-				Febkosq8
+				<AnimatedText text="Febkosq8" />
 			</a>
 			<div className="flex items-center gap-2">
 				{/* Desktop Navigation - Hidden on small screens */}
