@@ -144,7 +144,7 @@ export default function Skillset() {
 				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
 					<Card.Header>Languages</Card.Header>
 					<Card.Content>
-						<div className="grid grid-flow-row grid-cols-4 gap-2">
+						<div className="grid grid-flow-row grid-cols-2 gap-2 lg:grid-cols-4">
 							{languagesList.map((language) => {
 								return (
 									<div key={`${language.name}_Badge`} style={{ backgroundColor: `#${language.bgColor}` }}>
@@ -165,7 +165,7 @@ export default function Skillset() {
 				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
 					<Card.Header>Frameworks</Card.Header>
 					<Card.Content>
-						<div className="grid grid-flow-row grid-cols-4 gap-2">
+						<div className="grid grid-flow-row grid-cols-2 gap-2 lg:grid-cols-4">
 							{frameworksList.map((framwork) => {
 								return (
 									<div key={`${framwork.name}_Badge`} style={{ backgroundColor: `#${framwork.bgColor}` }}>
@@ -186,7 +186,7 @@ export default function Skillset() {
 				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
 					<Card.Header>Technologies</Card.Header>
 					<Card.Content>
-						<div className="grid grid-flow-row grid-cols-4 gap-2">
+						<div className="grid grid-flow-row grid-cols-2 gap-2 lg:grid-cols-4">
 							{technologiesList.map((technology) => {
 								return (
 									<div key={`${technology.name}_Badge`} style={{ backgroundColor: `#${technology.bgColor}` }}>
