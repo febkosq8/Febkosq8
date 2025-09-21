@@ -21,7 +21,7 @@ const MenuComponent: React.FC<MenuProps> = ({ className, active, buttonText, chi
 		<DropdownBaseMenu.Root>
 			<DropdownBaseMenu.Trigger
 				className={cx(
-					`focus-visible:ring-opacity-75 focus-visible:ring-gray inline-flex w-fit items-center justify-center gap-1 rounded-md px-2 py-1 text-xl font-bold text-stone-400 hover:bg-blue-800 hover:text-white focus:outline-hidden focus-visible:ring-1`,
+					`inline-flex w-fit items-center justify-center gap-1 rounded-md p-2 text-xl font-bold text-stone-400 hover:bg-blue-800 hover:text-white focus:outline-hidden`,
 					active ? "bg-blue-600 text-white" : "",
 					className,
 				)}
