@@ -19,11 +19,11 @@ export default function Socials() {
 			<h2 className="typography-heading-2 mb-10 flex" id="socialsTitle">
 				Socials
 			</h2>
-			<div className="grid grid-cols-4 grid-rows-8 gap-3">
-				<Card className="col-span-4 row-span-2 flex flex-col justify-between">
+			<div className="flex w-full flex-col gap-3">
+				<Card className="flex flex-col justify-between">
 					<Card.Header>Know more</Card.Header>
 					<Card.Content className="flex gap-2">
-						<div className="flex gap-2">
+						<div className="flex flex-wrap gap-2">
 							<a href="https://www.youtube.com/@Febkosq8DoesStuff" target="_blank" rel="noreferrer">
 								<Button className="gap-2">
 									<FontAwesomeIcon icon={faYoutube} className="h-5 w-5" /> YouTube
@@ -58,10 +58,10 @@ export default function Socials() {
 						</div>
 					</Card.Content>
 				</Card>
-				<Card className="col-span-4 row-span-2 flex flex-col justify-between">
+				<Card className="flex flex-col justify-between">
 					<Card.Header>Contact me through</Card.Header>
 					<Card.Content className="flex gap-2">
-						<div className="flex gap-2">
+						<div className="flex flex-wrap gap-2">
 							<a href="mailto:contact@febkosq8.me" target="_blank" rel="noreferrer">
 								<Button className="gap-2">
 									<FontAwesomeIcon icon={faEnvelope} className="h-5 w-5" /> contact@febkosq8.me
@@ -85,10 +85,10 @@ export default function Socials() {
 						</div>
 					</Card.Content>
 				</Card>
-				<Card className="col-span-4 row-span-2 flex flex-col justify-between">
+				<Card className="flex flex-col justify-between">
 					<Card.Header>Support me</Card.Header>
 					<Card.Content className="flex gap-2">
-						<div className="flex gap-2">
+						<div className="flex flex-wrap gap-2">
 							<a href="https://www.buymeacoffee.com/febkosq8" target="_blank" rel="noreferrer">
 								<Button className="gap-2">
 									<FontAwesomeIcon icon={faHandHoldingDollar} className="h-5 w-5" /> Buy me a Coffee
