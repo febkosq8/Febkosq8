@@ -21,7 +21,7 @@ export default function Header() {
 	];
 
 	return (
-		<div className="fixed top-0 right-0 left-0 z-[9999] flex h-12 w-full items-center justify-between border-b-2 bg-background px-8 text-lg lg:text-2xl">
+		<div className="sticky z-50 flex w-full items-center justify-between border border-b-2 bg-background px-8 py-1 text-lg lg:text-2xl">
 			<a href="/" className="font-bold">
 				Febkosq8
 			</a>

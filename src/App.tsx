@@ -21,9 +21,9 @@ function App() {
 		}, 500);
 	}, []);
 	return (
-		<div className="flex h-screen w-screen flex-col bg-background text-slate-600 dark:text-slate-100">
+		<div className="flex h-screen w-screen flex-col overflow-hidden bg-background text-slate-600 dark:text-slate-100">
 			<Header />
-			<main className="overflow-x-hidden overflow-y-auto pt-12">
+			<main className="overflow-y-auto">
 				<Routes>
 					<Route path="/" element={<Febkos />} />
 					<Route path="/cv" element={<Febkos />} />
