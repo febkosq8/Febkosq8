@@ -32,7 +32,7 @@ const MenuComponent: React.FC<MenuProps> = ({ className, active, buttonText, chi
 			<DropdownBaseMenu.Portal>
 				<DropdownBaseMenu.Content
 					loop={true}
-					sideOffset={10}
+					sideOffset={14}
 					className="ring-opacity-5 w-fit origin-top-right divide-y divide-gray-100 rounded-md border-2 border-gray-600 bg-neutral-900 shadow-lg ring-1 ring-black focus:outline-hidden"
 				>
 					{children}
@@ -64,7 +64,7 @@ const MenuSub = ({ active, buttonText, children }: MenuSubProps) => {
 			<DropdownBaseMenu.Portal>
 				<DropdownBaseMenu.SubContent
 					loop={true}
-					sideOffset={2}
+					sideOffset={14}
 					arrowPadding={2}
 					className="ring-opacity-5 w-fit origin-top-right divide-y divide-gray-100 rounded-md border-2 border-gray-600 bg-neutral-900 shadow-lg ring-1 ring-black focus:outline-hidden"
 				>

@@ -21,7 +21,7 @@ export default function Header() {
 	];
 
 	return (
-		<div className="fixed top-0 right-0 left-0 z-[9999] flex h-14 w-full items-center justify-between border-b-2 bg-background px-8 text-lg lg:text-2xl">
+		<div className="fixed top-0 right-0 left-0 z-[9999] flex h-12 w-full items-center justify-between border-b-2 bg-background px-8 text-lg lg:text-2xl">
 			<a href="/" className="font-bold">
 				Febkosq8
 			</a>
@@ -29,7 +29,7 @@ export default function Header() {
 				{/* Desktop Navigation - Hidden on small screens */}
 				<div className="hidden items-center gap-4 md:flex">
 					{navigationItems.map((item) => (
-						<LinkPill key={item.href} active={currHref === item.href} href={item.href}>
+						<LinkPill key={item.label} active={currHref === item.href} href={item.href}>
 							{item.label}
 						</LinkPill>
 					))}
@@ -39,7 +39,7 @@ export default function Header() {
 				<div className="md:hidden">
 					<Menu buttonText={<FontAwesomeIcon icon={faBars} />}>
 						{navigationItems.map((item) => (
-							<Menu.Item key={item.href} asChild>
+							<Menu.Item key={item.label} asChild>
 								<a
 									href={item.href}
 									className={`block px-4 py-2 text-sm transition-colors hover:bg-accent hover:text-primary ${
