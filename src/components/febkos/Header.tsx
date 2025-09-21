@@ -25,9 +25,9 @@ export default function Header() {
 			<a href="/" className="font-bold">
 				Febkosq8
 			</a>
-			<div className="flex items-center gap-4">
+			<div className="flex items-center gap-2">
 				{/* Desktop Navigation - Hidden on small screens */}
-				<div className="hidden items-center gap-4 md:flex">
+				<div className="hidden items-center gap-2 md:flex">
 					{navigationItems.map((item) => (
 						<LinkPill key={item.label} active={currHref === item.href} href={item.href}>
 							{item.label}

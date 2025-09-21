@@ -36,44 +36,42 @@ export default function ThemeSwitcher() {
 	}, [colorMode]);
 	return (
 		<Menu buttonText={<FontAwesomeIcon icon={colorModeIcon[colorMode] ?? faLaptop} />}>
-			<>
-				<Menu.Item>
-					<Pill
-						active={colorMode === "system"}
-						title="System Theme"
-						onClick={() => {
-							setColorMode("system");
-						}}
-						className="flex w-full rounded-t-sm p-6 whitespace-nowrap"
-					>
-						<FontAwesomeIcon icon={faLaptop} className={`inline-block transform rounded-xs transition`} />
-					</Pill>
-				</Menu.Item>
-				<Menu.Item>
-					<Pill
-						active={colorMode === "light"}
-						title="Light Theme"
-						onClick={() => {
-							setColorMode("light");
-						}}
-						className="flex w-full p-6 whitespace-nowrap"
-					>
-						<FontAwesomeIcon icon={faSun} className={`inline-block transform rounded-xs transition`} />
-					</Pill>
-				</Menu.Item>
-				<Menu.Item>
-					<Pill
-						active={colorMode === "dark"}
-						title="Dark Theme"
-						onClick={() => {
-							setColorMode("dark");
-						}}
-						className="flex w-full rounded-b-sm p-6 whitespace-nowrap"
-					>
-						<FontAwesomeIcon icon={faMoon} className={`inline-block transform rounded-xs transition`} />
-					</Pill>
-				</Menu.Item>
-			</>
+			<Menu.Item>
+				<Pill
+					active={colorMode === "system"}
+					title="System Theme"
+					onClick={() => {
+						setColorMode("system");
+					}}
+					className="flex w-full rounded-t-sm p-6 whitespace-nowrap"
+				>
+					<FontAwesomeIcon icon={faLaptop} className={`inline-block transform rounded-xs transition`} />
+				</Pill>
+			</Menu.Item>
+			<Menu.Item>
+				<Pill
+					active={colorMode === "light"}
+					title="Light Theme"
+					onClick={() => {
+						setColorMode("light");
+					}}
+					className="flex w-full p-6 whitespace-nowrap"
+				>
+					<FontAwesomeIcon icon={faSun} className={`inline-block transform rounded-xs transition`} />
+				</Pill>
+			</Menu.Item>
+			<Menu.Item>
+				<Pill
+					active={colorMode === "dark"}
+					title="Dark Theme"
+					onClick={() => {
+						setColorMode("dark");
+					}}
+					className="flex w-full rounded-b-sm p-6 whitespace-nowrap"
+				>
+					<FontAwesomeIcon icon={faMoon} className={`inline-block transform rounded-xs transition`} />
+				</Pill>
+			</Menu.Item>
 		</Menu>
 	);
 }
