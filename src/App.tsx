@@ -23,7 +23,7 @@ function App() {
 	return (
 		<div className="flex h-screen w-screen flex-col bg-background text-slate-600 dark:text-slate-100">
 			<Header />
-			<main className="overflow-y-auto pt-12">
+			<main className="overflow-x-hidden overflow-y-auto pt-12">
 				<Routes>
 					<Route path="/" element={<Febkos />} />
 					<Route path="/cv" element={<Febkos />} />
