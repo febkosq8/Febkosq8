@@ -6,7 +6,7 @@ import Socials from "@feb/components/febkos/Socials";
 
 export default function Febkos() {
 	return (
-		<div className="febkos flex flex-col items-center justify-center pt-14">
+		<div className="febkos flex flex-col items-center justify-center">
 			<Intro />
 			<About />
 			<Skillset />

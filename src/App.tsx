@@ -21,13 +21,15 @@ function App() {
 		}, 500);
 	}, []);
 	return (
-		<div className="h-full w-full overflow-x-hidden bg-background text-slate-600 dark:text-slate-100">
+		<div className="flex h-screen w-screen flex-col bg-background text-slate-600 dark:text-slate-100">
 			<Header />
-			<Routes>
-				<Route path="/" element={<Febkos />} />
-				<Route path="/cv" element={<Febkos />} />
-				<Route path="*" element={<WrongPage />} />
-			</Routes>
+			<main className="overflow-y-auto pt-12">
+				<Routes>
+					<Route path="/" element={<Febkos />} />
+					<Route path="/cv" element={<Febkos />} />
+					<Route path="*" element={<WrongPage />} />
+				</Routes>
+			</main>
 		</div>
 	);
 }
