@@ -21,7 +21,7 @@ export default function Header() {
 	];
 
 	return (
-		<div className="top-0 z-[50] flex h-14 w-full items-center justify-between border-b-2 bg-background px-4 text-base sm:text-base md:text-lg lg:text-2xl">
+		<div className="fixed top-0 right-0 left-0 z-[9999] flex h-14 w-full items-center justify-between border-b-2 bg-background px-8 text-lg lg:text-2xl">
 			<a href="/" className="font-bold">
 				Febkosq8
 			</a>
