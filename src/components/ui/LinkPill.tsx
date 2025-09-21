@@ -9,7 +9,7 @@ const LinkPill = ({ href, active, className, children }: LinkPillProps) => {
 		<a
 			href={href}
 			className={clsx(
-				`focus-visible:ring-opacity-75 inline-flex w-full items-center justify-center rounded-md p-3 text-xl font-bold whitespace-nowrap text-foreground transition hover:bg-accent hover:text-primary focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring`,
+				`focus-visible:ring-opacity-75 inline-flex w-full items-center justify-center rounded-md px-2 py-1 text-xl font-bold whitespace-nowrap text-foreground transition hover:bg-accent hover:text-primary focus:outline-hidden focus-visible:ring-2 focus-visible:ring-ring`,
 				active ? "text-primary" : "text-foreground",
 				className,
 			)}
