@@ -17,7 +17,7 @@ const Pill = forwardRef<any, PillProps>(({ as, children, active, className, href
 		<Tag
 			to={href}
 			className={cx(
-				`p-3 text-xl font-bold ${
+				`px-3 py-2 text-xl font-bold ${
 					active ? "bg-blue-600 text-white" : "text-stone-400"
 				} hover:bg-blue-900 hover:text-white`,
 				className,

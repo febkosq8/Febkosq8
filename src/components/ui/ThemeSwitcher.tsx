@@ -46,7 +46,7 @@ export default function ThemeSwitcher() {
 						}}
 						className="flex w-full rounded-t-sm p-6 whitespace-nowrap"
 					>
-						<FontAwesomeIcon icon={faLaptop} className={`inline-block h-4 w-4 transform rounded-full transition`} />
+						<FontAwesomeIcon icon={faLaptop} className={`inline-block transform rounded-xs transition`} />
 					</Pill>
 				</Menu.Item>
 				<Menu.Item>
@@ -58,7 +58,7 @@ export default function ThemeSwitcher() {
 						}}
 						className="flex w-full p-6 whitespace-nowrap"
 					>
-						<FontAwesomeIcon icon={faSun} className={`inline-block h-4 w-4 transform rounded-full transition`} />
+						<FontAwesomeIcon icon={faSun} className={`inline-block transform rounded-xs transition`} />
 					</Pill>
 				</Menu.Item>
 				<Menu.Item>
@@ -70,7 +70,7 @@ export default function ThemeSwitcher() {
 						}}
 						className="flex w-full rounded-b-sm p-6 whitespace-nowrap"
 					>
-						<FontAwesomeIcon icon={faMoon} className={`inline-block h-4 w-4 transform rounded-full transition`} />
+						<FontAwesomeIcon icon={faMoon} className={`inline-block transform rounded-xs transition`} />
 					</Pill>
 				</Menu.Item>
 			</>

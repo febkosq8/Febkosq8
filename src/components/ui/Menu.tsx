@@ -21,18 +21,18 @@ const MenuComponent: React.FC<MenuProps> = ({ className, active, buttonText, chi
 		<DropdownBaseMenu.Root>
 			<DropdownBaseMenu.Trigger
 				className={cx(
-					`focus-visible:ring-opacity-75 inline-flex w-fit items-center justify-center rounded-md p-3 text-xl font-bold text-stone-400 hover:bg-blue-800 hover:text-white focus:outline-hidden focus-visible:ring-2 focus-visible:ring-white`,
+					`focus-visible:ring-opacity-75 focus-visible:ring-gray inline-flex w-fit items-center justify-center gap-1 rounded-md px-2 py-1 text-xl font-bold text-stone-400 hover:bg-blue-800 hover:text-white focus:outline-hidden focus-visible:ring-1`,
 					active ? "bg-blue-600 text-white" : "",
 					className,
 				)}
 			>
 				{buttonText}
-				<FontAwesomeIcon icon={faChevronDown} className="-mr-1 ml-2 h-4 w-4" aria-hidden="true" />
+				<FontAwesomeIcon icon={faChevronDown} aria-hidden="true" />
 			</DropdownBaseMenu.Trigger>
 			<DropdownBaseMenu.Portal>
 				<DropdownBaseMenu.Content
 					loop={true}
-					sideOffset={2}
+					sideOffset={10}
 					className="ring-opacity-5 w-fit origin-top-right divide-y divide-gray-100 rounded-md border-2 border-gray-600 bg-neutral-900 shadow-lg ring-1 ring-black focus:outline-hidden"
 				>
 					{children}
@@ -58,7 +58,7 @@ const MenuSub = ({ active, buttonText, children }: MenuSubProps) => {
 			<DropdownBaseMenu.SubTrigger asChild>
 				<Pill as={"div"} active={active} className="flex w-full items-center justify-between whitespace-nowrap">
 					{buttonText}
-					<FontAwesomeIcon icon={faChevronRight} className="-mr-1 ml-2 h-4 w-4" aria-hidden="true" />
+					<FontAwesomeIcon icon={faChevronRight} className="ml-1" aria-hidden="true" />
 				</Pill>
 			</DropdownBaseMenu.SubTrigger>
 			<DropdownBaseMenu.Portal>

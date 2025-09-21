@@ -21,7 +21,7 @@ function App() {
 		}, 500);
 	}, []);
 	return (
-		<div className="bg-background text-slate-600 dark:text-slate-100">
+		<div className="h-full w-full overflow-hidden bg-background text-slate-600 dark:text-slate-100">
 			<Header />
 			<Routes>
 				<Route path="/" element={<Febkos />} />
