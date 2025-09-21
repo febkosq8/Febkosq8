@@ -51,10 +51,7 @@ export default function About() {
 				</Card>
 				<Card className="col-span-4 row-span-2 flex flex-col justify-between">
 					<Card.Header>Under Grad</Card.Header>
-					<Card.Content>
-						<p>Bachelor of Technology in</p>
-						<p>Computer Science and Engineering</p>
-					</Card.Content>
+					<Card.Content>{"Bachelor of Technology in\nComputer Science and Engineering"}</Card.Content>
 					<Card.Footer>
 						<a href="https://www.kluniversity.in" target="_blank" rel="noreferrer">
 							<Button>KL University</Button>

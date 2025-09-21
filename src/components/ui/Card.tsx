@@ -15,7 +15,7 @@ const Header = (props: CardProps) => {
 const Content = (props: CardProps) => {
 	const { className, ...rest } = props;
 	return (
-		<p
+		<div
 			className={clsx(
 				"card-content typography-paragraph mt-0! w-full justify-between px-2 pt-2 whitespace-pre-wrap",
 				className,
