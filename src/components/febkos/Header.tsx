@@ -21,8 +21,8 @@ function AnimatedText({ text }: { text: string }) {
 		"text-teal-500",
 		"text-rose-500",
 		"text-lime-500",
-		"text-emerald-500",
 		"text-fuchsia-500",
+		"text-emerald-500",
 		"text-violet-500",
 	];
 
