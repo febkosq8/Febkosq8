@@ -1,9 +1,6 @@
-import CourseContentDeliveryImg from "@feb/assets/febkos/CourseContentDelivery.png";
-import CryptoGIFImg from "@feb/assets/febkos/CryptoGIF.png";
 import DefectListGeneratorImg from "@feb/assets/febkos/DefectListGenerator.png";
 import GStatTrackerImg from "@feb/assets/febkos/GStatTracker.png";
 import JappanImg from "@feb/assets/febkos/Jappan.png";
-import JavaCryptoMessengerImg from "@feb/assets/febkos/JavaCryptoMessenger.png";
 import LocalSaveImg from "@feb/assets/febkos/localSave.png";
 import smolURLImg from "@feb/assets/febkos/smolURL.png";
 import ToolBoxImg from "@feb/assets/febkos/ToolBox.png";
@@ -112,44 +109,6 @@ const projectItems = [
 			},
 		],
 		tech: ["React", "Express.js", "MongoDB", "Oracle Cloud"],
-	},
-	{
-		imgSrc: CryptoGIFImg,
-		title: "CryptoGIF",
-		description: "App to save data in images using steganography.",
-		actions: [
-			{
-				name: (
-					<>
-						View on <FontAwesomeIcon icon={faGithub} size="lg" />
-					</>
-				),
-				url: "https://github.com/febkosq8/CryptoGIF",
-			},
-		],
-		tech: ["HTML", "Python"],
-	},
-	{
-		imgSrc: JavaCryptoMessengerImg,
-		title: "Java Cryptographic Messenger",
-		description: "Simple and secure messenger app.",
-		actions: [
-			{
-				name: (
-					<>
-						View on <FontAwesomeIcon icon={faGithub} size="lg" />
-					</>
-				),
-				url: "https://github.com/febkosq8/java_cryptographic_messenger",
-			},
-		],
-		tech: ["Java"],
-	},
-	{
-		imgSrc: CourseContentDeliveryImg,
-		title: "Course Content Delivery",
-		description: "Workflow to deliver course content digitally to students.",
-		actions: [],
 	},
 ];
 export default function Projects() {
