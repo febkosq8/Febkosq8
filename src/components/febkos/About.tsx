@@ -4,7 +4,7 @@ import { faAddressCard } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function About() {
 	return (
-		<div className="home flex min-h-(--spacing-fit-screen) flex-col items-center justify-center p-5" id="about">
+		<div className="home flex min-h-fit-screen flex-col items-center justify-center p-5" id="about">
 			<h2 className="typography-heading-2 mb-10 flex" id="aboutMeTitle">
 				About Me <FontAwesomeIcon icon={faAddressCard} className="ml-2 h-10 w-10" />
 			</h2>

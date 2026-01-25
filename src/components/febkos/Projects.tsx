@@ -113,7 +113,7 @@ const projectItems = [
 ];
 export default function Projects() {
 	return (
-		<div className="projects flex min-h-(--spacing-fit-screen) flex-col items-center justify-center p-5" id="projects">
+		<div className="projects flex min-h-fit-screen flex-col items-center justify-center p-5" id="projects">
 			<h1 className="typography-heading-2 mb-10" id="projectsTitle">
 				Projects
 			</h1>
@@ -121,9 +121,9 @@ export default function Projects() {
 				{projectItems.map((item, index) => (
 					<Card
 						key={index}
-						className="col-span-6 row-span-3 flex h-[200px] w-full max-w-[90vw] overflow-clip p-0! sm:w-[700px] sm:max-w-[750px] sm:min-w-[650px]"
+						className="col-span-6 row-span-3 flex h-50 w-full max-w-[90vw] overflow-clip p-0! sm:w-175 sm:max-w-187.5 sm:min-w-162.5"
 					>
-						<div className="relative hidden h-full! w-[100px] overflow-hidden sm:block sm:w-auto sm:max-w-[--spacing(80)] sm:min-w-[--spacing(80)]">
+						<div className="relative hidden h-full! w-25 overflow-hidden sm:block sm:w-auto sm:max-w-80 sm:min-w-80">
 							<img
 								className={cx(
 									"card-image size-full object-cover transition-[scale,filter] duration-300",
@@ -135,7 +135,7 @@ export default function Projects() {
 								alt={item.title}
 							/>
 							{!!item?.tech && item.tech.length > 0 && (
-								<div className="invisible absolute -bottom-[500px] z-10 flex h-full w-full items-center justify-center p-2 transition-all duration-300 group-hover:visible group-hover:bottom-0">
+								<div className="invisible absolute -bottom-125 z-10 flex h-full w-full items-center justify-center p-2 transition-all duration-300 group-hover:visible group-hover:bottom-0">
 									<div className="flex flex-row flex-wrap items-center justify-center-safe gap-2 whitespace-pre-wrap">
 										{item.tech.map((tech, index) => (
 											<span
