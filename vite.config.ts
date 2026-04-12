@@ -18,7 +18,7 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: {
-			'@feb': '/src',
+			"@feb": "/src",
 		},
 	},
 	plugins: [react(), tailwindcss()],
