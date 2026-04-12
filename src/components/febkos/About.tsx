@@ -13,7 +13,7 @@ export default function About() {
 					<Card.Header>Me</Card.Header>
 					<Card.Content>
 						{
-							"I go by Febkosq8 pretty much everywhere.\nWhen I am bored, I like developing apps for solving random issues.\n"
+							"Febkosq8 pretty much everywhere\nI enjoy solving problems, and building applications is one of the ways I turn ideas into practical solutions."
 						}
 					</Card.Content>
 					<Card.Footer>
@@ -33,7 +33,7 @@ export default function About() {
 				</Card>
 				<Card className="flex flex-col justify-between lg:col-span-4 lg:row-span-2">
 					<Card.Header>Work</Card.Header>
-					<Card.Content>Associate Security Analyst</Card.Content>
+					<Card.Content>Security Engineer</Card.Content>
 					<Card.Footer>
 						<a href="https://www.sita.aero" target="_blank" rel="noreferrer">
 							<Button>SITA</Button>
