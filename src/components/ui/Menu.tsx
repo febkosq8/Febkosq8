@@ -1,9 +1,8 @@
 import Pill from "@feb/components/ui/Pill";
-import { faChevronDown, faChevronRight } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as DropdownBaseMenu from "@radix-ui/react-dropdown-menu";
 import { cx } from "@rinzai/zen";
 import { ReactNode } from "react";
+import { FaChevronDown, FaChevronRight } from "react-icons/fa6";
 
 interface MenuProps {
 	className?: string;
@@ -27,7 +26,7 @@ const MenuComponent: React.FC<MenuProps> = ({ className, active, buttonText, chi
 				)}
 			>
 				{buttonText}
-				<FontAwesomeIcon icon={faChevronDown} aria-hidden="true" />
+				<FaChevronDown aria-hidden="true" />
 			</DropdownBaseMenu.Trigger>
 			<DropdownBaseMenu.Portal>
 				<DropdownBaseMenu.Content
@@ -58,7 +57,7 @@ const MenuSub = ({ active, buttonText, children }: MenuSubProps) => {
 			<DropdownBaseMenu.SubTrigger asChild>
 				<Pill as={"div"} active={active} className="flex w-full items-center justify-between whitespace-nowrap">
 					{buttonText}
-					<FontAwesomeIcon icon={faChevronRight} className="ml-1" aria-hidden="true" />
+					<FaChevronRight className="ml-1" aria-hidden="true" />
 				</Pill>
 			</DropdownBaseMenu.SubTrigger>
 			<DropdownBaseMenu.Portal>

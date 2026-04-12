@@ -5,9 +5,8 @@ import LocalSaveImg from "@feb/assets/febkos/localSave.png";
 import smolURLImg from "@feb/assets/febkos/smolURL.png";
 import ToolBoxImg from "@feb/assets/febkos/ToolBox.png";
 import Card from "@feb/components/ui/Card";
-import { faDiscord, faGithub, faNpm } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { cx } from "@rinzai/zen";
+import { FaDiscord, FaGithub, FaNpm } from "react-icons/fa";
 const projectItems = [
 	{
 		imgSrc: DefectListGeneratorImg,
@@ -25,7 +24,7 @@ const projectItems = [
 				name: (
 					<>
 						View on
-						<FontAwesomeIcon icon={faNpm} size="lg" />
+						<FaNpm size="lg" />
 					</>
 				),
 				url: "https://www.npmjs.com/package/@febkosq8/local-save",
@@ -35,7 +34,7 @@ const projectItems = [
 				name: (
 					<>
 						View on
-						<FontAwesomeIcon icon={faGithub} size="lg" />
+						<FaGithub size="lg" />
 					</>
 				),
 				url: "https://github.com/febkosq8/local-save",
@@ -58,7 +57,7 @@ const projectItems = [
 			{
 				name: (
 					<>
-						<FontAwesomeIcon icon={faDiscord} size="lg" />
+						<FaDiscord size="lg" />
 						Invite
 					</>
 				),
@@ -80,7 +79,7 @@ const projectItems = [
 				name: (
 					<>
 						View on
-						<FontAwesomeIcon icon={faGithub} size="lg" />
+						<FaGithub size="lg" />
 					</>
 				),
 				url: "https://github.com/febkosq8/smolURL",
@@ -98,7 +97,7 @@ const projectItems = [
 				name: (
 					<>
 						View on
-						<FontAwesomeIcon icon={faGithub} size="lg" />
+						<FaGithub size="lg" />
 					</>
 				),
 				url: "https://github.com/febkosq8/GStatTracker",

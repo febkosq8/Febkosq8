@@ -1,12 +1,12 @@
 import { Button } from "@feb/components/ui/Button";
 import Card from "@feb/components/ui/Card";
-import { faAddressCard } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaRegAddressCard } from "react-icons/fa";
+
 export default function About() {
 	return (
 		<div className="home flex min-h-fit-screen flex-col items-center justify-center p-5" id="about">
 			<h2 className="typography-heading-2 mb-10 flex" id="aboutMeTitle">
-				About Me <FontAwesomeIcon icon={faAddressCard} className="ml-2 h-10 w-10" />
+				About Me <FaRegAddressCard className="ml-2 h-10 w-10" />
 			</h2>
 			<div className="flex flex-col gap-3 lg:grid lg:grid-cols-12 lg:grid-rows-8">
 				<Card className="flex flex-col justify-between lg:col-span-8 lg:row-span-2">

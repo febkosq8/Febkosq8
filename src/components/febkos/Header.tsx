@@ -1,9 +1,8 @@
 import LinkPill from "@feb/components/ui/LinkPill";
 import { Menu } from "@feb/components/ui/Menu";
 import ThemeSwitcher from "@feb/components/ui/ThemeSwitcher";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import { FaBars } from "react-icons/fa";
 
 function AnimatedText({ text }: { text: string }) {
 	const [colorIndex, setColorIndex] = useState(0);
@@ -98,7 +97,7 @@ export default function Header() {
 
 				{/* Mobile Navigation - Dropdown menu for small screens */}
 				<div className="md:hidden">
-					<Menu buttonText={<FontAwesomeIcon icon={faBars} />}>
+					<Menu buttonText={<FaBars />}>
 						{navigationItems.map((item) => (
 							<Menu.Item key={item.label} asChild>
 								<a

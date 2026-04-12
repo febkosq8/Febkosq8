@@ -1,12 +1,11 @@
 import { Menu } from "@feb/components/ui/Menu";
 import Pill from "@feb/components/ui/Pill";
-import { faLaptop, faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
+import { FaLaptop, FaMoon, FaSun } from "react-icons/fa6";
 type Color = "light" | "dark" | "system";
 
 export default function ThemeSwitcher() {
-	const colorModeIcon = { light: faSun, dark: faMoon, system: faLaptop };
+	const colorModeIcon: Record<Color, React.ElementType> = { light: FaSun, dark: FaMoon, system: FaLaptop };
 	const localStorageString = `theme`;
 	useEffect(() => {
 		if (!(localStorageString in localStorage)) {
@@ -34,8 +33,9 @@ export default function ThemeSwitcher() {
 			localStorage.setItem(localStorageString, "system");
 		}
 	}, [colorMode]);
+	const Icon = colorModeIcon[colorMode] || FaLaptop;
 	return (
-		<Menu buttonText={<FontAwesomeIcon icon={colorModeIcon[colorMode] ?? faLaptop} />}>
+		<Menu buttonText={<Icon />}>
 			<Menu.Item>
 				<Pill
 					active={colorMode === "system"}
@@ -45,7 +45,7 @@ export default function ThemeSwitcher() {
 					}}
 					className="flex w-full rounded-t-sm p-6 whitespace-nowrap"
 				>
-					<FontAwesomeIcon icon={faLaptop} className={`inline-block transform rounded-xs transition`} />
+					<FaLaptop className={`inline-block transform rounded-xs transition`} />
 				</Pill>
 			</Menu.Item>
 			<Menu.Item>
@@ -57,7 +57,7 @@ export default function ThemeSwitcher() {
 					}}
 					className="flex w-full p-6 whitespace-nowrap"
 				>
-					<FontAwesomeIcon icon={faSun} className={`inline-block transform rounded-xs transition`} />
+					<FaSun className={`inline-block transform rounded-xs transition`} />
 				</Pill>
 			</Menu.Item>
 			<Menu.Item>
@@ -69,7 +69,7 @@ export default function ThemeSwitcher() {
 					}}
 					className="flex w-full rounded-b-sm p-6 whitespace-nowrap"
 				>
-					<FontAwesomeIcon icon={faMoon} className={`inline-block transform rounded-xs transition`} />
+					<FaMoon className={`inline-block transform rounded-xs transition`} />
 				</Pill>
 			</Menu.Item>
 		</Menu>

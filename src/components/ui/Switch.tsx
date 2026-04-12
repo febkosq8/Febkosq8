@@ -1,7 +1,6 @@
-import { faCircle } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Switch as SwitchBase } from "@headlessui/react";
 import { cva, cx } from "@rinzai/zen";
+import { FaCircle } from "react-icons/fa6";
 interface SwitchProps {
 	checked?: boolean;
 	onChange?: (checked: boolean) => void;
@@ -29,13 +28,12 @@ const Switch = ({
 				children(checked)
 			) : (
 				<div className="relative h-full w-full">
-					<FontAwesomeIcon
-						icon={faCircle}
+					<FaCircle
 						className={cx(
 							`absolute top-1/2 -translate-y-1/2 transform`,
 							checked ? "left-6 text-gray-400 dark:text-gray-200" : "left-1 text-blue-600",
 							disabled && "text-gray-400 dark:text-gray-200",
-							`inline-block h-4 w-4 rounded-full border border-blue-500 [transition:_all_0.5s_cubic-bezier(1,0,0,1)]`,
+							`inline-block h-4 w-4 rounded-full border border-blue-500 [transition:all_0.5s_cubic-bezier(1,0,0,1)]`,
 						)}
 					/>
 				</div>
