@@ -1,7 +1,6 @@
 import tailwindcss from "@tailwindcss/vite";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
 	server: {
@@ -17,5 +16,10 @@ export default defineConfig({
 	build: {
 		outDir: "build",
 	},
-	plugins: [react(), tailwindcss(), tsconfigPaths()],
+	resolve: {
+		alias: {
+			'@feb': '/src',
+		},
+	},
+	plugins: [react(), tailwindcss()],
 });
