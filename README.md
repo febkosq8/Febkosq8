@@ -11,4 +11,4 @@
 
 <a href="https://www.buymeacoffee.com/febkosq8" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-violet.png" alt="Buy Me A Coffee" height="60px" width="200px"></a>
 
-![ ](https://serve.febkosq8.me/api/v1/analyticsbadge/febkosq8)
+![ ](https://serve.febkosq8.me/publicapi/v1/analyticsbadge/febkosq8)
