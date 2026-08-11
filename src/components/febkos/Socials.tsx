@@ -1,4 +1,4 @@
-import { Button } from "@feb/components/ui/Button";
+import Button from "@feb/components/ui/Button";
 import Card from "@feb/components/ui/Card";
 import {
 	FaAmazon,

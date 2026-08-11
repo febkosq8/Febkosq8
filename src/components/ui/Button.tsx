@@ -1,6 +1,5 @@
 import { Slot } from "@radix-ui/react-slot";
-import { cx } from "@rinzai/zen";
-import { cva, type VariantProps } from "class-variance-authority";
+import { cva, cx, type VariantProps } from "@rinzai/zen";
 import { forwardRef } from "react";
 
 const buttonVariants = cva(
@@ -40,6 +39,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 		return <Comp className={cx(buttonVariants({ variant, size, className }))} ref={ref} {...props} />;
 	},
 );
-Button.displayName = "Button";
 
-export { Button, buttonVariants };
+// eslint-disable-next-line react-refresh/only-export-components
+export { buttonVariants };
+export default Button;

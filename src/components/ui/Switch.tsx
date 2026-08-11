@@ -1,12 +1,13 @@
 import { Switch as SwitchBase } from "@headlessui/react";
 import { cva, cx } from "@rinzai/zen";
 import { FaCircle } from "react-icons/fa6";
+import type { ReactElement } from "react";
 interface SwitchProps {
 	checked?: boolean;
 	onChange?: (checked: boolean) => void;
 	disabled?: boolean;
 	variant?: "primary" | "danger" | "success";
-	children: (checked: boolean) => JSX.Element;
+	children: (checked: boolean) => ReactElement;
 }
 const Switch = ({
 	checked = false,

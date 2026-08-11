@@ -3,16 +3,16 @@ import Pill from "@feb/components/ui/Pill";
 import { useEffect, useState } from "react";
 import { FaLaptop, FaMoon, FaSun } from "react-icons/fa6";
 type Color = "light" | "dark" | "system";
+const themeStorageKey = "theme";
 
 export default function ThemeSwitcher() {
 	const colorModeIcon: Record<Color, React.ElementType> = { light: FaSun, dark: FaMoon, system: FaLaptop };
-	const localStorageString = `theme`;
 	useEffect(() => {
-		if (!(localStorageString in localStorage)) {
-			localStorage.setItem(localStorageString, "system");
+		if (!(themeStorageKey in localStorage)) {
+			localStorage.setItem(themeStorageKey, "system");
 		}
 	}, []);
-	const [colorMode, setColorMode] = useState<Color>((localStorage.getItem(localStorageString) as Color) ?? "system");
+	const [colorMode, setColorMode] = useState<Color>((localStorage.getItem(themeStorageKey) as Color) ?? "system");
 	useEffect(() => {
 		if (["light", "dark"].includes(colorMode)) {
 			if (colorMode === "dark") {
@@ -22,7 +22,7 @@ export default function ThemeSwitcher() {
 				document.documentElement.classList.remove("dark");
 				setColorMode("light");
 			}
-			localStorage.setItem(localStorageString, colorMode);
+			localStorage.setItem(themeStorageKey, colorMode);
 		} else {
 			const isSystemThemeDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 			if (isSystemThemeDark) {
@@ -30,7 +30,7 @@ export default function ThemeSwitcher() {
 			} else {
 				document.documentElement.classList.remove("dark");
 			}
-			localStorage.setItem(localStorageString, "system");
+			localStorage.setItem(themeStorageKey, "system");
 		}
 	}, [colorMode]);
 	const Icon = colorModeIcon[colorMode] || FaLaptop;
