@@ -1,5 +1,4 @@
 import { cx } from "@rinzai/zen";
-import { clsx } from "clsx";
 import { ComponentPropsWithoutRef } from "react";
 
 const Input = ({ className, ...rest }: ComponentPropsWithoutRef<"input">) => {

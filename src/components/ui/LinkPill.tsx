@@ -1,5 +1,4 @@
 import { cx } from "@rinzai/zen";
-import { clsx } from "clsx";
 interface LinkPillProps extends React.ComponentPropsWithoutRef<"a"> {
 	href: string;
 	active?: boolean;

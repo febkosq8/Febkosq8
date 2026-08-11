@@ -14,7 +14,9 @@ function App() {
 						element.scrollIntoView({ behavior: "smooth" });
 						clearInterval(intervalId);
 					}
-				} catch (e) {}
+				} catch (e) {
+					console.error(`Invalid hash in URL: ${window.location.hash}`, e);
+				}
 			} else {
 				clearInterval(intervalId);
 			}

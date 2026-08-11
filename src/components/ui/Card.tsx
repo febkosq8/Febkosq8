@@ -1,5 +1,4 @@
 import { cx } from "@rinzai/zen";
-import { clsx } from "clsx";
 interface CardProps extends React.ComponentPropsWithoutRef<"div"> {}
 const Card = (props: CardProps) => {
 	const { className, ...rest } = props;
