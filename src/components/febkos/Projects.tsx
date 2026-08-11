@@ -24,7 +24,7 @@ const projectItems = [
 				name: (
 					<>
 						View on
-						<FaNpm size="lg" />
+						<FaNpm className="h-5 w-5" />
 					</>
 				),
 				url: "https://www.npmjs.com/package/@febkosq8/local-save",
@@ -34,7 +34,7 @@ const projectItems = [
 				name: (
 					<>
 						View on
-						<FaGithub size="lg" />
+						<FaGithub className="h-5 w-5" />
 					</>
 				),
 				url: "https://github.com/febkosq8/local-save",
@@ -57,7 +57,7 @@ const projectItems = [
 			{
 				name: (
 					<>
-						<FaDiscord size="lg" />
+						<FaDiscord className="h-5 w-5" />
 						Invite
 					</>
 				),
@@ -79,7 +79,7 @@ const projectItems = [
 				name: (
 					<>
 						View on
-						<FaGithub size="lg" />
+						<FaGithub className="h-5 w-5" />
 					</>
 				),
 				url: "https://github.com/febkosq8/smolURL",
@@ -97,7 +97,7 @@ const projectItems = [
 				name: (
 					<>
 						View on
-						<FaGithub size="lg" />
+						<FaGithub className="h-5 w-5" />
 					</>
 				),
 				url: "https://github.com/febkosq8/GStatTracker",
