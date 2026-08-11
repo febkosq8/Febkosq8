@@ -1,3 +1,4 @@
+import { cx } from "@rinzai/zen";
 import { clsx } from "clsx";
 import { ComponentPropsWithoutRef } from "react";
 
@@ -6,7 +7,7 @@ const Input = ({ className, ...rest }: ComponentPropsWithoutRef<"input">) => {
 		<input
 			{...rest}
 			autoComplete="off"
-			className={clsx(
+			className={cx(
 				className,
 				"h-10",
 				"placeholder:gray-800 rounded border border-border bg-input pl-5 text-foreground",

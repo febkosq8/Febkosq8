@@ -3,20 +3,18 @@ import { clsx } from "clsx";
 interface CardProps extends React.ComponentPropsWithoutRef<"div"> {}
 const Card = (props: CardProps) => {
 	const { className, ...rest } = props;
-	return <div className={clsx("group card rounded-lg border p-4 shadow-xs", className)} {...rest} />;
+	return <div className={cx("group card rounded-lg border p-4 shadow-xs", className)} {...rest} />;
 };
 
 const Header = (props: CardProps) => {
 	const { className, ...rest } = props;
-	return (
-		<h2 className={clsx("card-header flex w-full typography-heading-3 flex-col px-2 pb-2", className)} {...rest} />
-	);
+	return <h2 className={cx("card-header flex w-full typography-heading-3 flex-col px-2 pb-2", className)} {...rest} />;
 };
 const Content = (props: CardProps) => {
 	const { className, ...rest } = props;
 	return (
 		<div
-			className={clsx(
+			className={cx(
 				"card-content typography-paragraph mt-0! w-full justify-between px-2 pt-2 whitespace-pre-wrap",
 				className,
 			)}

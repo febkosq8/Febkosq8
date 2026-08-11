@@ -3,11 +3,10 @@
 	"useTabs": true,
 	"printWidth": 120,
 	"plugins": [
-		"prettier-plugin-organize-imports",
-		"prettier-plugin-jsdoc",
 		"prettier-plugin-css-order",
 		"prettier-plugin-organize-attributes",
-		"prettier-plugin-tailwindcss"
+		"prettier-plugin-tailwindcss",
+		"prettier-plugin-organize-imports"
 	],
 	"tailwindStylesheet": "./src/index.css"
 }
