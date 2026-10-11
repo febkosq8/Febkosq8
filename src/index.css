@@ -162,9 +162,9 @@
 }
 
 .fun-background {
-	display: none;
+	display: block;
 	position: fixed;
-	z-index: 20;
+	z-index: 0;
 	inset: 0;
 	background: transparent;
 	overflow: hidden;
@@ -172,7 +172,7 @@
 }
 
 .fun .fun-background {
-	display: block;
+	z-index: 20;
 }
 
 .fun .card {
@@ -201,21 +201,34 @@
 
 .fun-background__wash {
 	position: absolute;
-	filter: blur(20px);
+	filter: blur(20px) hue-rotate(-18deg);
 	animation:
-		fun-gradient 18s linear infinite alternate,
-		fun-hue 26s ease-in-out infinite alternate;
+		fun-hue 26s ease-in-out infinite alternate,
+		fun-drift 32s ease-in-out infinite alternate;
 	inset: -20%;
-	background-size: 180% 180%;
-	background:
-		radial-gradient(circle at 15% 25%, hsl(338 82% 58% / 0.22), transparent 25%),
-		radial-gradient(circle at 80% 75%, hsl(173 54% 45% / 0.2), transparent 28%),
-		radial-gradient(circle at 65% 10%, hsl(47 92% 58% / 0.24), transparent 22%);
+	overflow: hidden;
+}
+
+.fun-background__gradient {
+	position: absolute;
+	top: var(--gradient-top);
+	left: var(--gradient-left);
+	transform: translate(-50%, -50%) scale(var(--gradient-scale));
+	will-change: top, left;
+	border-radius: 50%;
+	background: radial-gradient(circle, var(--gradient-color) 0%, transparent 68%);
+	aspect-ratio: 1;
+	width: 56%;
 }
 
 .fun-background__icons {
+	display: none;
 	position: absolute;
 	inset: 0;
+}
+
+.fun .fun-background__icons {
+	display: block;
 }
 
 .fun-background__icon {
@@ -294,15 +307,6 @@
 	}
 }
 
-@keyframes fun-gradient {
-	0% {
-		background-position: 0% 50%;
-	}
-	100% {
-		background-position: 100% 50%;
-	}
-}
-
 @keyframes fun-hue {
 	0% {
 		filter: blur(20px) hue-rotate(-18deg);
@@ -315,14 +319,35 @@
 	}
 }
 
+@keyframes fun-drift {
+	0% {
+		transform: translate3d(-3%, -2%, 0) scale(1.02);
+	}
+	50% {
+		transform: translate3d(2%, 3%, 0) scale(1.08);
+	}
+	100% {
+		transform: translate3d(-1%, 4%, 0) scale(1.04);
+	}
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.fun-background,
 	.fun-background__wash {
 		animation: none;
 	}
 
+	.fun-background__gradient {
+		animation: none;
+	}
+
 	.fun-background__icon {
 		transition: none;
+	}
+
+	.fun-background__icon--popping,
+	.fun-background__icon--threshold-popping {
+		animation: none;
 	}
 }
 
