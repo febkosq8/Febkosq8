@@ -5,6 +5,8 @@ const selfDescriptions = [
 	"Security Engineer",
 	"Software Developer",
 	"Coder",
+	"Builder",
+	"Breaker",
 	"Problem Solver",
 	"Homelab Enthusiast",
 	"Gamer",
@@ -18,7 +20,7 @@ export default function Intro() {
 				<h1 className="max-w-4xl text-5xl leading-none font-semibold sm:text-6xl lg:text-8xl">Febin Koshy Philip</h1>
 				<p className="mt-6 flex items-baseline gap-3 text-2xl lg:text-4xl">
 					<span className="text-primary">A</span>
-					<TypingAnimation pauseDelay={2000} strings={selfDescriptions} />
+					<TypingAnimation strings={selfDescriptions} />
 				</p>
 				<p className="mt-8 text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">
 					I build things to understand them, turning complicated problems into practical tools and curiosity into better
