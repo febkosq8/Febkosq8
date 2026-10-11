@@ -1,3 +1,7 @@
+import TypingAnimation from "@feb/components/ui/TypingAnimation";
+
+const skills = ["Security Engineer", "Software Developer", "Coder", "Problem Solver", "Homelab Enthusiast", "Gamer"];
+
 export default function Intro() {
 	return (
 		<div
@@ -6,6 +10,9 @@ export default function Intro() {
 		>
 			<p>Hello</p>
 			<p>I'm Febin Koshy Philip</p>
+			<p>
+				A <TypingAnimation pauseDelay={2000} strings={skills} />
+			</p>
 		</div>
 	);
 }
