@@ -6,15 +6,19 @@ import { FaRegAddressCard } from "react-icons/fa";
 const aboutCardClass =
 	"flex w-full min-h-40 flex-col justify-between [&_.card-header]:border-0! [&_.card-header]:p-0! [&_.card-header]:text-sm! [&_.card-header]:font-semibold [&_.card-header]:uppercase [&_.card-header]:text-primary [&_.card-content]:mt-5! [&_.card-content]:p-0! [&_.card-content]:text-lg! [&_.card-content]:leading-7 [&_.card-footer]:mt-5! [&_.card-footer]:border-0! [&_.card-footer]:p-0!";
 const aboutHeading = ["Security-minded builder,\ncurious by default."];
-
 export default function About() {
 	return (
 		<div className="home flex min-h-fit-screen justify-center p-5" id="about">
 			<div className="w-full max-w-6xl py-10">
 				<div className="flex flex-col gap-5 border-b border-border pb-8">
 					<div>
-						<p className="flex items-center gap-2 text-sm font-semibold text-primary uppercase lg:text-base">
-							About me <FaRegAddressCard />
+						<p className="text-sm font-semibold text-primary uppercase lg:text-base">
+							<a
+								href="#about"
+								className="flex items-center gap-2 transition-colors hover:text-primary focus-visible:outline-hidden"
+							>
+								About me <FaRegAddressCard />
+							</a>
 						</p>
 						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl">
 							<TypingAnimation

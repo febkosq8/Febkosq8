@@ -114,7 +114,9 @@ export default function Projects() {
 	return (
 		<div className="projects flex min-h-fit-screen flex-col items-center justify-center p-5" id="projects">
 			<h1 className="typography-heading-2 mb-10" id="projectsTitle">
-				Projects
+				<a href="#projects" className="transition-colors hover:text-primary focus-visible:outline-hidden">
+					Projects
+				</a>
 			</h1>
 			<div className="flex w-full flex-row flex-wrap items-center justify-center gap-2">
 				{projectItems.map((item, index) => (

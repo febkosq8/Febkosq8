@@ -17,7 +17,9 @@ export default function Socials() {
 	return (
 		<div className="socials flex min-h-fit-screen flex-col items-center justify-center p-5 pb-16" id="socials">
 			<h2 className="typography-heading-2 mb-10 flex" id="socialsTitle">
-				Socials
+				<a href="#socials" className="transition-colors hover:text-primary focus-visible:outline-hidden">
+					Socials
+				</a>
 			</h2>
 			<div className="flex w-full flex-col gap-3">
 				<Card hoverLift={false} className="flex flex-col justify-between">
