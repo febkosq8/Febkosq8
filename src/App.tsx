@@ -6,6 +6,14 @@ import { Route, Routes } from "react-router";
 
 function App() {
 	useEffect(() => {
+		if (window.location.pathname.replace(/\/$/, "") === "/cv" && window.location.hash !== "#socials") {
+			window.history.replaceState(
+				window.history.state,
+				"",
+				`${window.location.pathname}${window.location.search}#socials`,
+			);
+		}
+
 		const intervalId = setInterval(() => {
 			if (window.location.hash) {
 				try {
