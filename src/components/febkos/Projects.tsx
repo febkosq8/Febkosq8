@@ -5,6 +5,7 @@ import LocalSaveImg from "@feb/assets/febkos/localSave.png";
 import smolURLImg from "@feb/assets/febkos/smolURL.png";
 import ToolBoxImg from "@feb/assets/febkos/ToolBox.png";
 import Card from "@feb/components/ui/Card";
+import Button from "@feb/components/ui/Button";
 import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import { cx } from "@rinzai/zen";
 import { useState } from "react";
@@ -145,11 +146,12 @@ export default function Projects() {
 				<div className="mt-8 grid w-full grid-cols-1 items-start gap-3 lg:grid-cols-2">
 					{projectItems.map((item, index) => (
 						<Card key={index} className="group relative aspect-4/3 min-w-0 overflow-hidden p-0! sm:aspect-video">
-							<button
+							<Button
+								variant="ghost"
 								type="button"
 								aria-label={`Show details for ${item.title}`}
 								onClick={() => setExpandedProject(expandedProject === index ? null : index)}
-								className="absolute inset-0 size-full cursor-pointer focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white focus-visible:outline-hidden"
+								className="absolute inset-0 size-full cursor-pointer rounded-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white focus-visible:outline-hidden"
 							>
 								<img
 									className={cx(
@@ -158,14 +160,15 @@ export default function Projects() {
 									src={item.imgSrc}
 									alt={item.title}
 								/>
-							</button>
-							<button
+							</Button>
+							<Button
+								variant="ghost"
 								type="button"
 								aria-label={`Show details for ${item.title}`}
 								aria-expanded={expandedProject === index}
 								onClick={() => setExpandedProject(expandedProject === index ? null : index)}
 								className={cx(
-									"absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-linear-to-t from-black/90 to-transparent p-4 text-left transition-opacity duration-300 max-sm:pointer-events-none max-sm:opacity-0 sm:group-hover:pointer-events-none sm:group-hover:opacity-0",
+									"absolute inset-x-0 bottom-0 h-auto items-end justify-between gap-3 rounded-none bg-linear-to-t from-black/90 to-transparent p-4 text-left transition-opacity duration-300 max-sm:pointer-events-none max-sm:opacity-0 sm:group-hover:pointer-events-none sm:group-hover:opacity-0",
 									expandedProject === index && "pointer-events-none opacity-0",
 								)}
 							>
@@ -173,7 +176,7 @@ export default function Projects() {
 								<span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-white/15 text-white transition-colors group-hover:bg-white/25">
 									<FaInfoCircle className="h-4 w-4" />
 								</span>
-							</button>
+							</Button>
 							<div
 								className={cx(
 									"absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/95 via-black/75 to-black/5 p-4 transition-opacity duration-300 max-sm:pointer-events-auto max-sm:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:group-hover:opacity-100",
