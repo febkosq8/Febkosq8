@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import Button from "@feb/components/ui/Button";
 import { BsEmojiSunglasses, BsLightningChargeFill } from "react-icons/bs";
 import {
 	FaCircle,
@@ -69,6 +70,7 @@ const particleColors = [
 
 type IconTemplate = (typeof iconParticles)[number];
 type Particle = IconTemplate & {
+	id: number;
 	color: string;
 	x: number;
 	y: number;
@@ -91,6 +93,7 @@ function createParticles(count: number): Particle[] {
 
 		return {
 			...template,
+			id: index,
 			color: particleColors[Math.floor(Math.random() * particleColors.length)],
 			x: (0.08 + horizontalSeed * 0.84) * viewportWidth,
 			y: (0.08 + verticalSeed * 0.84) * viewportHeight,
@@ -108,7 +111,54 @@ interface FunBackgroundProps {
 
 export default function FunBackground({ iconCount = 10 }: FunBackgroundProps) {
 	const [particles, setParticles] = useState<Particle[]>(() => createParticles(iconCount));
+	const [poppingParticles, setPoppingParticles] = useState<Set<number>>(() => new Set());
 	const particlesRef = useRef(particles);
+	const clickTimers = useRef(new Map<number, ReturnType<typeof setTimeout>>());
+
+	const removeParticle = (id: number) => {
+		const remaining = particlesRef.current.filter((particle) => particle.id !== id);
+		particlesRef.current = remaining;
+		setParticles(remaining.map((particle) => ({ ...particle })));
+	};
+
+	const handleParticleClick = (id: number) => {
+		const existingTimer = clickTimers.current.get(id);
+		if (existingTimer) clearTimeout(existingTimer);
+		const timer = setTimeout(() => {
+			clickTimers.current.delete(id);
+			const particle = particlesRef.current.find((currentParticle) => currentParticle.id === id);
+			if (!particle) return;
+			particle.spin *= 3;
+			setParticles(particlesRef.current.map((currentParticle) => ({ ...currentParticle })));
+		}, 220);
+		clickTimers.current.set(id, timer);
+	};
+
+	const handleParticleDoubleClick = (id: number) => {
+		const timer = clickTimers.current.get(id);
+		if (timer) {
+			clearTimeout(timer);
+			clickTimers.current.delete(id);
+		}
+		const particle = particlesRef.current.find((currentParticle) => currentParticle.id === id);
+		if (!particle) return;
+		setPoppingParticles((current) => new Set(current).add(id));
+		const removalTimer = setTimeout(() => {
+			setPoppingParticles((current) => {
+				const next = new Set(current);
+				next.delete(id);
+				return next;
+			});
+			removeParticle(id);
+		}, 260);
+		clickTimers.current.set(id, removalTimer);
+	};
+
+	useEffect(() => {
+		return () => {
+			clickTimers.current.forEach((timer) => clearTimeout(timer));
+		};
+	}, []);
 
 	useEffect(() => {
 		if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -174,13 +224,19 @@ export default function FunBackground({ iconCount = 10 }: FunBackgroundProps) {
 	}, []);
 
 	return (
-		<div className="fun-background" aria-hidden="true">
+		<div className="fun-background">
 			<div className="fun-background__wash" />
 			<div className="fun-background__icons">
-				{particles.map(({ Icon, ...particle }, index) => (
-					<span
-						key={index}
-						className="fun-background__icon"
+				{particles.map(({ Icon, ...particle }) => (
+					<Button
+						key={particle.id}
+						type="button"
+						variant="ghost"
+						size="icon"
+						aria-label="Interactive background icon"
+						className={`fun-background__icon${poppingParticles.has(particle.id) ? " fun-background__icon--popping" : ""}`}
+						onClick={() => handleParticleClick(particle.id)}
+						onDoubleClick={() => handleParticleDoubleClick(particle.id)}
 						style={
 							{
 								"--icon-top": `${particle.y}px`,
@@ -192,7 +248,7 @@ export default function FunBackground({ iconCount = 10 }: FunBackgroundProps) {
 						}
 					>
 						<Icon />
-					</span>
+					</Button>
 				))}
 			</div>
 		</div>

@@ -135,7 +135,7 @@
 .card-cursor-border::before {
 	position: absolute;
 	opacity: 0;
-	z-index: 20;
+	z-index: 0;
 	-webkit-mask:
 		linear-gradient(#000 0 0) content-box,
 		linear-gradient(#000 0 0);
@@ -166,8 +166,7 @@
 	position: fixed;
 	z-index: 0;
 	inset: 0;
-	background: linear-gradient(135deg, hsl(190 35% 96%), hsl(47 92% 91%), hsl(173 54% 88%), hsl(338 82% 94%));
-	background-size: 300% 300%;
+	background: transparent;
 	overflow: hidden;
 	pointer-events: none;
 }
@@ -176,9 +175,21 @@
 	display: block;
 }
 
+.fun main {
+	pointer-events: none;
+}
+
+.fun main .card,
+.fun main a,
+.fun main button,
+.fun main input,
+.fun main select,
+.fun main textarea {
+	pointer-events: auto;
+}
+
 .dark .fun-background {
-	background: linear-gradient(135deg, hsl(218 34% 11%), hsl(283 42% 18%), hsl(190 42% 15%), hsl(338 40% 18%));
-	background-size: 300% 300%;
+	background: transparent;
 }
 
 .fun-background__wash {
@@ -205,8 +216,32 @@
 	opacity: 0.76;
 	filter: drop-shadow(0 8px 12px hsl(215 35% 16% / 0.14));
 	will-change: top, left, transform;
+	cursor: pointer;
+	border: 0;
+	background: transparent;
+	padding: 0;
+	pointer-events: auto;
 	color: var(--icon-color);
 	font-size: var(--icon-size);
+}
+
+.fun-background__icon--popping {
+	animation: fun-pop 260ms ease-out forwards;
+}
+
+@keyframes fun-pop {
+	0% {
+		transform: translate(-50%, -50%) rotate(var(--icon-rotation)) scale(1);
+		opacity: 0.76;
+	}
+	45% {
+		transform: translate(-50%, -50%) rotate(var(--icon-rotation)) scale(1.45);
+		opacity: 1;
+	}
+	100% {
+		transform: translate(-50%, -50%) rotate(var(--icon-rotation)) scale(0.2);
+		opacity: 0;
+	}
 }
 
 @keyframes fun-gradient {
