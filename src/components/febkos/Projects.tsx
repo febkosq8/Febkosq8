@@ -116,7 +116,7 @@ export default function Projects() {
 
 	return (
 		<div className="projects flex w-full min-h-fit-screen justify-center p-5" id="projects">
-			<div className="w-full max-w-7xl py-10">
+			<div className="w-full max-w-6xl py-10">
 				<div className="flex flex-col gap-5 border-b border-border pb-8">
 					<div>
 						<p className="text-sm font-semibold text-primary uppercase lg:text-base">
@@ -155,7 +155,10 @@ export default function Projects() {
 								aria-label={`Show details for ${item.title}`}
 								aria-expanded={expandedProject === index}
 								onClick={() => setExpandedProject(expandedProject === index ? null : index)}
-								className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-linear-to-t from-black/90 to-transparent p-4 text-left max-sm:pointer-events-none max-sm:opacity-0"
+								className={cx(
+									"absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-linear-to-t from-black/90 to-transparent p-4 text-left transition-opacity duration-300 max-sm:pointer-events-none max-sm:opacity-0 sm:group-hover:pointer-events-none sm:group-hover:opacity-0",
+									expandedProject === index && "pointer-events-none opacity-0",
+								)}
 							>
 								<h3 className="text-xl leading-6 font-semibold text-white">{item.title}</h3>
 								<span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-white/15 text-white transition-colors group-hover:bg-white/25">

@@ -179,7 +179,7 @@ const allSkills = categories.slice(1).flatMap((category) => category.items);
 const coreStack = allSkills.filter((skill) => skill.core);
 
 function SkillTile({ skill, featured = false }: { skill: SkillItem; featured?: boolean }) {
-	const className = `group relative block overflow-hidden rounded-md border border-foreground/15 bg-card p-3 transition-[border-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-primary hover:shadow-md ${featured ? "min-w-35 flex-1" : ""}`;
+	const className = `group relative block overflow-hidden rounded-md border border-foreground/15 bg-card p-3 transition-[border-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-primary hover:shadow-md ${featured ? "sm:min-w-35 sm:flex-1" : ""}`;
 	const content = (
 		<div className="mb-3 flex items-center justify-between gap-2">
 			<span className="text-sm font-semibold text-card-foreground">{skill.name}</span>
@@ -212,7 +212,7 @@ export default function Skillset() {
 		activeCategory === "all" ? allSkills : (categories.find((category) => category.id === activeCategory)?.items ?? []);
 
 	return (
-		<div className="skillset flex min-h-fit-screen justify-center p-5" id="skillset">
+		<div className="skillset flex w-full min-h-fit-screen justify-center p-5" id="skillset">
 			<div className="w-full max-w-6xl py-10">
 				<div className="flex flex-col gap-5 border-b border-border pb-8">
 					<div>
