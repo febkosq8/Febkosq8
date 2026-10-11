@@ -26,7 +26,7 @@ function AnimatedText({ text }: { text: string }) {
 	];
 
 	useEffect(() => {
-		// Start animation letter by letter after 5000ms
+		// Start animation letter by letter after 1s
 		const startDelay = setTimeout(() => {
 			// Start each letter with a 750ms delay between them
 			text.split("").forEach((_, index) => {
@@ -34,7 +34,7 @@ function AnimatedText({ text }: { text: string }) {
 					setAnimatingLetters((prev) => [...prev, index]);
 				}, index * 750);
 			});
-		}, 5000);
+		}, 1000);
 
 		return () => clearTimeout(startDelay);
 	}, [text]);
