@@ -14,13 +14,13 @@ export default function Intro() {
 	return (
 		<div className="intro flex min-h-fit-screen items-center p-5 text-foreground" id="intro">
 			<div className="w-full max-w-5xl">
-				<p className="mb-4 text-sm font-semibold text-primary uppercase">Hello, I'm</p>
+				<p className="mb-4 text-sm font-semibold text-primary uppercase lg:text-base">Hello, I'm</p>
 				<h1 className="max-w-4xl text-5xl leading-none font-semibold sm:text-6xl lg:text-8xl">Febin Koshy Philip</h1>
 				<p className="mt-6 flex items-baseline gap-3 text-2xl lg:text-4xl">
 					<span className="text-primary">A</span>
 					<TypingAnimation pauseDelay={2000} strings={selfDescriptions} />
 				</p>
-				<p className="mt-8 text-base leading-7 text-muted-foreground sm:text-lg">
+				<p className="mt-8 text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">
 					I enjoy solving problems and building applications that turn ideas into practical solutions.
 				</p>
 				<div className="mt-8 flex flex-wrap gap-3">

@@ -11,7 +11,7 @@ export default function About() {
 			<div className="w-full max-w-6xl py-10">
 				<div className="flex flex-col gap-5 border-b border-border pb-8">
 					<div>
-						<p className="flex items-center gap-2 text-sm font-semibold text-primary uppercase">
+						<p className="flex items-center gap-2 text-sm font-semibold text-primary uppercase lg:text-base">
 							About me <FaRegAddressCard />
 						</p>
 						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl">
@@ -20,7 +20,7 @@ export default function About() {
 							curious by default.
 						</h2>
 					</div>
-					<p className="max-w-3xl text-base leading-7 text-muted-foreground sm:text-lg">
+					<p className="max-w-3xl text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">
 						I enjoy solving problems and building applications that turn ideas into practical solutions.
 						<br />
 						Online, I go by Febkosq8.
