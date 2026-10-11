@@ -25,8 +25,8 @@ export default function Intro() {
 						perTick={{ update: 2, unit: "character" }}
 					/>
 				</h1>
-				<p className="mt-6 flex items-baseline gap-3 text-2xl lg:text-4xl">
-					<span className="text-primary">A</span>
+				<p className="mt-6 flex items-baseline gap-3 text-2xl text-primary lg:text-4xl">
+					<span className="text-foreground">A</span>
 					<TypingAnimation strings={selfDescriptions} />
 				</p>
 				<p className="mt-8 text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8 xl:whitespace-nowrap">
