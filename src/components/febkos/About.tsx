@@ -20,8 +20,9 @@ export default function About() {
 							curious by default.
 						</h2>
 					</div>
-					<p className="max-w-3xl text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">
-						I enjoy solving problems and building applications that turn ideas into practical solutions.
+					<p className="text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">
+						I build things to understand them, turning complicated problems into practical tools and curiosity into
+						better systems.
 						<br />
 						Online, I go by Febkosq8.
 					</p>
@@ -41,7 +42,11 @@ export default function About() {
 					</Card>
 					<Card className={aboutCardClass}>
 						<Card.Header>Graduate studies</Card.Header>
-						<Card.Content>Master&apos;s degree in Advanced Computer Science</Card.Content>
+						<Card.Content>
+							<span className="font-semibold">Master of Science in</span>
+							<br />
+							<span className="font-normal text-foreground/75 italic">Advanced Computer Science</span>
+						</Card.Content>
 						<Card.Footer>
 							<Button asChild size="sm" variant="outline" className="rounded-full">
 								<a href="https://le.ac.uk" target="_blank" rel="noreferrer">
@@ -52,7 +57,13 @@ export default function About() {
 					</Card>
 					<Card className={aboutCardClass}>
 						<Card.Header>Undergraduate studies</Card.Header>
-						<Card.Content>Bachelor&apos;s degree in Computer Science and Engineering</Card.Content>
+						<Card.Content>
+							<span className="font-semibold">Bachelor of Technology in</span>
+							<br />
+							<span className="font-normal text-foreground/75 italic">
+								Computer Science and Engineering with Cybersecurity Specialization
+							</span>
+						</Card.Content>
 						<Card.Footer>
 							<Button asChild size="sm" variant="outline" className="rounded-full">
 								<a href="https://www.kluniversity.in" target="_blank" rel="noreferrer">
@@ -62,7 +73,7 @@ export default function About() {
 						</Card.Footer>
 					</Card>
 					<Card className={aboutCardClass}>
-						<Card.Header>Fellowship</Card.Header>
+						<Card.Header>Leadership</Card.Header>
 						<Card.Content>University Innovation Fellow, Fall 2019</Card.Content>
 						<Card.Footer>
 							<Button asChild size="sm" variant="outline" className="rounded-full">
@@ -77,7 +88,7 @@ export default function About() {
 						</Card.Footer>
 					</Card>
 					<Card className={aboutCardClass}>
-						<Card.Header>Creator</Card.Header>
+						<Card.Header>Creative</Card.Header>
 						<Card.Content>Gameplay montage creator</Card.Content>
 						<Card.Footer>
 							<Button asChild size="sm" variant="outline" className="rounded-full">

@@ -21,7 +21,8 @@ export default function Intro() {
 					<TypingAnimation pauseDelay={2000} strings={selfDescriptions} />
 				</p>
 				<p className="mt-8 text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">
-					I enjoy solving problems and building applications that turn ideas into practical solutions.
+					I build things to understand them, turning complicated problems into practical tools and curiosity into better
+					systems.
 				</p>
 				<div className="mt-8 flex flex-wrap gap-3">
 					<Button asChild>
