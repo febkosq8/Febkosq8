@@ -3,14 +3,24 @@ interface CardProps extends React.ComponentPropsWithoutRef<"div"> {
 	hoverable?: boolean;
 }
 const Card = (props: CardProps) => {
-	const { className, hoverable = true, ...rest } = props;
+	const { className, hoverable = true, onPointerMove, ...rest } = props;
+	const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+		onPointerMove?.(event);
+		if (!hoverable) return;
+
+		const bounds = event.currentTarget.getBoundingClientRect();
+		event.currentTarget.style.setProperty("--card-pointer-x", `${event.clientX - bounds.left}px`);
+		event.currentTarget.style.setProperty("--card-pointer-y", `${event.clientY - bounds.top}px`);
+	};
 	return (
 		<div
 			className={cx(
-				"group card rounded-lg border border-foreground/20 p-4 shadow-xs",
-				hoverable && "transition-[border-color,transform] duration-200 hover:-translate-y-1 hover:border-primary",
+				"group card card-cursor-border relative rounded-lg border border-foreground/20 p-4 shadow-xs",
+				hoverable &&
+					"transition-[border-color,transform] duration-300 ease-out hover:-translate-y-1 hover:border-primary",
 				className,
 			)}
+			onPointerMove={hoverable ? handlePointerMove : onPointerMove}
 			{...rest}
 		/>
 	);

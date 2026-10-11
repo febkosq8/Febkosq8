@@ -127,6 +127,39 @@
 	@apply text-sm text-muted-foreground;
 }
 
+.card-cursor-border {
+	--card-pointer-x: 50%;
+	--card-pointer-y: 50%;
+}
+
+.card-cursor-border::before {
+	position: absolute;
+	opacity: 0;
+	-webkit-mask:
+		linear-gradient(#000 0 0) content-box,
+		linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor;
+	mask:
+		linear-gradient(#000 0 0) content-box,
+		linear-gradient(#000 0 0);
+	mask-composite: exclude;
+	transition: opacity 300ms ease-out;
+	inset: 0;
+	border-radius: inherit;
+	background: radial-gradient(
+		300px circle at var(--card-pointer-x) var(--card-pointer-y),
+		color-mix(in srgb, var(--primary) 55%, var(--foreground)),
+		transparent 68%
+	);
+	padding: 1px;
+	pointer-events: none;
+	content: "";
+}
+
+.card-cursor-border:hover::before {
+	opacity: 1;
+}
+
 @layer base {
 	:root {
 		--background: hsl(220 14% 94%);
