@@ -1,4 +1,5 @@
 import Card from "@feb/components/ui/Card";
+import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import { useState } from "react";
 
 export type SkillItem = {
@@ -222,7 +223,11 @@ export default function Skillset() {
 							</a>
 						</p>
 						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl" id="skillsetTitle">
-							What I work with
+							<TypingAnimation
+								strings={["What I work with"]}
+								placeholder="What I work with"
+								perTick={{ update: 2, unit: "character" }}
+							/>
 						</h2>
 					</div>
 					<p className="max-w-3xl text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">

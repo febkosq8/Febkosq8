@@ -17,7 +17,13 @@ export default function Intro() {
 		<div className="intro flex min-h-fit-screen items-center p-5 text-foreground" id="intro">
 			<div className="w-full max-w-7xl">
 				<p className="mb-4 text-sm font-semibold text-primary uppercase lg:text-base">Hello, I'm</p>
-				<h1 className="max-w-4xl text-5xl leading-none font-semibold sm:text-6xl lg:text-8xl">Febin Koshy Philip</h1>
+				<h1 className="max-w-4xl text-5xl leading-none font-semibold sm:text-6xl lg:text-8xl">
+					<TypingAnimation
+						strings={["Febin Koshy Philip"]}
+						placeholder="Febin Koshy Philip"
+						perTick={{ update: 2, unit: "character" }}
+					/>
+				</h1>
 				<p className="mt-6 flex items-baseline gap-3 text-2xl lg:text-4xl">
 					<span className="text-primary">A</span>
 					<TypingAnimation strings={selfDescriptions} />

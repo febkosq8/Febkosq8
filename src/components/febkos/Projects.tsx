@@ -5,6 +5,7 @@ import LocalSaveImg from "@feb/assets/febkos/localSave.png";
 import smolURLImg from "@feb/assets/febkos/smolURL.png";
 import ToolBoxImg from "@feb/assets/febkos/ToolBox.png";
 import Card from "@feb/components/ui/Card";
+import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import { cx } from "@rinzai/zen";
 import { useState } from "react";
 import { FaArrowRight, FaDiscord, FaGithub, FaNpm } from "react-icons/fa";
@@ -125,7 +126,11 @@ export default function Projects() {
 							</a>
 						</p>
 						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl" id="projectsTitle">
-							Things I&apos;ve built
+							<TypingAnimation
+								strings={["Things I've built"]}
+								placeholder="Things I've built"
+								perTick={{ update: 2, unit: "character" }}
+							/>
 						</h2>
 					</div>
 					<p className="max-w-3xl text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">
