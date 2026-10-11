@@ -127,7 +127,7 @@ function App() {
 	}, []);
 	return (
 		<div className="relative flex h-screen w-screen flex-col overflow-hidden bg-background text-slate-600 dark:text-slate-100">
-			<FunBackground iconCount={20} />
+			<FunBackground iconCount={10} />
 			<Header />
 			<main className="relative z-10 overflow-y-auto">
 				<Routes>

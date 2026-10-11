@@ -107,27 +107,74 @@ function createParticles(count: number): Particle[] {
 
 interface FunBackgroundProps {
 	iconCount?: number;
+	popClickThreshold?: number;
 }
 
-export default function FunBackground({ iconCount = 10 }: FunBackgroundProps) {
+interface ThresholdMotion {
+	duration: number;
+	shake: number;
+	tilt: number;
+	spin: number;
+	reverseSpin: number;
+}
+
+export default function FunBackground({ iconCount = 10, popClickThreshold = 4 }: FunBackgroundProps) {
 	const [particles, setParticles] = useState<Particle[]>(() => createParticles(iconCount));
 	const [poppingParticles, setPoppingParticles] = useState<Set<number>>(() => new Set());
+	const [thresholdPoppingParticles, setThresholdPoppingParticles] = useState<Set<number>>(() => new Set());
+	const [thresholdMotion, setThresholdMotion] = useState<Map<number, ThresholdMotion>>(() => new Map());
 	const particlesRef = useRef(particles);
 	const clickTimers = useRef(new Map<number, ReturnType<typeof setTimeout>>());
+	const clickCounts = useRef(new Map<number, number>());
+	const normalizedPopClickThreshold = Number.isFinite(popClickThreshold)
+		? Math.max(1, Math.floor(popClickThreshold))
+		: 6;
 
 	const removeParticle = (id: number) => {
 		const remaining = particlesRef.current.filter((particle) => particle.id !== id);
 		particlesRef.current = remaining;
+		clickCounts.current.delete(id);
+		setThresholdMotion((current) => {
+			const next = new Map(current);
+			next.delete(id);
+			return next;
+		});
 		setParticles(remaining.map((particle) => ({ ...particle })));
 	};
 
 	const handleParticleClick = (id: number) => {
+		const clickCount = (clickCounts.current.get(id) ?? 0) + 1;
+		clickCounts.current.set(id, clickCount);
 		const existingTimer = clickTimers.current.get(id);
 		if (existingTimer) clearTimeout(existingTimer);
 		const timer = setTimeout(() => {
 			clickTimers.current.delete(id);
 			const particle = particlesRef.current.find((currentParticle) => currentParticle.id === id);
 			if (!particle) return;
+			if (clickCount >= normalizedPopClickThreshold) {
+				const spinDirection = Math.random() > 0.5 ? 1 : -1;
+				const motion: ThresholdMotion = {
+					duration: 3000,
+					shake: 4 + Math.floor(Math.random() * 10),
+					tilt: -18 + Math.floor(Math.random() * 37),
+					spin: spinDirection * (540 + Math.floor(Math.random() * 1080)),
+					reverseSpin: spinDirection * -(540 + Math.floor(Math.random() * 1440)),
+				};
+				particle.spin = 0;
+				setParticles(particlesRef.current.map((currentParticle) => ({ ...currentParticle })));
+				setThresholdMotion((current) => new Map(current).set(id, motion));
+				setThresholdPoppingParticles((current) => new Set(current).add(id));
+				const removalTimer = setTimeout(() => {
+					setThresholdPoppingParticles((current) => {
+						const next = new Set(current);
+						next.delete(id);
+						return next;
+					});
+					removeParticle(id);
+				}, motion.duration);
+				clickTimers.current.set(id, removalTimer);
+				return;
+			}
 			particle.spin *= 3;
 			setParticles(particlesRef.current.map((currentParticle) => ({ ...currentParticle })));
 		}, 220);
@@ -140,6 +187,17 @@ export default function FunBackground({ iconCount = 10 }: FunBackgroundProps) {
 			clearTimeout(timer);
 			clickTimers.current.delete(id);
 		}
+		clickCounts.current.delete(id);
+		setThresholdMotion((current) => {
+			const next = new Map(current);
+			next.delete(id);
+			return next;
+		});
+		setThresholdPoppingParticles((current) => {
+			const next = new Set(current);
+			next.delete(id);
+			return next;
+		});
 		const particle = particlesRef.current.find((currentParticle) => currentParticle.id === id);
 		if (!particle) return;
 		setPoppingParticles((current) => new Set(current).add(id));
@@ -234,7 +292,7 @@ export default function FunBackground({ iconCount = 10 }: FunBackgroundProps) {
 						variant="ghost"
 						size="icon"
 						aria-label="Interactive background icon"
-						className={`fun-background__icon${poppingParticles.has(particle.id) ? " fun-background__icon--popping" : ""}`}
+						className={`fun-background__icon${poppingParticles.has(particle.id) ? " fun-background__icon--popping" : ""}${thresholdPoppingParticles.has(particle.id) ? " fun-background__icon--threshold-popping" : ""}`}
 						onClick={() => handleParticleClick(particle.id)}
 						onDoubleClick={() => handleParticleDoubleClick(particle.id)}
 						style={
@@ -244,6 +302,11 @@ export default function FunBackground({ iconCount = 10 }: FunBackgroundProps) {
 								"--icon-size": particle.size,
 								"--icon-color": particle.color,
 								"--icon-rotation": `${particle.rotation}deg`,
+								"--threshold-duration": `${thresholdMotion.get(particle.id)?.duration ?? 2200}ms`,
+								"--threshold-shake": `${thresholdMotion.get(particle.id)?.shake ?? 5}px`,
+								"--threshold-tilt": `${thresholdMotion.get(particle.id)?.tilt ?? 0}deg`,
+								"--threshold-spin": `${thresholdMotion.get(particle.id)?.spin ?? 720}deg`,
+								"--threshold-reverse-spin": `${thresholdMotion.get(particle.id)?.reverseSpin ?? -720}deg`,
 							} as React.CSSProperties
 						}
 					>
