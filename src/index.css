@@ -135,6 +135,7 @@
 .card-cursor-border::before {
 	position: absolute;
 	opacity: 0;
+	z-index: 20;
 	-webkit-mask:
 		linear-gradient(#000 0 0) content-box,
 		linear-gradient(#000 0 0);
