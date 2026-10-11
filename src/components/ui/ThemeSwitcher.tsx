@@ -36,14 +36,14 @@ export default function ThemeSwitcher() {
 	const Icon = colorModeIcon[colorMode] || FaLaptop;
 	return (
 		<Menu buttonText={<Icon />}>
-			<Menu.Item>
+			<Menu.Item className="rounded-t-md">
 				<Pill
 					active={colorMode === "system"}
 					title="System Theme"
 					onClick={() => {
 						setColorMode("system");
 					}}
-					className="flex w-full rounded-t-sm p-6 whitespace-nowrap"
+					className="flex w-full rounded-t-md p-6 whitespace-nowrap"
 				>
 					<FaLaptop className={`inline-block transform rounded-xs transition`} />
 				</Pill>
@@ -72,14 +72,14 @@ export default function ThemeSwitcher() {
 					<FaMoon className={`inline-block transform rounded-xs transition`} />
 				</Pill>
 			</Menu.Item>
-			<Menu.Item>
+			<Menu.Item className="rounded-b-md">
 				<Pill
 					active={funMode}
 					title="Toggle Fun Mode"
 					onClick={() => {
 						setFunMode((enabled) => !enabled);
 					}}
-					className="flex w-full rounded-b-sm p-6 whitespace-nowrap"
+					className="flex w-full rounded-b-md p-6 whitespace-nowrap"
 				>
 					<GiPartyPopper className="inline-block transform rounded-xs transition" />
 				</Pill>
