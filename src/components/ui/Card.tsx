@@ -29,7 +29,7 @@ const Card = (props: CardProps) => {
 	return (
 		<div
 			className={cx(
-				"group card relative rounded-lg border border-foreground/40 p-4 shadow-xs",
+				"group card relative rounded-lg border border-foreground/40 bg-card/90 p-4 shadow-xs",
 				hasHoverGradient && "card-cursor-border",
 				(hasHoverLift || hasHoverBorder) && "transition-[border-color,transform] duration-300 ease-out",
 				hasHoverLift && "hover:-translate-y-1",

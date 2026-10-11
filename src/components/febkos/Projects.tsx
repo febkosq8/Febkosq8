@@ -201,19 +201,11 @@ export default function Projects() {
 									{item.actions.length > 0 && (
 										<div className="projectItemBtns flex flex-row flex-wrap gap-2">
 											{item.actions.map((action, index) => (
-												<a
-													key={`${index}_Project`}
-													href={action.url}
-													target="_blank"
-													rel="noopener noreferrer"
-													className={cx(
-														"inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50",
-														"bg-primary text-nowrap text-primary-foreground hover:bg-primary/90",
-														"h-9 w-fit gap-1 px-3 py-2",
-													)}
-												>
-													{action.name}
-												</a>
+												<Button asChild key={`${index}_Project`} className="h-9 w-fit gap-1 px-3 py-2 text-nowrap">
+													<a key={`${index}_Project`} href={action.url} target="_blank" rel="noopener noreferrer">
+														{action.name}
+													</a>
+												</Button>
 											))}
 										</div>
 									)}

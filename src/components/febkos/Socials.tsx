@@ -1,4 +1,5 @@
 import Card from "@feb/components/ui/Card";
+import Button from "@feb/components/ui/Button";
 import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import {
 	FaAmazon,
@@ -103,21 +104,26 @@ export default function Socials() {
 								<p className="text-sm leading-6 text-foreground/60">{group.description}</p>
 								<div className="flex flex-wrap gap-2">
 									{group.links.map((link) => (
-										<a
+										<Button
+											asChild
+											variant="outline"
 											key={link.label}
-											href={link.href}
-											target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-											rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
-											className="group/button inline-flex min-h-10 items-center gap-2 rounded-md border border-foreground/25 bg-card px-3 py-2 text-sm font-medium transition-[border-color,background-color,color,transform] duration-200 hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:text-primary-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-hidden"
+											className="group/button h-10 gap-2 border-foreground/25 bg-card px-3 py-2 text-sm leading-none hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:text-primary-foreground"
 										>
-											<span
-												className="text-base text-primary transition-colors group-hover/button:text-primary-foreground"
-												aria-hidden="true"
+											<a
+												href={link.href}
+												target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+												rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
 											>
-												{link.icon}
-											</span>
-											{link.label}
-										</a>
+												<span
+													className="flex items-center text-base leading-none text-primary transition-colors group-hover/button:text-primary-foreground"
+													aria-hidden="true"
+												>
+													{link.icon}
+												</span>
+												{link.label}
+											</a>
+										</Button>
 									))}
 								</div>
 							</Card.Content>

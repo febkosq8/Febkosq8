@@ -1,4 +1,5 @@
 import Card from "@feb/components/ui/Card";
+import Button from "@feb/components/ui/Button";
 import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import { FaTools } from "react-icons/fa";
 import { FaCss3, FaNetworkWired, FaShieldHalved } from "react-icons/fa6";
@@ -266,7 +267,7 @@ export default function Skillset() {
 				</div>
 
 				<div className="mt-8 w-full">
-					<Card hoverLift={false} className="mb-4 border-primary/40 bg-primary/5">
+					<Card hoverLift={false} className="mb-4 border-primary/80 bg-primary/40">
 						<div className="mb-4 flex items-end justify-between gap-4">
 							<div>
 								<p className="text-xs font-semibold tracking-wide text-primary uppercase">Core stack</p>
@@ -284,16 +285,17 @@ export default function Skillset() {
 						{categories.map((category) => {
 							const isActive = category.id === activeCategory;
 							return (
-								<button
+								<Button
 									key={category.id}
+									variant={isActive ? "default" : "outline"}
 									type="button"
 									role="tab"
 									aria-selected={isActive}
 									onClick={() => setActiveCategory(category.id)}
-									className={`shrink-0 rounded-full border px-3 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-hidden ${isActive ? "border-primary bg-primary text-primary-foreground" : "border-foreground/20 bg-background hover:border-primary hover:text-primary"}`}
+									className={`shrink-0 rounded-full px-3 py-2 text-sm ${isActive ? "border-primary" : "border-foreground/20 bg-background hover:border-primary hover:text-primary"}`}
 								>
 									{category.label}
-								</button>
+								</Button>
 							);
 						})}
 					</div>

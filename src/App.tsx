@@ -2,6 +2,7 @@ import Header from "@feb/components/febkos/Header";
 import Febkos from "@feb/pages/Febkos";
 import WrongPage from "@feb/pages/WrongPage";
 import Button from "@feb/components/ui/Button";
+import FunBackground from "@feb/components/ui/FunBackground";
 import { useEffect, useRef, useState } from "react";
 import { Route, Routes, useLocation } from "react-router";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
@@ -125,9 +126,10 @@ function App() {
 		}, 500);
 	}, []);
 	return (
-		<div className="flex h-screen w-screen flex-col overflow-hidden bg-background text-slate-600 dark:text-slate-100">
+		<div className="relative flex h-screen w-screen flex-col overflow-hidden bg-background text-slate-600 dark:text-slate-100">
+			<FunBackground iconCount={50} />
 			<Header />
-			<main className="overflow-y-auto">
+			<main className="relative z-10 overflow-y-auto">
 				<Routes>
 					<Route path="/" element={<Febkos />} />
 					<Route path="/cv" element={<Febkos />} />

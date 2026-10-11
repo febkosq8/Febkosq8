@@ -1,4 +1,4 @@
-import Pill from "@feb/components/ui/Pill";
+import Button from "@feb/components/ui/Button";
 import * as DropdownBaseMenu from "@radix-ui/react-dropdown-menu";
 import { cx } from "@rinzai/zen";
 import { ReactNode } from "react";
@@ -18,15 +18,19 @@ interface MenuComponent extends React.FC<MenuProps> {
 const MenuComponent: React.FC<MenuProps> = ({ className, active, buttonText, children }) => {
 	return (
 		<DropdownBaseMenu.Root>
-			<DropdownBaseMenu.Trigger
-				className={cx(
-					"inline-flex w-fit items-center justify-center gap-1 rounded-md p-2 text-xl font-bold text-muted-foreground hover:bg-accent hover:text-accent-foreground focus:outline-hidden",
-					active ? "bg-primary text-primary-foreground" : "",
-					className,
-				)}
-			>
-				{buttonText}
-				<FaChevronDown aria-hidden="true" />
+			<DropdownBaseMenu.Trigger asChild>
+				<Button
+					variant="ghost"
+					type="button"
+					className={cx(
+						"w-fit gap-1 p-2 text-xl font-bold text-muted-foreground",
+						active ? "bg-primary text-primary-foreground" : "",
+						className,
+					)}
+				>
+					{buttonText}
+					<FaChevronDown aria-hidden="true" />
+				</Button>
 			</DropdownBaseMenu.Trigger>
 			<DropdownBaseMenu.Portal>
 				<DropdownBaseMenu.Content
@@ -55,10 +59,17 @@ const MenuSub = ({ active, buttonText, children }: MenuSubProps) => {
 	return (
 		<DropdownBaseMenu.Sub>
 			<DropdownBaseMenu.SubTrigger asChild>
-				<Pill as={"div"} active={active} className="flex w-full items-center justify-between whitespace-nowrap">
+				<Button
+					variant="ghost"
+					type="button"
+					className={cx(
+						"w-full justify-between whitespace-nowrap px-3 py-2 text-xl font-bold",
+						active ? "bg-primary text-primary-foreground" : "",
+					)}
+				>
 					{buttonText}
 					<FaChevronRight className="ml-1" aria-hidden="true" />
-				</Pill>
+				</Button>
 			</DropdownBaseMenu.SubTrigger>
 			<DropdownBaseMenu.Portal>
 				<DropdownBaseMenu.SubContent

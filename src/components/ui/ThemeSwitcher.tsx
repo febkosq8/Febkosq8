@@ -2,37 +2,37 @@ import { Menu } from "@feb/components/ui/Menu";
 import Pill from "@feb/components/ui/Pill";
 import { useEffect, useState } from "react";
 import { FaLaptop, FaMoon, FaSun } from "react-icons/fa6";
+import { GiPartyPopper } from "react-icons/gi";
 type Color = "light" | "dark" | "system";
 const themeStorageKey = "theme";
+const funModeStorageKey = "fun-mode";
 
 export default function ThemeSwitcher() {
 	const colorModeIcon: Record<Color, React.ElementType> = { light: FaSun, dark: FaMoon, system: FaLaptop };
+	const storedTheme = localStorage.getItem(themeStorageKey);
+	const initialColorMode: Color = storedTheme === "light" || storedTheme === "dark" ? storedTheme : "system";
 	useEffect(() => {
 		if (!(themeStorageKey in localStorage)) {
 			localStorage.setItem(themeStorageKey, "system");
 		}
 	}, []);
-	const [colorMode, setColorMode] = useState<Color>((localStorage.getItem(themeStorageKey) as Color) ?? "system");
+	const [colorMode, setColorMode] = useState<Color>(initialColorMode);
+	const [funMode, setFunMode] = useState(
+		() => localStorage.getItem(funModeStorageKey) === "true" || storedTheme === "fun",
+	);
 	useEffect(() => {
-		if (["light", "dark"].includes(colorMode)) {
-			if (colorMode === "dark") {
-				document.documentElement.classList.add("dark");
-				setColorMode("dark");
-			} else if (colorMode === "light") {
-				document.documentElement.classList.remove("dark");
-				setColorMode("light");
-			}
-			localStorage.setItem(themeStorageKey, colorMode);
-		} else {
-			const isSystemThemeDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-			if (isSystemThemeDark) {
-				document.documentElement.classList.add("dark");
-			} else {
-				document.documentElement.classList.remove("dark");
-			}
-			localStorage.setItem(themeStorageKey, "system");
+		document.documentElement.classList.remove("dark");
+		if (colorMode === "dark") {
+			document.documentElement.classList.add("dark");
+		} else if (colorMode === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+			document.documentElement.classList.add("dark");
 		}
+		localStorage.setItem(themeStorageKey, colorMode);
 	}, [colorMode]);
+	useEffect(() => {
+		document.documentElement.classList.toggle("fun", funMode);
+		localStorage.setItem(funModeStorageKey, String(funMode));
+	}, [funMode]);
 	const Icon = colorModeIcon[colorMode] || FaLaptop;
 	return (
 		<Menu buttonText={<Icon />}>
@@ -67,9 +67,21 @@ export default function ThemeSwitcher() {
 					onClick={() => {
 						setColorMode("dark");
 					}}
-					className="flex w-full rounded-b-sm p-6 whitespace-nowrap"
+					className="flex w-full p-6 whitespace-nowrap"
 				>
 					<FaMoon className={`inline-block transform rounded-xs transition`} />
+				</Pill>
+			</Menu.Item>
+			<Menu.Item>
+				<Pill
+					active={funMode}
+					title="Toggle Fun Mode"
+					onClick={() => {
+						setFunMode((enabled) => !enabled);
+					}}
+					className="flex w-full rounded-b-sm p-6 whitespace-nowrap"
+				>
+					<GiPartyPopper className="inline-block transform rounded-xs transition" />
 				</Pill>
 			</Menu.Item>
 		</Menu>

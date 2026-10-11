@@ -81,7 +81,10 @@ export default function Header() {
 	];
 
 	return (
-		<div className="z-50 flex w-full items-center justify-between border border-b-2 bg-background px-8 py-1 text-lg lg:text-2xl">
+		<div
+			data-site-header
+			className="z-50 flex w-full items-center justify-between border border-b-2 bg-background px-8 py-1 text-lg lg:text-2xl"
+		>
 			<a href="/" className="font-bold">
 				<AnimatedText text="Febkosq8" />
 			</a>
