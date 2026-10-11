@@ -3,6 +3,7 @@ import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import { FaTools } from "react-icons/fa";
 import { useState } from "react";
 
+const skillsetHeading = ["What I work with"];
 export type SkillItem = {
 	name: string;
 	bgColor: string;
@@ -228,7 +229,7 @@ export default function Skillset() {
 						</p>
 						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl" id="skillsetTitle">
 							<TypingAnimation
-								strings={["What I work with"]}
+								strings={skillsetHeading}
 								placeholder="What I work with"
 								perTick={{ update: 2, unit: "character" }}
 							/>

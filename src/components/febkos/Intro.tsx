@@ -1,6 +1,7 @@
 import Button from "@feb/components/ui/Button";
 import TypingAnimation from "@feb/components/ui/TypingAnimation";
 
+const introName = ["Febin Koshy Philip"];
 const selfDescriptions = [
 	"Security Engineer",
 	"Software Developer",
@@ -19,7 +20,7 @@ export default function Intro() {
 				<p className="mb-4 text-sm font-semibold text-primary uppercase lg:text-base">Hello, I'm</p>
 				<h1 className="max-w-4xl text-5xl leading-none font-semibold sm:text-6xl lg:text-8xl">
 					<TypingAnimation
-						strings={["Febin Koshy Philip"]}
+						strings={introName}
 						placeholder="Febin Koshy Philip"
 						perTick={{ update: 2, unit: "character" }}
 					/>

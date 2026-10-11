@@ -76,7 +76,7 @@ export default function TypingAnimation({
 					setIsVisible(false);
 				}
 			},
-			{ threshold: visibilityThreshold },
+			{ root: element.closest("main"), threshold: visibilityThreshold },
 		);
 
 		observer.observe(element);

@@ -15,6 +15,7 @@ import {
 	FaSteam,
 	FaYoutube,
 } from "react-icons/fa6";
+const socialsHeading = ["Let's connect"];
 export default function Socials() {
 	const groups = [
 		{
@@ -78,7 +79,7 @@ export default function Socials() {
 						</p>
 						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl" id="socialsTitle">
 							<TypingAnimation
-								strings={["Let's connect"]}
+								strings={socialsHeading}
 								placeholder="Let's connect"
 								perTick={{ update: 2, unit: "character" }}
 							/>

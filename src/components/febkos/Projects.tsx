@@ -9,6 +9,7 @@ import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import { cx } from "@rinzai/zen";
 import { useState } from "react";
 import { FaArrowRight, FaCode, FaDiscord, FaGithub, FaNpm } from "react-icons/fa";
+const projectsHeading = ["Things I've built"];
 const projectItems = [
 	{
 		imgSrc: DefectListGeneratorImg,
@@ -130,7 +131,7 @@ export default function Projects() {
 						</p>
 						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl" id="projectsTitle">
 							<TypingAnimation
-								strings={["Things I've built"]}
+								strings={projectsHeading}
 								placeholder="Things I've built"
 								perTick={{ update: 2, unit: "character" }}
 							/>
