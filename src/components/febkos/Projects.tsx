@@ -9,7 +9,7 @@ import Button from "@feb/components/ui/Button";
 import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import { cx } from "@rinzai/zen";
 import { useState } from "react";
-import { FaArrowRight, FaCode, FaDiscord, FaGithub, FaInfoCircle, FaNpm } from "react-icons/fa";
+import { FaCode, FaDiscord, FaGithub, FaInfoCircle, FaNpm } from "react-icons/fa";
 const projectsHeading = ["Things I've built"];
 const projectItems = [
 	{
