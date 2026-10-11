@@ -2,12 +2,17 @@ import { cx } from "@rinzai/zen";
 interface CardProps extends React.ComponentPropsWithoutRef<"div"> {}
 const Card = (props: CardProps) => {
 	const { className, ...rest } = props;
-	return <div className={cx("group card rounded-lg border p-4 shadow-xs", className)} {...rest} />;
+	return <div className={cx("group card rounded-lg border border-foreground/20 p-4 shadow-xs", className)} {...rest} />;
 };
 
 const Header = (props: CardProps) => {
 	const { className, ...rest } = props;
-	return <h2 className={cx("card-header flex w-full typography-heading-3 flex-col px-2 pb-2", className)} {...rest} />;
+	return (
+		<h2
+			className={cx("card-header flex w-full typography-heading-3 flex-col border-foreground/20 px-2 pb-2", className)}
+			{...rest}
+		/>
+	);
 };
 const Content = (props: CardProps) => {
 	const { className, ...rest } = props;
@@ -24,7 +29,13 @@ const Content = (props: CardProps) => {
 const Footer = (props: CardProps) => {
 	const { className, ...rest } = props;
 	return (
-		<div className={cx("mt-auto mb-0 flex w-full items-end justify-start border-t px-2 py-2", className)} {...rest} />
+		<div
+			className={cx(
+				"card-footer mt-auto mb-0 flex w-full items-end justify-start border-t border-foreground/20 px-2 py-2",
+				className,
+			)}
+			{...rest}
+		/>
 	);
 };
 Card.Header = Header;
