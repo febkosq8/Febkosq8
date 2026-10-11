@@ -5,8 +5,10 @@ import LocalSaveImg from "@feb/assets/febkos/localSave.png";
 import smolURLImg from "@feb/assets/febkos/smolURL.png";
 import ToolBoxImg from "@feb/assets/febkos/ToolBox.png";
 import Card from "@feb/components/ui/Card";
+import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import { cx } from "@rinzai/zen";
-import { FaDiscord, FaGithub, FaNpm } from "react-icons/fa";
+import { useState } from "react";
+import { FaArrowRight, FaCode, FaDiscord, FaGithub, FaNpm } from "react-icons/fa";
 const projectItems = [
 	{
 		imgSrc: DefectListGeneratorImg,
@@ -111,69 +113,111 @@ const projectItems = [
 	},
 ];
 export default function Projects() {
-	return (
-		<div className="projects flex min-h-fit-screen flex-col items-center justify-center p-5" id="projects">
-			<h1 className="typography-heading-2 mb-10" id="projectsTitle">
-				Projects
-			</h1>
-			<div className="flex w-full flex-row flex-wrap items-center justify-center gap-2">
-				{projectItems.map((item, index) => (
-					<Card
-						key={index}
-						className="col-span-6 row-span-3 flex h-50 w-full max-w-[90vw] overflow-clip p-0! sm:w-175 sm:max-w-187.5 sm:min-w-162.5"
-					>
-						<div className="relative hidden h-full! w-25 overflow-hidden sm:block sm:w-auto sm:max-w-80 sm:min-w-80">
-							<img
-								className={cx(
-									"card-image size-full object-cover transition-[scale,filter] duration-300",
-									!!item?.tech && item.tech.length > 0
-										? "group-hover:scale-250 group-hover:object-center group-hover:blur-xs"
-										: "",
-								)}
-								src={item.imgSrc}
-								alt={item.title}
-							/>
-							{!!item?.tech && item.tech.length > 0 && (
-								<div className="invisible absolute -bottom-125 z-10 flex h-full w-full items-center justify-center p-2 transition-all duration-300 group-hover:visible group-hover:bottom-0">
-									<div className="flex flex-row flex-wrap items-center justify-center-safe gap-2 whitespace-pre-wrap">
-										{item.tech.map((tech, index) => (
-											<span
-												key={`${index}_tech`}
-												className="size-fit rounded-md bg-secondary px-2 py-1 text-xs font-semibold whitespace-nowrap text-secondary-foreground"
-											>
-												{tech}
-											</span>
-										))}
-									</div>
-								</div>
-							)}
-						</div>
+	const [expandedProject, setExpandedProject] = useState<number | null>(null);
 
-						<div className="card-body flex h-full w-full flex-col items-start py-2">
-							<Card.Header>{item.title}</Card.Header>
-							<Card.Content>{item.description}</Card.Content>
-							{item.actions.length > 0 && (
-								<Card.Footer className="projectItemBtns flex flex-row gap-2">
-									{item.actions.map((action, index) => (
-										<a
-											key={`${index}_Project`}
-											href={action.url}
-											target="_blank"
-											rel="noopener noreferrer"
-											className={cx(
-												"inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50",
-												"bg-primary text-nowrap text-primary-foreground hover:bg-primary/90",
-												"h-10 w-fit gap-1 px-3 py-2",
-											)}
-										>
-											{action.name}
-										</a>
-									))}
-								</Card.Footer>
-							)}
-						</div>
-					</Card>
-				))}
+	return (
+		<div className="projects flex w-full min-h-fit-screen justify-center p-5" id="projects">
+			<div className="w-full max-w-6xl py-10">
+				<div className="flex flex-col gap-5 border-b border-border pb-8">
+					<div>
+						<p className="text-sm font-semibold text-primary uppercase lg:text-base">
+							<a
+								href="#projects"
+								className="flex items-center gap-2 underline underline-offset-4 transition-colors hover:text-primary focus-visible:outline-hidden"
+							>
+								Projects <FaCode />
+							</a>
+						</p>
+						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl" id="projectsTitle">
+							<TypingAnimation
+								strings={["Things I've built"]}
+								placeholder="Things I've built"
+								perTick={{ update: 2, unit: "character" }}
+							/>
+						</h2>
+					</div>
+					<p className="max-w-3xl text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">
+						A selection of web apps, bots, developer tools, and security projects.
+					</p>
+				</div>
+
+				<div className="mt-8 grid w-full grid-cols-1 items-start gap-3 lg:grid-cols-2">
+					{projectItems.map((item, index) => (
+						<Card key={index} className="group relative aspect-4/3 min-w-0 overflow-hidden p-0! sm:aspect-video">
+							<button
+								type="button"
+								aria-label={`Show details for ${item.title}`}
+								onClick={() => setExpandedProject(expandedProject === index ? null : index)}
+								className="absolute inset-0 size-full cursor-pointer focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white focus-visible:outline-hidden"
+							>
+								<img
+									className={cx(
+										"card-image absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105",
+									)}
+									src={item.imgSrc}
+									alt={item.title}
+								/>
+							</button>
+							<button
+								type="button"
+								aria-label={`Show details for ${item.title}`}
+								aria-expanded={expandedProject === index}
+								onClick={() => setExpandedProject(expandedProject === index ? null : index)}
+								className={cx(
+									"absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-linear-to-t from-black/90 to-transparent p-4 text-left transition-opacity duration-300 max-sm:pointer-events-none max-sm:opacity-0 sm:group-hover:pointer-events-none sm:group-hover:opacity-0",
+									expandedProject === index && "pointer-events-none opacity-0",
+								)}
+							>
+								<h3 className="text-xl leading-6 font-semibold text-white">{item.title}</h3>
+								<span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-white/15 text-white transition-colors group-hover:bg-white/25">
+									<FaArrowRight className="h-4 w-4" />
+								</span>
+							</button>
+							<div
+								className={cx(
+									"absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/95 via-black/75 to-black/5 p-4 transition-opacity duration-300 max-sm:pointer-events-auto max-sm:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:group-hover:opacity-100",
+									expandedProject === index ? "opacity-100 sm:pointer-events-auto" : "opacity-0",
+								)}
+							>
+								<div className="flex flex-col gap-3">
+									<h3 className="text-xl leading-6 font-semibold text-white">{item.title}</h3>
+									<p className="text-sm leading-5 text-white/85">{item.description}</p>
+									{!!item?.tech && item.tech.length > 0 && (
+										<div className="flex flex-row flex-wrap gap-2">
+											{item.tech.map((tech, index) => (
+												<span
+													key={`${index}_tech`}
+													className="rounded-md bg-white/15 px-2 py-1 text-xs font-semibold whitespace-nowrap text-white backdrop-blur-sm"
+												>
+													{tech}
+												</span>
+											))}
+										</div>
+									)}
+									{item.actions.length > 0 && (
+										<div className="projectItemBtns flex flex-row flex-wrap gap-2">
+											{item.actions.map((action, index) => (
+												<a
+													key={`${index}_Project`}
+													href={action.url}
+													target="_blank"
+													rel="noopener noreferrer"
+													className={cx(
+														"inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50",
+														"bg-primary text-nowrap text-primary-foreground hover:bg-primary/90",
+														"h-9 w-fit gap-1 px-3 py-2",
+													)}
+												>
+													{action.name}
+												</a>
+											))}
+										</div>
+									)}
+								</div>
+							</div>
+						</Card>
+					))}
+				</div>
 			</div>
 		</div>
 	);

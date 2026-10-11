@@ -1,190 +1,283 @@
-import BadgeDisplay from "@feb/components/ui/BadgeDisplay";
 import Card from "@feb/components/ui/Card";
+import TypingAnimation from "@feb/components/ui/TypingAnimation";
+import { FaTools } from "react-icons/fa";
+import { useState } from "react";
 
 export type SkillItem = {
-	badge: string;
 	name: string;
 	bgColor: string;
+	url?: string;
+	core?: boolean;
 };
 const languagesList: SkillItem[] = [
 	{
-		badge: "https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white",
 		name: "TypeScript",
 		bgColor: "#007ACC",
+		url: "https://www.typescriptlang.org/",
+		core: true,
 	},
 	{
-		badge: "https://img.shields.io/badge/JavaScript-3A3A3A?style=for-the-badge&logo=javascript&logoColor=F7DF1E",
 		name: "JavaScript",
 		bgColor: "#3A3A3A",
+		url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
 	},
 	{
-		badge: "https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white",
 		name: "HTML",
 		bgColor: "#E34F26",
+		url: "https://developer.mozilla.org/en-US/docs/Web/HTML",
 	},
 	{
-		badge: "https://img.shields.io/badge/css-%23663399.svg?style=for-the-badge&logo=css&logoColor=white",
 		name: "CSS",
 		bgColor: "#663399",
+		url: "https://developer.mozilla.org/en-US/docs/Web/CSS",
 	},
 	{
-		badge: "https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54",
 		name: "Python",
 		bgColor: "#3670A0",
+		url: "https://www.python.org/",
 	},
 	{
-		badge: "https://img.shields.io/badge/markdown-3F4F8C.svg?style=for-the-badge&logo=markdown&logoColor=white",
 		name: "Markdown",
 		bgColor: "#3F4F8C",
+		url: "https://www.markdownguide.org/",
 	},
 	{
-		badge: "https://img.shields.io/badge/C++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white",
 		name: "C++",
 		bgColor: "#00599C",
+		url: "https://isocpp.org/",
 	},
 	{
-		badge: "https://img.shields.io/badge/C-%234B6B8A.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white",
 		name: "C",
 		bgColor: "#4B6B8A",
+		url: "https://en.cppreference.com/w/c",
 	},
 ];
 const stackList: SkillItem[] = [
 	{
-		badge: "https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB",
 		name: "React",
 		bgColor: "#20232A",
+		url: "https://react.dev/",
+		core: true,
 	},
 	{
-		badge: "https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white",
 		name: "Node.js",
 		bgColor: "#6DA55F",
+		url: "https://nodejs.org/",
+		core: true,
 	},
 	{
-		badge: "https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB",
 		name: "Express.js",
 		bgColor: "#404D59",
+		url: "https://expressjs.com/",
 	},
 	{
-		badge: "https://img.shields.io/badge/MongoDB-3F8F4B?style=for-the-badge&logo=mongodb&logoColor=white",
 		name: "MongoDB",
 		bgColor: "#3F8F4B",
+		url: "https://www.mongodb.com/",
 	},
 	{
-		badge: "https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white",
 		name: "Tailwind CSS",
 		bgColor: "#38B2AC",
+		url: "https://tailwindcss.com/",
 	},
 	{
-		badge: "https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white",
 		name: "Vite",
 		bgColor: "#646CFF",
+		url: "https://vite.dev/",
 	},
 	{
-		badge: "https://img.shields.io/badge/-Vitest-252529?style=for-the-badge&logo=vitest&logoColor=FCC72B",
 		name: "Vitest",
 		bgColor: "#252529",
+		url: "https://vitest.dev/",
 	},
 ];
 const appSecList: SkillItem[] = [
 	{
-		badge: "https://img.shields.io/badge/Burp%20Suite-E85D2A?style=for-the-badge&logo=burpsuite&logoColor=white",
 		name: "Burp Suite",
 		bgColor: "#E85D2A",
+		url: "https://portswigger.net/burp",
+		core: true,
 	},
 	{
-		badge: "https://img.shields.io/badge/OpenText%20DAST-1A2A4A?style=for-the-badge&logoColor=white",
 		name: "OpenText DAST",
 		bgColor: "#1A2A4A",
+		url: "https://www.opentext.com/uk/products/dynamic-application-security-testing",
 	},
 	{
-		badge: "https://img.shields.io/badge/OWASP%20ZAP-1E3A5F?style=for-the-badge&logo=owasp&logoColor=white",
 		name: "OWASP ZAP",
 		bgColor: "#1E3A5F",
+		url: "https://www.zaproxy.org/",
 	},
 	{
-		badge: "https://img.shields.io/badge/Nmap-2C5282?style=for-the-badge&logoColor=white",
 		name: "Nmap",
 		bgColor: "#2C5282",
+		url: "https://nmap.org/",
 	},
 	{
-		badge: "https://img.shields.io/badge/OWASP-2D2D2D?style=for-the-badge&logo=owasp&logoColor=white",
 		name: "OWASP",
 		bgColor: "#2D2D2D",
+		url: "https://owasp.org/",
 	},
 	{
-		badge: "https://img.shields.io/badge/MITRE%20ATT%26CK-7A1A28?style=for-the-badge&logoColor=white",
 		name: "MITRE ATT&CK",
 		bgColor: "#7A1A28",
+		url: "https://attack.mitre.org/",
 	},
 ];
 const technologiesList: SkillItem[] = [
 	{
-		badge: "https://img.shields.io/badge/Git-D94C3A?style=for-the-badge&logo=git&logoColor=white",
 		name: "Git",
 		bgColor: "#D94C3A",
+		url: "https://git-scm.com/",
+		core: true,
 	},
 	{
-		badge: "https://img.shields.io/badge/GitHub-4C2A85?style=for-the-badge&logo=github&logoColor=white",
 		name: "GitHub",
 		bgColor: "#4C2A85",
+		url: "https://github.com/",
 	},
 	{
-		badge: "https://img.shields.io/badge/Azure%20DevOps-2F6FB2?style=for-the-badge&logo=azure-devops&logoColor=white",
 		name: "Azure DevOps",
 		bgColor: "#2F6FB2",
+		url: "https://azure.microsoft.com/products/devops",
 	},
 	{
-		badge: "https://img.shields.io/badge/Cloudflare-E07A2F?style=for-the-badge&logo=cloudflare&logoColor=white",
 		name: "Cloudflare",
 		bgColor: "#E07A2F",
+		url: "https://www.cloudflare.com/",
 	},
 	{
-		badge: "https://img.shields.io/badge/Azure-2C5DAA?style=for-the-badge&logo=microsoftazure&logoColor=white",
 		name: "Azure",
 		bgColor: "#2C5DAA",
+		url: "https://azure.microsoft.com/",
+		core: true,
 	},
 	{
-		badge: "https://img.shields.io/badge/Google%20Cloud-3A78D1?style=for-the-badge&logo=google-cloud&logoColor=white",
 		name: "Google Cloud",
 		bgColor: "#3A78D1",
+		url: "https://cloud.google.com/",
 	},
 	{
-		badge: "https://img.shields.io/badge/VS%20Code-2FA4A9?style=for-the-badge&logo=visual-studio-code&logoColor=white",
+		name: "Oracle Cloud",
+		bgColor: "#C74634",
+		url: "https://www.oracle.com/cloud/",
+	},
+	{
 		name: "Visual Studio Code",
 		bgColor: "#2FA4A9",
+		url: "https://code.visualstudio.com/",
 	},
 ];
+
+const categories = [
+	{ id: "all", label: "All skills", items: [] },
+	{ id: "languages", label: "Languages", items: languagesList },
+	{ id: "stack", label: "Development", items: stackList },
+	{ id: "appSec", label: "AppSec", items: appSecList },
+	{ id: "technologies", label: "Platforms & tools", items: technologiesList },
+] as const;
+
+const allSkills = categories.slice(1).flatMap((category) => category.items);
+const coreStack = allSkills.filter((skill) => skill.core);
+
+function SkillTile({ skill, featured = false }: { skill: SkillItem; featured?: boolean }) {
+	const className = `group relative block overflow-hidden rounded-md border border-foreground/15 bg-card p-3 transition-[border-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-primary hover:shadow-md ${featured ? "sm:min-w-35 sm:flex-1" : ""}`;
+	const content = (
+		<div className="mb-3 flex items-center justify-between gap-2">
+			<span className="text-sm font-semibold text-card-foreground">{skill.name}</span>
+			<span
+				className="size-3 shrink-0 rounded-full ring-1 ring-foreground/45 dark:brightness-150"
+				style={{ backgroundColor: skill.bgColor }}
+				aria-hidden="true"
+			/>
+		</div>
+	);
+
+	return skill.url ? (
+		<a
+			className={className}
+			href={skill.url}
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label={`Learn more about ${skill.name}`}
+		>
+			{content}
+		</a>
+	) : (
+		<div className={className}>{content}</div>
+	);
+}
+
 export default function Skillset() {
+	const [activeCategory, setActiveCategory] = useState("all");
+	const visibleSkills =
+		activeCategory === "all" ? allSkills : (categories.find((category) => category.id === activeCategory)?.items ?? []);
+
 	return (
-		<div className="skillset flex min-h-fit-screen flex-col items-center justify-center p-5" id="skillset">
-			<h2 className="typography-heading-2 mb-10 flex" id="skillsetTitle">
-				Skillset
-			</h2>
-			<div className="grid grid-cols-12 gap-3">
-				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
-					<Card.Header>Languages</Card.Header>
-					<Card.Content>
-						<BadgeDisplay badgeList={languagesList} topic={"languages"} />
-					</Card.Content>
-				</Card>
-				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
-					<Card.Header>Stack</Card.Header>
-					<Card.Content>
-						<BadgeDisplay badgeList={stackList} topic={"stack"} />
-					</Card.Content>
-				</Card>
-				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
-					<Card.Header>AppSec</Card.Header>
-					<Card.Content>
-						<BadgeDisplay badgeList={appSecList} topic={"appSec"} />
-					</Card.Content>
-				</Card>
-				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
-					<Card.Header>Platforms & Tools</Card.Header>
-					<Card.Content>
-						<BadgeDisplay badgeList={technologiesList} topic={"technologies"} />
-					</Card.Content>
-				</Card>
+		<div className="skillset flex w-full min-h-fit-screen justify-center p-5" id="skillset">
+			<div className="w-full max-w-6xl py-10">
+				<div className="flex flex-col gap-5 border-b border-border pb-8">
+					<div>
+						<p className="text-sm font-semibold text-primary uppercase lg:text-base">
+							<a
+								href="#skillset"
+								className="flex items-center gap-2 underline underline-offset-4 transition-colors hover:text-primary focus-visible:outline-hidden"
+							>
+								Skillset <FaTools />
+							</a>
+						</p>
+						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl" id="skillsetTitle">
+							<TypingAnimation
+								strings={["What I work with"]}
+								placeholder="What I work with"
+								perTick={{ update: 2, unit: "character" }}
+							/>
+						</h2>
+					</div>
+					<p className="max-w-3xl text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">
+						A practical toolkit for building web applications, testing their security, and shipping them reliably.
+					</p>
+				</div>
+
+				<div className="mt-8 w-full">
+					<Card hoverLift={false} className="mb-4 border-primary/40 bg-primary/5">
+						<div className="mb-4 flex items-end justify-between gap-4">
+							<div>
+								<p className="text-xs font-semibold tracking-wide text-primary uppercase">Core stack</p>
+								<h3 className="mt-1 text-lg font-semibold">The tools I reach for most</h3>
+							</div>
+						</div>
+						<div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
+							{coreStack.map((skill) => (
+								<SkillTile key={skill.name} skill={skill} featured />
+							))}
+						</div>
+					</Card>
+
+					<div className="mb-4 flex gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Skill categories">
+						{categories.map((category) => {
+							const isActive = category.id === activeCategory;
+							return (
+								<button
+									key={category.id}
+									type="button"
+									role="tab"
+									aria-selected={isActive}
+									onClick={() => setActiveCategory(category.id)}
+									className={`shrink-0 rounded-full border px-3 py-2 text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-hidden ${isActive ? "border-primary bg-primary text-primary-foreground" : "border-foreground/20 bg-background hover:border-primary hover:text-primary"}`}
+								>
+									{category.label}
+								</button>
+							);
+						})}
+					</div>
+
+					<div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+						{visibleSkills.map((skill) => (
+							<SkillTile key={skill.name} skill={skill} />
+						))}
+					</div>
+				</div>
 			</div>
 		</div>
 	);
