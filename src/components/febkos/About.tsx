@@ -3,7 +3,7 @@ import Card from "@feb/components/ui/Card";
 import { FaRegAddressCard } from "react-icons/fa";
 
 const aboutCardClass =
-	"flex w-full min-h-40 flex-col justify-between border-foreground/20 transition-[border-color,transform] duration-200 hover:-translate-y-1 hover:border-primary [&_.card-header]:border-0! [&_.card-header]:p-0! [&_.card-header]:text-sm! [&_.card-header]:font-semibold [&_.card-header]:uppercase [&_.card-header]:text-primary [&_.card-content]:mt-5! [&_.card-content]:p-0! [&_.card-content]:text-lg! [&_.card-content]:leading-7 [&_.card-footer]:mt-5! [&_.card-footer]:border-0! [&_.card-footer]:p-0!";
+	"flex w-full min-h-40 flex-col justify-between border-foreground/20 [&_.card-header]:border-0! [&_.card-header]:p-0! [&_.card-header]:text-sm! [&_.card-header]:font-semibold [&_.card-header]:uppercase [&_.card-header]:text-primary [&_.card-content]:mt-5! [&_.card-content]:p-0! [&_.card-content]:text-lg! [&_.card-content]:leading-7 [&_.card-footer]:mt-5! [&_.card-footer]:border-0! [&_.card-footer]:p-0!";
 
 export default function About() {
 	return (

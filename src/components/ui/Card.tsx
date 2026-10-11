@@ -1,8 +1,19 @@
 import { cx } from "@rinzai/zen";
-interface CardProps extends React.ComponentPropsWithoutRef<"div"> {}
+interface CardProps extends React.ComponentPropsWithoutRef<"div"> {
+	hoverable?: boolean;
+}
 const Card = (props: CardProps) => {
-	const { className, ...rest } = props;
-	return <div className={cx("group card rounded-lg border border-foreground/20 p-4 shadow-xs", className)} {...rest} />;
+	const { className, hoverable = true, ...rest } = props;
+	return (
+		<div
+			className={cx(
+				"group card rounded-lg border border-foreground/20 p-4 shadow-xs",
+				hoverable && "transition-[border-color,transform] duration-200 hover:-translate-y-1 hover:border-primary",
+				className,
+			)}
+			{...rest}
+		/>
+	);
 };
 
 const Header = (props: CardProps) => {
