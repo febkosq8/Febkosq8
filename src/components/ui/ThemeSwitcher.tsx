@@ -2,10 +2,8 @@ import { Menu } from "@feb/components/ui/Menu";
 import Pill from "@feb/components/ui/Pill";
 import { useEffect, useState } from "react";
 import { FaLaptop, FaMoon, FaSun } from "react-icons/fa6";
-import { GiPartyPopper } from "react-icons/gi";
 type Color = "light" | "dark" | "system";
 const themeStorageKey = "theme";
-const funModeStorageKey = "fun-mode";
 
 export default function ThemeSwitcher() {
 	const colorModeIcon: Record<Color, React.ElementType> = { light: FaSun, dark: FaMoon, system: FaLaptop };
@@ -17,9 +15,6 @@ export default function ThemeSwitcher() {
 		}
 	}, []);
 	const [colorMode, setColorMode] = useState<Color>(initialColorMode);
-	const [funMode, setFunMode] = useState(
-		() => localStorage.getItem(funModeStorageKey) === "true" || storedTheme === "fun",
-	);
 	useEffect(() => {
 		document.documentElement.classList.remove("dark");
 		if (colorMode === "dark") {
@@ -29,10 +24,6 @@ export default function ThemeSwitcher() {
 		}
 		localStorage.setItem(themeStorageKey, colorMode);
 	}, [colorMode]);
-	useEffect(() => {
-		document.documentElement.classList.toggle("fun", funMode);
-		localStorage.setItem(funModeStorageKey, String(funMode));
-	}, [funMode]);
 	const Icon = colorModeIcon[colorMode] || FaLaptop;
 	return (
 		<Menu buttonText={<Icon />}>
@@ -60,28 +51,16 @@ export default function ThemeSwitcher() {
 					<FaSun className={`inline-block transform rounded-xs transition`} />
 				</Pill>
 			</Menu.Item>
-			<Menu.Item>
+			<Menu.Item className="rounded-b-md">
 				<Pill
 					active={colorMode === "dark"}
 					title="Dark Theme"
 					onClick={() => {
 						setColorMode("dark");
 					}}
-					className="flex w-full p-6 whitespace-nowrap"
-				>
-					<FaMoon className={`inline-block transform rounded-xs transition`} />
-				</Pill>
-			</Menu.Item>
-			<Menu.Item className="rounded-b-md">
-				<Pill
-					active={funMode}
-					title="Toggle Fun Mode"
-					onClick={() => {
-						setFunMode((enabled) => !enabled);
-					}}
 					className="flex w-full rounded-b-md p-6 whitespace-nowrap"
 				>
-					<GiPartyPopper className="inline-block transform rounded-xs transition" />
+					<FaMoon className={`inline-block transform rounded-xs transition`} />
 				</Pill>
 			</Menu.Item>
 		</Menu>

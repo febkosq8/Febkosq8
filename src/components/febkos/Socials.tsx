@@ -1,6 +1,7 @@
 import Card from "@feb/components/ui/Card";
 import Button from "@feb/components/ui/Button";
 import TypingAnimation from "@feb/components/ui/TypingAnimation";
+import { useEffect, useState } from "react";
 import {
 	FaAmazon,
 	FaBlogger,
@@ -16,8 +17,46 @@ import {
 	FaSteam,
 	FaYoutube,
 } from "react-icons/fa6";
+import { GiPartyPopper } from "react-icons/gi";
+
+const funModeStorageKey = "fun-mode";
+const funIconColors = ["#ef4444", "#f97316", "#eab308", "#22c55e", "#06b6d4", "#3b82f6", "#a855f7", "#ec4899"];
+
+function getRandomFunIconColor() {
+	return funIconColors[Math.floor(Math.random() * funIconColors.length)];
+}
+
 const socialsHeading = ["Let's connect"];
 export default function Socials() {
+	const [funMode, setFunMode] = useState(() => localStorage.getItem(funModeStorageKey) === "true");
+	const [funIconColor, setFunIconColor] = useState(getRandomFunIconColor);
+	const [prefersReducedMotion, setPrefersReducedMotion] = useState(
+		() => window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+	);
+	useEffect(() => {
+		document.documentElement.classList.toggle("fun", funMode);
+		localStorage.setItem(funModeStorageKey, String(funMode));
+	}, [funMode]);
+	useEffect(() => {
+		if (!funMode) {
+			setFunIconColor("var(--primary)");
+			return;
+		}
+
+		const intervalId = setInterval(() => {
+			setFunIconColor(getRandomFunIconColor());
+		}, 500);
+
+		return () => clearInterval(intervalId);
+	}, [funMode]);
+	useEffect(() => {
+		const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+		const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
+
+		mediaQuery.addEventListener("change", updatePreference);
+		return () => mediaQuery.removeEventListener("change", updatePreference);
+	}, []);
+
 	const groups = [
 		{
 			title: "Explore",
@@ -125,6 +164,31 @@ export default function Socials() {
 											</a>
 										</Button>
 									))}
+									{group.title === "Explore" && (
+										<Button
+											variant="outline"
+											className="group/button h-10 gap-2 border-foreground/25 bg-card px-3 py-2 text-sm leading-none hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:text-primary-foreground"
+											onClick={() => setFunMode((enabled) => !enabled)}
+											aria-pressed={funMode}
+											title={
+												prefersReducedMotion ? "Reduced motion is enabled; icons are disabled." : "Toggle fun mode"
+											}
+										>
+											<span
+												className="flex items-center text-base leading-none text-primary transition-colors group-hover/button:text-primary-foreground"
+												aria-hidden="true"
+											>
+												<GiPartyPopper
+													className="text-(--fun-icon-color) transition-colors group-hover/button:text-primary-foreground"
+													style={{ "--fun-icon-color": funIconColor } as React.CSSProperties}
+												/>
+											</span>
+											Unleash Chaos
+											{prefersReducedMotion && funMode && (
+												<span className="text-xs opacity-75">Reduced motion detected - no icons deployed</span>
+											)}
+										</Button>
+									)}
 								</div>
 							</Card.Content>
 						</Card>
