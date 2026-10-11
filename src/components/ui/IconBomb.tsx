@@ -229,7 +229,8 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			const current = particlesRef.current;
 			const width = window.innerWidth;
 			const height = window.innerHeight;
-			const headerBottom = document.querySelector<HTMLElement>("[data-site-header]")?.getBoundingClientRect().bottom ?? 0;
+			const headerBottom =
+				document.querySelector<HTMLElement>("[data-site-header]")?.getBoundingClientRect().bottom ?? 0;
 			current.forEach((particle) => {
 				particle.x += particle.vx * delta;
 				particle.y += particle.vy * delta;
