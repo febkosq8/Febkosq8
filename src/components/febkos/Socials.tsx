@@ -11,6 +11,7 @@ import {
 	FaRegEnvelope,
 	FaRegFilePdf,
 	FaRocket,
+	FaShare,
 	FaSteam,
 	FaYoutube,
 } from "react-icons/fa6";
@@ -68,8 +69,11 @@ export default function Socials() {
 				<div className="flex flex-col gap-5 border-b border-border pb-8">
 					<div>
 						<p className="text-sm font-semibold text-primary uppercase lg:text-base">
-							<a href="#socials" className="transition-colors hover:text-primary focus-visible:outline-hidden">
-								Socials
+							<a
+								href="#socials"
+								className="flex items-center gap-2 underline underline-offset-4 transition-colors hover:text-primary focus-visible:outline-hidden"
+							>
+								Socials <FaShare />
 							</a>
 						</p>
 						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl" id="socialsTitle">
@@ -103,9 +107,12 @@ export default function Socials() {
 											href={link.href}
 											target={link.href.startsWith("mailto:") ? undefined : "_blank"}
 											rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
-											className="inline-flex min-h-10 items-center gap-2 rounded-md border border-foreground/25 bg-card px-3 py-2 text-sm font-medium transition-[border-color,background-color,color,transform] duration-200 hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:text-primary-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-hidden"
+											className="group/button inline-flex min-h-10 items-center gap-2 rounded-md border border-foreground/25 bg-card px-3 py-2 text-sm font-medium transition-[border-color,background-color,color,transform] duration-200 hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:text-primary-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-hidden"
 										>
-											<span className="text-base" aria-hidden="true">
+											<span
+												className="text-base text-primary transition-colors group-hover/button:text-primary-foreground"
+												aria-hidden="true"
+											>
 												{link.icon}
 											</span>
 											{link.label}

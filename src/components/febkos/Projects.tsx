@@ -8,7 +8,7 @@ import Card from "@feb/components/ui/Card";
 import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import { cx } from "@rinzai/zen";
 import { useState } from "react";
-import { FaArrowRight, FaDiscord, FaGithub, FaNpm } from "react-icons/fa";
+import { FaArrowRight, FaCode, FaDiscord, FaGithub, FaNpm } from "react-icons/fa";
 const projectItems = [
 	{
 		imgSrc: DefectListGeneratorImg,
@@ -121,8 +121,11 @@ export default function Projects() {
 				<div className="flex flex-col gap-5 border-b border-border pb-8">
 					<div>
 						<p className="text-sm font-semibold text-primary uppercase lg:text-base">
-							<a href="#projects" className="transition-colors hover:text-primary focus-visible:outline-hidden">
-								Projects
+							<a
+								href="#projects"
+								className="flex items-center gap-2 underline underline-offset-4 transition-colors hover:text-primary focus-visible:outline-hidden"
+							>
+								Projects <FaCode />
 							</a>
 						</p>
 						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl" id="projectsTitle">

@@ -15,7 +15,7 @@ export default function About() {
 						<p className="text-sm font-semibold text-primary uppercase lg:text-base">
 							<a
 								href="#about"
-								className="flex items-center gap-2 transition-colors hover:text-primary focus-visible:outline-hidden"
+								className="flex items-center gap-2 underline underline-offset-4 transition-colors hover:text-primary focus-visible:outline-hidden"
 							>
 								About me <FaRegAddressCard />
 							</a>

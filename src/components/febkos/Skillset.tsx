@@ -1,5 +1,6 @@
 import Card from "@feb/components/ui/Card";
 import TypingAnimation from "@feb/components/ui/TypingAnimation";
+import { FaTools } from "react-icons/fa";
 import { useState } from "react";
 
 export type SkillItem = {
@@ -218,8 +219,11 @@ export default function Skillset() {
 				<div className="flex flex-col gap-5 border-b border-border pb-8">
 					<div>
 						<p className="text-sm font-semibold text-primary uppercase lg:text-base">
-							<a href="#skillset" className="transition-colors hover:text-primary focus-visible:outline-hidden">
-								Skillset
+							<a
+								href="#skillset"
+								className="flex items-center gap-2 underline underline-offset-4 transition-colors hover:text-primary focus-visible:outline-hidden"
+							>
+								Skillset <FaTools />
 							</a>
 						</p>
 						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl" id="skillsetTitle">
