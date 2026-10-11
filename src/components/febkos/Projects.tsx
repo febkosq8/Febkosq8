@@ -8,7 +8,7 @@ import Card from "@feb/components/ui/Card";
 import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import { cx } from "@rinzai/zen";
 import { useState } from "react";
-import { FaArrowRight, FaCode, FaDiscord, FaGithub, FaNpm } from "react-icons/fa";
+import { FaArrowRight, FaCode, FaDiscord, FaGithub, FaInfoCircle, FaNpm } from "react-icons/fa";
 const projectsHeading = ["Things I've built"];
 const projectItems = [
 	{
@@ -171,7 +171,7 @@ export default function Projects() {
 							>
 								<h3 className="text-xl leading-6 font-semibold text-white">{item.title}</h3>
 								<span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-white/15 text-white transition-colors group-hover:bg-white/25">
-									<FaArrowRight className="h-4 w-4" />
+									<FaInfoCircle className="h-4 w-4" />
 								</span>
 							</button>
 							<div
