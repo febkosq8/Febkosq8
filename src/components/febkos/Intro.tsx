@@ -15,14 +15,14 @@ const selfDescriptions = [
 export default function Intro() {
 	return (
 		<div className="intro flex min-h-fit-screen items-center p-5 text-foreground" id="intro">
-			<div className="w-full max-w-5xl">
+			<div className="w-full max-w-7xl">
 				<p className="mb-4 text-sm font-semibold text-primary uppercase lg:text-base">Hello, I'm</p>
 				<h1 className="max-w-4xl text-5xl leading-none font-semibold sm:text-6xl lg:text-8xl">Febin Koshy Philip</h1>
 				<p className="mt-6 flex items-baseline gap-3 text-2xl lg:text-4xl">
 					<span className="text-primary">A</span>
 					<TypingAnimation strings={selfDescriptions} />
 				</p>
-				<p className="mt-8 text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">
+				<p className="mt-8 text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8 xl:whitespace-nowrap">
 					I build things to understand them, turning complicated problems into practical tools and curiosity into better
 					systems.
 				</p>

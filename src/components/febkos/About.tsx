@@ -21,8 +21,7 @@ export default function About() {
 						</h2>
 					</div>
 					<p className="text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">
-						I build things to understand them, turning complicated problems into practical tools and curiosity into
-						better systems.
+						Most of what I learn starts with something I want to build.
 						<br />
 						Online, I go by Febkosq8.
 					</p>
