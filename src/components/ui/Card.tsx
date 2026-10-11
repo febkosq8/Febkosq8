@@ -1,12 +1,26 @@
 import { cx } from "@rinzai/zen";
 interface CardProps extends React.ComponentPropsWithoutRef<"div"> {
 	hoverable?: boolean;
+	hoverLift?: boolean;
+	hoverBorder?: boolean;
+	hoverGradient?: boolean;
 }
 const Card = (props: CardProps) => {
-	const { className, hoverable = true, onPointerMove, ...rest } = props;
+	const {
+		className,
+		hoverable = true,
+		hoverLift = true,
+		hoverBorder = true,
+		hoverGradient = true,
+		onPointerMove,
+		...rest
+	} = props;
+	const hasHoverLift = hoverable && hoverLift;
+	const hasHoverBorder = hoverable && hoverBorder;
+	const hasHoverGradient = hoverable && hoverGradient;
 	const handlePointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
 		onPointerMove?.(event);
-		if (!hoverable) return;
+		if (!hasHoverGradient) return;
 
 		const bounds = event.currentTarget.getBoundingClientRect();
 		event.currentTarget.style.setProperty("--card-pointer-x", `${event.clientX - bounds.left}px`);
@@ -15,12 +29,14 @@ const Card = (props: CardProps) => {
 	return (
 		<div
 			className={cx(
-				"group card card-cursor-border relative rounded-lg border border-foreground/20 p-4 shadow-xs",
-				hoverable &&
-					"transition-[border-color,transform] duration-300 ease-out hover:-translate-y-1 hover:border-primary",
+				"group card relative rounded-lg border border-foreground/20 p-4 shadow-xs",
+				hasHoverGradient && "card-cursor-border",
+				(hasHoverLift || hasHoverBorder) && "transition-[border-color,transform] duration-300 ease-out",
+				hasHoverLift && "hover:-translate-y-1",
+				hasHoverBorder && "hover:border-primary",
 				className,
 			)}
-			onPointerMove={hoverable ? handlePointerMove : onPointerMove}
+			onPointerMove={hasHoverGradient ? handlePointerMove : onPointerMove}
 			{...rest}
 		/>
 	);

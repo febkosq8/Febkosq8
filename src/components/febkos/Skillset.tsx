@@ -161,25 +161,25 @@ export default function Skillset() {
 				Skillset
 			</h2>
 			<div className="grid grid-cols-12 gap-3">
-				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
+				<Card hoverLift={false} className="col-span-12 row-span-3 flex flex-col justify-between">
 					<Card.Header>Languages</Card.Header>
 					<Card.Content>
 						<BadgeDisplay badgeList={languagesList} topic={"languages"} />
 					</Card.Content>
 				</Card>
-				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
+				<Card hoverLift={false} className="col-span-12 row-span-3 flex flex-col justify-between">
 					<Card.Header>Stack</Card.Header>
 					<Card.Content>
 						<BadgeDisplay badgeList={stackList} topic={"stack"} />
 					</Card.Content>
 				</Card>
-				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
+				<Card hoverLift={false} className="col-span-12 row-span-3 flex flex-col justify-between">
 					<Card.Header>AppSec</Card.Header>
 					<Card.Content>
 						<BadgeDisplay badgeList={appSecList} topic={"appSec"} />
 					</Card.Content>
 				</Card>
-				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
+				<Card hoverLift={false} className="col-span-12 row-span-3 flex flex-col justify-between">
 					<Card.Header>Platforms & Tools</Card.Header>
 					<Card.Content>
 						<BadgeDisplay badgeList={technologiesList} topic={"technologies"} />

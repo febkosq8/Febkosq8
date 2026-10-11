@@ -20,7 +20,7 @@ export default function Socials() {
 				Socials
 			</h2>
 			<div className="flex w-full flex-col gap-3">
-				<Card hoverable={false} className="flex flex-col justify-between">
+				<Card hoverLift={false} className="flex flex-col justify-between">
 					<Card.Header>Know more</Card.Header>
 					<Card.Content className="flex gap-2">
 						<div className="flex flex-wrap gap-2">
@@ -58,7 +58,7 @@ export default function Socials() {
 						</div>
 					</Card.Content>
 				</Card>
-				<Card hoverable={false} className="flex flex-col justify-between">
+				<Card hoverLift={false} className="flex flex-col justify-between">
 					<Card.Header>Contact me through</Card.Header>
 					<Card.Content className="flex gap-2">
 						<div className="flex flex-wrap gap-2">
@@ -85,7 +85,7 @@ export default function Socials() {
 						</div>
 					</Card.Content>
 				</Card>
-				<Card hoverable={false} className="flex flex-col justify-between">
+				<Card hoverLift={false} className="flex flex-col justify-between">
 					<Card.Header>Support me</Card.Header>
 					<Card.Content className="flex gap-2">
 						<div className="flex flex-wrap gap-2">
