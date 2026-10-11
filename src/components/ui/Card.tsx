@@ -29,7 +29,7 @@ const Card = (props: CardProps) => {
 	return (
 		<div
 			className={cx(
-				"group card relative rounded-lg border border-foreground/20 p-4 shadow-xs",
+				"group card relative rounded-lg border border-foreground/40 p-4 shadow-xs",
 				hasHoverGradient && "card-cursor-border",
 				(hasHoverLift || hasHoverBorder) && "transition-[border-color,transform] duration-300 ease-out",
 				hasHoverLift && "hover:-translate-y-1",
@@ -46,7 +46,7 @@ const Header = (props: CardProps) => {
 	const { className, ...rest } = props;
 	return (
 		<h2
-			className={cx("card-header flex w-full typography-heading-3 flex-col border-foreground/20 px-2 pb-2", className)}
+			className={cx("card-header flex w-full typography-heading-3 flex-col border-foreground/40 px-2 pb-2", className)}
 			{...rest}
 		/>
 	);
@@ -68,7 +68,7 @@ const Footer = (props: CardProps) => {
 	return (
 		<div
 			className={cx(
-				"card-footer mt-auto mb-0 flex w-full items-end justify-start border-t border-foreground/20 px-2 py-2",
+				"card-footer mt-auto mb-0 flex w-full items-end justify-start border-t border-foreground/40 px-2 py-2",
 				className,
 			)}
 			{...rest}

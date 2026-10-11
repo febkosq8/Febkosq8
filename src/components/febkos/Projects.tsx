@@ -112,70 +112,80 @@ const projectItems = [
 ];
 export default function Projects() {
 	return (
-		<div className="projects flex min-h-fit-screen flex-col items-center justify-center p-5" id="projects">
-			<h1 className="typography-heading-2 mb-10" id="projectsTitle">
-				<a href="#projects" className="transition-colors hover:text-primary focus-visible:outline-hidden">
-					Projects
-				</a>
-			</h1>
-			<div className="flex w-full flex-row flex-wrap items-center justify-center gap-2">
-				{projectItems.map((item, index) => (
-					<Card
-						key={index}
-						className="col-span-6 row-span-3 flex h-50 w-full max-w-[90vw] overflow-clip p-0! sm:w-175 sm:max-w-187.5 sm:min-w-162.5"
-					>
-						<div className="relative hidden h-full! w-25 overflow-hidden sm:block sm:w-auto sm:max-w-80 sm:min-w-80">
-							<img
-								className={cx(
-									"card-image size-full object-cover transition-[scale,filter] duration-300",
-									!!item?.tech && item.tech.length > 0
-										? "group-hover:scale-250 group-hover:object-center group-hover:blur-xs"
-										: "",
-								)}
-								src={item.imgSrc}
-								alt={item.title}
-							/>
-							{!!item?.tech && item.tech.length > 0 && (
-								<div className="invisible absolute -bottom-125 z-10 flex h-full w-full items-center justify-center p-2 transition-all duration-300 group-hover:visible group-hover:bottom-0">
-									<div className="flex flex-row flex-wrap items-center justify-center-safe gap-2 whitespace-pre-wrap">
-										{item.tech.map((tech, index) => (
-											<span
-												key={`${index}_tech`}
-												className="size-fit rounded-md bg-secondary px-2 py-1 text-xs font-semibold whitespace-nowrap text-secondary-foreground"
-											>
-												{tech}
-											</span>
-										))}
-									</div>
-								</div>
-							)}
-						</div>
+		<div className="projects flex min-h-fit-screen justify-center p-5" id="projects">
+			<div className="w-full max-w-6xl py-10">
+				<div className="flex flex-col gap-5 border-b border-border pb-8">
+					<div>
+						<p className="text-sm font-semibold text-primary uppercase lg:text-base">
+							<a href="#projects" className="transition-colors hover:text-primary focus-visible:outline-hidden">
+								Projects
+							</a>
+						</p>
+						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl" id="projectsTitle">
+							Things I&apos;ve built
+						</h2>
+					</div>
+					<p className="max-w-3xl text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">
+						A selection of web applications, developer tools, and security-focused projects.
+					</p>
+				</div>
 
-						<div className="card-body flex h-full w-full flex-col items-start py-2">
-							<Card.Header>{item.title}</Card.Header>
-							<Card.Content>{item.description}</Card.Content>
-							{item.actions.length > 0 && (
-								<Card.Footer className="projectItemBtns flex flex-row gap-2">
-									{item.actions.map((action, index) => (
-										<a
-											key={`${index}_Project`}
-											href={action.url}
-											target="_blank"
-											rel="noopener noreferrer"
-											className={cx(
-												"inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50",
-												"bg-primary text-nowrap text-primary-foreground hover:bg-primary/90",
-												"h-10 w-fit gap-1 px-3 py-2",
-											)}
-										>
-											{action.name}
-										</a>
-									))}
-								</Card.Footer>
-							)}
-						</div>
-					</Card>
-				))}
+				<div className="mt-8 grid w-full grid-cols-1 items-start gap-3 lg:grid-cols-2">
+					{projectItems.map((item, index) => (
+						<Card key={index} className="flex min-w-0 flex-col overflow-clip p-0!">
+							<div className="relative aspect-16/5 w-full shrink-0 overflow-hidden">
+								<img
+									className={cx(
+										"card-image size-full object-cover transition-[scale,filter] duration-300",
+										!!item?.tech && item.tech.length > 0
+											? "group-hover:scale-250 group-hover:object-center group-hover:blur-xs"
+											: "",
+									)}
+									src={item.imgSrc}
+									alt={item.title}
+								/>
+								{!!item?.tech && item.tech.length > 0 && (
+									<div className="invisible absolute -bottom-125 z-10 flex h-full w-full items-center justify-center p-2 transition-all duration-300 group-hover:visible group-hover:bottom-0">
+										<div className="flex flex-row flex-wrap items-center justify-center-safe gap-2 whitespace-pre-wrap">
+											{item.tech.map((tech, index) => (
+												<span
+													key={`${index}_tech`}
+													className="size-fit rounded-md bg-secondary px-2 py-1.5 text-sm font-semibold whitespace-nowrap text-secondary-foreground"
+												>
+													{tech}
+												</span>
+											))}
+										</div>
+									</div>
+								)}
+							</div>
+
+							<div className="card-body flex min-w-0 w-full flex-1 flex-col items-start">
+								<Card.Header className="px-4 py-3! text-lg! leading-6! font-semibold!">{item.title}</Card.Header>
+								<Card.Content className="px-4 py-3! text-base! leading-6!">{item.description}</Card.Content>
+								{item.actions.length > 0 && (
+									<Card.Footer className="projectItemBtns flex flex-row flex-wrap gap-2 px-4 py-3!">
+										{item.actions.map((action, index) => (
+											<a
+												key={`${index}_Project`}
+												href={action.url}
+												target="_blank"
+												rel="noopener noreferrer"
+												className={cx(
+													"inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:outline-hidden disabled:pointer-events-none disabled:opacity-50",
+													"bg-primary text-nowrap text-primary-foreground hover:bg-primary/90",
+													"h-10 w-fit gap-1 px-3 py-2",
+												)}
+											>
+												{action.name}
+											</a>
+										))}
+									</Card.Footer>
+								)}
+							</div>
+						</Card>
+					))}
+				</div>
 			</div>
 		</div>
 	);
