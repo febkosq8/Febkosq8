@@ -1,9 +1,11 @@
 import Button from "@feb/components/ui/Button";
 import Card from "@feb/components/ui/Card";
+import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import { FaRegAddressCard } from "react-icons/fa";
 
 const aboutCardClass =
 	"flex w-full min-h-40 flex-col justify-between [&_.card-header]:border-0! [&_.card-header]:p-0! [&_.card-header]:text-sm! [&_.card-header]:font-semibold [&_.card-header]:uppercase [&_.card-header]:text-primary [&_.card-content]:mt-5! [&_.card-content]:p-0! [&_.card-content]:text-lg! [&_.card-content]:leading-7 [&_.card-footer]:mt-5! [&_.card-footer]:border-0! [&_.card-footer]:p-0!";
+const aboutHeading = ["Security-minded builder,\ncurious by default."];
 
 export default function About() {
 	return (
@@ -15,9 +17,11 @@ export default function About() {
 							About me <FaRegAddressCard />
 						</p>
 						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl">
-							Security-minded builder,
-							<br />
-							curious by default.
+							<TypingAnimation
+								strings={aboutHeading}
+								placeholder={aboutHeading[0]}
+								perTick={{ update: 2, unit: "character" }}
+							/>
 						</h2>
 					</div>
 					<p className="text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">

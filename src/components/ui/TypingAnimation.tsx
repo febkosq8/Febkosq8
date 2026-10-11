@@ -1,54 +1,128 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+type PerTickUnit = "character" | "word";
 
 interface TypingAnimationProps {
 	strings: string[];
-	typingDelay?: number;
-	deletingDelay?: number;
-	pauseDelay?: number;
+	placeholder?: string;
+	perTick?: {
+		update?: number;
+		unit?: PerTickUnit;
+	};
+	delay?: {
+		typing?: number;
+		deleting?: number;
+		pause?: number;
+	};
+	startWhenVisible?: boolean;
+	pauseWhenHidden?: boolean;
+	loop?: boolean;
+	visibilityThreshold?: number;
+}
+
+function getNextIndex(text: string, index: number, amount: number, unit: PerTickUnit, direction: 1 | -1) {
+	if (unit === "character") {
+		return Math.max(0, Math.min(text.length, index + amount * direction));
+	}
+
+	const wordBoundaries = [...text.matchAll(/\S+\s*/g)].map((match) => match.index! + match[0].length);
+	let nextIndex = index;
+
+	for (let step = 0; step < amount; step += 1) {
+		if (direction === 1) {
+			nextIndex = wordBoundaries.find((boundary) => boundary > nextIndex) ?? text.length;
+		} else {
+			nextIndex = [...wordBoundaries].reverse().find((boundary) => boundary < nextIndex) ?? 0;
+		}
+	}
+
+	return nextIndex;
 }
 
 export default function TypingAnimation({
 	strings,
-	typingDelay = 110,
-	deletingDelay = 55,
-	pauseDelay = 1800,
+	placeholder,
+	perTick,
+	delay,
+	startWhenVisible = true,
+	pauseWhenHidden = true,
+	loop = strings.length > 1,
+	visibilityThreshold = 0,
 }: TypingAnimationProps) {
+	const typingDelay = delay?.typing ?? 110;
+	const deletingDelay = delay?.deleting ?? 55;
+	const pauseDelay = delay?.pause ?? 1800;
+	const tickUpdate = perTick?.update ?? 1;
+	const tickAmount = Number.isFinite(tickUpdate) ? Math.max(1, Math.floor(tickUpdate)) : 1;
+	const tickUnit = perTick?.unit ?? "character";
 	const [currentText, setCurrentText] = useState("");
+	const [isVisible, setIsVisible] = useState(!startWhenVisible);
+	const containerRef = useRef<HTMLSpanElement>(null);
+	const stringIndexRef = useRef(0);
+	const characterIndexRef = useRef(0);
+	const deletingRef = useRef(false);
 
 	useEffect(() => {
-		if (strings.length === 0) {
+		if (!startWhenVisible) return;
+
+		const element = containerRef.current;
+		if (!element) return;
+
+		const observer = new IntersectionObserver(
+			([entry]) => {
+				if (entry.isIntersecting) {
+					setIsVisible(true);
+				} else if (pauseWhenHidden) {
+					setIsVisible(false);
+				}
+			},
+			{ threshold: visibilityThreshold },
+		);
+
+		observer.observe(element);
+		return () => observer.disconnect();
+	}, [pauseWhenHidden, startWhenVisible, visibilityThreshold]);
+
+	useEffect(() => {
+		if (!isVisible || strings.length === 0) {
 			return;
 		}
 
-		let stringIndex = 0;
-		let characterIndex = 0;
-		let deleting = false;
 		let timeout: ReturnType<typeof setTimeout>;
 
 		const animate = () => {
-			const string = strings[stringIndex];
+			const string = strings[stringIndexRef.current];
+			if (!loop && characterIndexRef.current >= string.length) return;
 
-			if (!deleting) {
-				characterIndex += 1;
-				setCurrentText(string.slice(0, characterIndex));
-				deleting = characterIndex === string.length;
+			if (!deletingRef.current) {
+				characterIndexRef.current = getNextIndex(string, characterIndexRef.current, tickAmount, tickUnit, 1);
+				setCurrentText(string.slice(0, characterIndexRef.current));
+				deletingRef.current = loop && characterIndexRef.current === string.length;
 			} else {
-				characterIndex -= 1;
-				setCurrentText(string.slice(0, characterIndex));
-				if (characterIndex === 0) {
-					deleting = false;
-					stringIndex = (stringIndex + 1) % strings.length;
+				characterIndexRef.current = getNextIndex(string, characterIndexRef.current, tickAmount, tickUnit, -1);
+				setCurrentText(string.slice(0, characterIndexRef.current));
+				if (characterIndexRef.current === 0) {
+					deletingRef.current = false;
+					stringIndexRef.current = (stringIndexRef.current + 1) % strings.length;
 				}
 			}
 
-			const delay = characterIndex === string.length ? pauseDelay : deleting ? deletingDelay : typingDelay;
+			const delay =
+				characterIndexRef.current >= string.length ? pauseDelay : deletingRef.current ? deletingDelay : typingDelay;
 			timeout = setTimeout(animate, delay);
 		};
 
 		animate();
 
 		return () => clearTimeout(timeout);
-	}, [deletingDelay, pauseDelay, strings, typingDelay]);
+	}, [deletingDelay, isVisible, loop, pauseDelay, strings, tickAmount, tickUnit, typingDelay]);
 
-	return <>{currentText}</>;
+	return (
+		<span ref={containerRef} className="inline-grid align-top">
+			<span aria-hidden="true" className="invisible col-start-1 row-start-1 whitespace-pre-line">
+				{placeholder ?? strings[0]}
+			</span>
+			<span className="col-start-1 row-start-1 whitespace-pre-line">{currentText}</span>
+		</span>
+	);
 }
