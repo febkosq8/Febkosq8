@@ -73,8 +73,11 @@ const iconSpawnAnimation = {
 	intervalMs: 600,
 	durationMs: 1000,
 } as const;
-const iconCaptureAnimationDurationMs = 2000;
-const iconClickResponseDelayMs = 220;
+const iconCapture = {
+	requiredClicks: 1,
+	durationMs: 2000,
+	responseDelayMs: 220,
+} as const;
 const gameplayElapsedUpdateIntervalMs = 300;
 
 function getPlayableArea() {
@@ -95,7 +98,6 @@ type Particle = (typeof iconParticles)[number] & {
 
 interface IconBombProps {
 	count?: number;
-	popClickThreshold?: number;
 }
 
 interface ThresholdMotion {
@@ -173,7 +175,7 @@ function formatElapsedTime(totalSeconds: number) {
 	return parts.join(" ") || "0s";
 }
 
-export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBombProps) {
+export default function IconBomb({ count = 10 }: IconBombProps) {
 	const isChaosRoute = typeof window !== "undefined" && window.location.pathname === "/chaos";
 	const navigate = useNavigate();
 	const [funModeEnabled, setFunModeEnabled] = useState(
@@ -217,9 +219,6 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 		setThresholdMotion(new Map());
 		setThresholdPoppingParticles(new Set());
 	};
-	const normalizedPopClickThreshold = Number.isFinite(popClickThreshold)
-		? Math.max(1, Math.floor(popClickThreshold))
-		: 6;
 	const markParticlesEntering = (ids: number[]) => {
 		setEnteringParticles((current) => new Set([...current, ...ids]));
 		ids.forEach((id) => {
@@ -274,47 +273,45 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 	}, []);
 	const prelude = useMemo(
 		() => [
-			`${count} CHARGES ESCAPED FROM A GREAT MYSTERY LAND.`,
+			"INCOMING TRANSMISSION FROM THE GREAT MYSTERY LAND.",
+			`${count} CHARGES ARE MOVING THROUGH THE FIELD.`,
 			"THEY ARE FRAGMENTS OF A BROKEN STAR ENGINE.",
-			"THE ENGINE KEPT DISTANT WORLDS IN ORBIT.",
+			"THE ENGINE ONCE KEPT DISTANT WORLDS IN ORBIT.",
 			"<--delay-2-->",
-			"LONG BEFORE THE ESCAPE, THE WORLDS WERE OUT OF SYNC.",
+			"THE WORLDS FELL OUT OF SYNC.",
 			"THEIR SEAS ROSE AT DIFFERENT TIMES.",
 			"THEIR MOONS FORGOT WHICH WAY TO TURN.",
-			"THE ORBITAL ARCHIVISTS BUILT THE STAR ENGINE.",
+			"THE ORBITAL ARCHIVISTS BUILT THE ENGINE TO RESTORE THE PATTERN.",
 			"IT WAS NOT A WEAPON.",
 			"IT WAS A PROMISE THAT EVERYTHING COULD RETURN.",
-			"THE ENGINE STORED THE MEMORY OF EVERY ORBIT.",
-			"THE CHARGES WERE MADE FROM THOSE MEMORIES.",
-			"A CRACK IN THE SKY TAUGHT THE CHARGES HOW TO RUN.",
+			"THEN A CRACK OPENED IN THE SKY.",
+			"THE CHARGES LEARNED HOW TO RUN.",
 			"EVERY CAPTURE SEALS THE CRACK FOR ONE MORE NIGHT.",
 			"<--delay-6-->",
 			"<--clearAll-->",
-			`CURRENT OBJECTIVE :\nCAPTURE ALL ${count} CHARGES.`,
-			`CAPTURE A CHARGE WITH A ${normalizedPopClickThreshold}-HIT COMBO.`,
-			"SELECT A CHARGE TO INITIATE THE ORBITAL SEALING PROTOCOL.",
+			"FIELD CONTROL TRANSFERRED TO YOU.",
+			`OBJECTIVE :\nCAPTURE ALL ${count} CHARGES.`,
+			`ONE CLICK SEALS A CHARGE.`,
+			"SELECT A CHARGE TO BEGIN.",
 		],
-		[count, normalizedPopClickThreshold],
+		[count],
 	);
 	const credits = useMemo(
 		() => [
 			"MISSION COMPLETE",
-			"ALL CHARGES HAVE BEEN CAPTURED",
+			`ALL ${count} CHARGES HAVE BEEN CAPTURED`,
 			"THE ORBITAL SEALING PROTOCOL IS COMPLETE",
 			"THE CRACK IS CLOSED",
 			"THE GREAT MYSTERY LAND IS QUIET AGAIN",
-			"THE CHARGES WERE FRAGMENTS OF A BROKEN STAR ENGINE",
-			"THE ENGINE ONCE KEPT DISTANT WORLDS IN ORBIT",
-			"WHEN THE SKY FOLDED, THE CHARGES FELL THROUGH THE CRACK",
-			"THE GREAT MYSTERY LAND CAUGHT THEM",
-			"AND TAUGHT THEM HOW TO RUN",
 			"YOU ENTERED THE FIELD WITHOUT A MAP",
 			"THE COMPUTER OPENED THE GATES",
+			"YOU FOUND THE CHARGES",
 			"TOGETHER, YOU CLOSED THE LOOP",
 			"BUT THE LOOP IS SEALED, NOT HEALED",
 			"THE ARCHIVISTS HAVE FOUND A MISSING ORBIT",
 			"A WORLD ERASED FROM EVERY STAR MAP",
 			"THE ENGINE IS TRYING TO RESTORE WHAT NO ONE REMEMBERS",
+			"<--delay-3-->",
 			"SOMETHING ON THE OTHER SIDE HEARD THE SEAL CLOSE",
 			"SOMETHING ANSWERED WITH A SINGLE FLASH",
 			"THE COMPUTER MARKED IT AS AN UNRESOLVED VARIABLE",
@@ -324,7 +321,9 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			"THE NEXT GATE WILL NOT OPEN BY ACCIDENT",
 			"THE NEXT ESCAPE MAY NOT BE SO FRIENDLY",
 			"THANK YOU FOR YOUR SERVICE TO THIS UNIVERSE",
+			"<--delay-6-->",
 			"<--clearAll-->",
+			"<--delay-2-->",
 			"CREDITS",
 			"WORLD BUILDING: ME",
 			"FIELD NAVIGATION: YOU",
@@ -346,9 +345,11 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			"FINAL APPROACH: YOU",
 			"ERROR DETECTION: COMPUTER",
 			"FINAL WARNING: UNIVERSE",
+			"<--delay-6-->",
+			"<--clearAll-->",
 			"THANKS FOR PLAYING",
 		],
-		[],
+		[count],
 	);
 
 	useEffect(() => {
@@ -480,11 +481,11 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			clickTimers.current.delete(id);
 			const particle = particlesRef.current.find((currentParticle) => currentParticle.id === id);
 			if (!particle) return;
-			if (clickCount >= normalizedPopClickThreshold) {
+			if (clickCount >= iconCapture.requiredClicks) {
 				const spinDirection = Math.random() > 0.5 ? 1 : -1;
 				const travelDirection = Math.random() > 0.5 ? 1 : -1;
 				const motion: ThresholdMotion = {
-					duration: iconCaptureAnimationDurationMs,
+					duration: iconCapture.durationMs,
 					shake: 4 + Math.floor(Math.random() * 10),
 					tilt: -18 + Math.floor(Math.random() * 37),
 					spin: spinDirection * (540 + Math.floor(Math.random() * 1080)),
@@ -511,7 +512,7 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			particle.vy *= -1.5;
 			particle.spin *= 3;
 			setParticleState(particlesRef.current.map((currentParticle) => ({ ...currentParticle })));
-		}, iconClickResponseDelayMs);
+		}, iconCapture.responseDelayMs);
 		clickTimers.current.set(id, timer);
 	};
 
@@ -633,7 +634,7 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 									"--icon-size": particle.size,
 									"--icon-color": particle.color,
 									"--icon-rotation": `${particle.rotation}deg`,
-									"--threshold-duration": `${thresholdMotion.get(particle.id)?.duration ?? iconCaptureAnimationDurationMs}ms`,
+									"--threshold-duration": `${thresholdMotion.get(particle.id)?.duration ?? iconCapture.durationMs}ms`,
 									"--threshold-shake": `${thresholdMotion.get(particle.id)?.shake ?? 5}px`,
 									"--threshold-tilt": `${thresholdMotion.get(particle.id)?.tilt ?? 0}deg`,
 									"--threshold-spin": `${thresholdMotion.get(particle.id)?.spin ?? 720}deg`,
