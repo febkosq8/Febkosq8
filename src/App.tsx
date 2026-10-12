@@ -51,12 +51,8 @@ function App() {
 			window.history.replaceState(window.history.state, "", `${window.location.pathname}${window.location.search}`);
 		}
 		document.documentElement.classList.add("fun");
-		const timeoutId = window.setTimeout(() => {
-			window["chaos-game"]?.({});
-		}, 0);
 
 		return () => {
-			window.clearTimeout(timeoutId);
 			document.documentElement.classList.toggle("fun", funModeBeforeChaos);
 		};
 	}, [pathname]);

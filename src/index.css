@@ -394,14 +394,6 @@
 	animation: fun-enter var(--fun-enter-duration) ease-out both;
 }
 
-.fun-background__icon--clicked {
-	animation: fun-click-shake 420ms ease-out;
-}
-
-.fun-background__icon--clicked-alt {
-	animation-name: fun-click-shake-alt;
-}
-
 .fun-background__icon--threshold-popping {
 	animation: fun-threshold-pop var(--threshold-duration, 3000ms) ease-in-out forwards;
 	color: var(--fun-capture-color);
@@ -441,38 +433,6 @@
 	100% {
 		transform: translate(-50%, -50%) rotate(var(--icon-rotation)) scale(1);
 		opacity: 0.76;
-	}
-}
-
-@keyframes fun-click-shake {
-	0%,
-	100% {
-		transform: translate(-50%, -50%) rotate(var(--icon-rotation));
-	}
-	25% {
-		transform: translate(calc(-50% - 24px), calc(-50% - 10px)) rotate(calc(var(--icon-rotation) - 24deg));
-	}
-	50% {
-		transform: translate(calc(-50% + 24px), calc(-50% + 10px)) rotate(calc(var(--icon-rotation) + 24deg));
-	}
-	75% {
-		transform: translate(calc(-50% - 14px), calc(-50% + 6px)) rotate(calc(var(--icon-rotation) - 14deg));
-	}
-}
-
-@keyframes fun-click-shake-alt {
-	0%,
-	100% {
-		transform: translate(-50%, -50%) rotate(var(--icon-rotation));
-	}
-	25% {
-		transform: translate(calc(-50% - 24px), calc(-50% - 10px)) rotate(calc(var(--icon-rotation) - 24deg));
-	}
-	50% {
-		transform: translate(calc(-50% + 24px), calc(-50% + 10px)) rotate(calc(var(--icon-rotation) + 24deg));
-	}
-	75% {
-		transform: translate(calc(-50% - 14px), calc(-50% + 6px)) rotate(calc(var(--icon-rotation) - 14deg));
 	}
 }
 

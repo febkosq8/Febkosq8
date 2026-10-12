@@ -80,7 +80,6 @@ const iconCapture = {
 	durationMs: 2000,
 	responseDelayMs: 220,
 } as const;
-const particleClickShakeDurationMs = 420;
 const gameplayElapsedUpdateIntervalMs = 300;
 
 function getPlayableDimensions() {
@@ -215,7 +214,6 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 	);
 	const [particles, setParticles] = useState<Particle[]>(() => createParticles(count));
 	const [thresholdPoppingParticles, setThresholdPoppingParticles] = useState<Set<number>>(() => new Set());
-	const [clickedParticles, setClickedParticles] = useState<Map<number, number>>(() => new Map());
 	const [thresholdMotion, setThresholdMotion] = useState<Map<number, ThresholdMotion>>(() => new Map());
 	const [chaosMode, setChaosMode] = useState(isChaosRoute);
 	const [gameStarted, setGameStarted] = useState(false);
@@ -237,7 +235,6 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 	const chaosTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 	const completionRespawnTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 	const enteringParticleTimers = useRef(new Map<number, ReturnType<typeof setTimeout>>());
-	const clickShakeTimers = useRef(new Map<number, ReturnType<typeof setTimeout>>());
 	const pointerActivatedParticles = useRef(new Set<number>());
 	const preludeRevealTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 	const setVisibleCount = (nextCount: number) => {
@@ -274,27 +271,8 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 		setParticles(nextParticles);
 	};
 	const resetParticleEffects = () => {
-		setClickedParticles(new Map());
 		setThresholdMotion(new Map());
 		setThresholdPoppingParticles(new Set());
-	};
-	const markParticleClicked = (id: number) => {
-		setClickedParticles((current) => {
-			const next = new Map(current);
-			next.set(id, (next.get(id) ?? 0) + 1);
-			return next;
-		});
-		const existingTimer = clickShakeTimers.current.get(id);
-		if (existingTimer) clearTimeout(existingTimer);
-		const timer = setTimeout(() => {
-			clickShakeTimers.current.delete(id);
-			setClickedParticles((current) => {
-				const next = new Map(current);
-				next.delete(id);
-				return next;
-			});
-		}, particleClickShakeDurationMs);
-		clickShakeTimers.current.set(id, timer);
 	};
 	const markParticlesEntering = (ids: number[]) => {
 		setEnteringParticles((current) => new Set([...current, ...ids]));
@@ -479,6 +457,8 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 		};
 
 		window.addEventListener("chaos-collapse", handleChaosCollapse);
+		if (isChaosRoute) handleChaosCollapse(new Event("chaos-collapse"));
+
 		return () => {
 			window.removeEventListener("chaos-collapse", handleChaosCollapse);
 			if (chaosTimer.current) clearInterval(chaosTimer.current);
@@ -486,17 +466,25 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 	}, [count]);
 
 	useEffect(() => {
+		let resizeResetTimer: ReturnType<typeof setTimeout> | null = null;
 		const handleViewportResize = () => {
 			if (!chaosModeRef.current) {
 				setVisibleCount(getVisibleParticleLimit(particlesRef.current.length));
 				return;
 			}
 
-			window["chaos-game"]?.({});
+			if (resizeResetTimer) clearTimeout(resizeResetTimer);
+			resizeResetTimer = setTimeout(() => {
+				resizeResetTimer = null;
+				window["chaos-game"]?.({});
+			}, 200);
 		};
 
 		window.addEventListener("resize", handleViewportResize);
-		return () => window.removeEventListener("resize", handleViewportResize);
+		return () => {
+			window.removeEventListener("resize", handleViewportResize);
+			if (resizeResetTimer) clearTimeout(resizeResetTimer);
+		};
 	}, []);
 
 	const removeParticle = (id: number) => {
@@ -543,7 +531,6 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 
 	const handleParticleClick = (id: number) => {
 		if (gameComplete || !startClickHandling(id)) return;
-		markParticleClicked(id);
 
 		if (chaosModeRef.current && !hasClickedIcon.current) {
 			hasClickedIcon.current = true;
@@ -600,16 +587,8 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 				clickTimers.current.set(id, removalTimer);
 				return;
 			}
-			particle.vx *= -1.15;
 			setParticleState(particlesRef.current.map((currentParticle) => ({ ...currentParticle })));
-			const unlockTimer = setTimeout(
-				() => {
-					clickTimers.current.delete(id);
-					finishClickHandling(id);
-				},
-				Math.max(0, particleClickShakeDurationMs - iconCapture.responseDelayMs),
-			);
-			clickTimers.current.set(id, unlockTimer);
+			finishClickHandling(id);
 		}, iconCapture.responseDelayMs);
 		clickTimers.current.set(id, timer);
 	};
@@ -638,8 +617,6 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 		return () => {
 			window.dispatchEvent(new CustomEvent("chaos-stats", { detail: { active: false } }));
 			clearClickTimers();
-			clickShakeTimers.current.forEach((timer) => clearTimeout(timer));
-			clickShakeTimers.current.clear();
 			enteringParticleTimers.current.forEach((timer) => clearTimeout(timer));
 			if (preludeRevealTimer.current) clearInterval(preludeRevealTimer.current);
 			clearChaosTimers();
@@ -733,7 +710,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 							variant="ghost"
 							size="icon"
 							aria-label="Interactive background icon"
-							className={`fun-background__icon${handlingClickIds.has(particle.id) ? " fun-background__icon--handling" : ""}${enteringParticles.has(particle.id) ? " fun-background__icon--entering" : ""}${clickedParticles.has(particle.id) ? " fun-background__icon--clicked" : ""}${(clickedParticles.get(particle.id) ?? 0) % 2 === 0 && clickedParticles.has(particle.id) ? " fun-background__icon--clicked-alt" : ""}${thresholdPoppingParticles.has(particle.id) ? " fun-background__icon--threshold-popping" : ""}`}
+							className={`fun-background__icon${handlingClickIds.has(particle.id) ? " fun-background__icon--handling" : ""}${enteringParticles.has(particle.id) ? " fun-background__icon--entering" : ""}${thresholdPoppingParticles.has(particle.id) ? " fun-background__icon--threshold-popping" : ""}`}
 							onPointerDown={() => handleParticlePointerDown(particle.id)}
 							onClick={() => handleParticleKeyboardClick(particle.id)}
 							style={
