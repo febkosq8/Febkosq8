@@ -26,7 +26,7 @@ export default function ThemeSwitcher() {
 	}, [colorMode]);
 	const Icon = colorModeIcon[colorMode] || FaLaptop;
 	return (
-		<Menu buttonText={<Icon />}>
+		<Menu buttonText={<Icon className="text-foreground" />}>
 			<Menu.Item className="rounded-t-md">
 				<Pill
 					active={colorMode === "system"}
