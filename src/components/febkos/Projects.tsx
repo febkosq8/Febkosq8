@@ -192,7 +192,7 @@ export default function Projects() {
 											{item.tech.map((tech, index) => (
 												<span
 													key={`${index}_tech`}
-													className="rounded-md bg-white/15 px-2 py-1 text-xs font-semibold whitespace-nowrap text-white backdrop-blur-sm"
+													className="rounded-md bg-white/20 px-2 py-1 text-xs font-semibold whitespace-nowrap text-white shadow-sm"
 												>
 													{tech}
 												</span>
