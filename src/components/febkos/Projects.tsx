@@ -180,7 +180,7 @@ export default function Projects() {
 								aria-expanded={expandedProject === index}
 								onClick={() => setExpandedProject(expandedProject === index ? null : index)}
 								className={cx(
-									"absolute inset-x-0 bottom-0 h-auto items-end justify-between gap-3 rounded-none bg-linear-to-t from-black/90 to-transparent p-4 text-left transition-opacity duration-300 sm:group-hover:pointer-events-none sm:group-hover:opacity-0",
+									"absolute inset-x-0 bottom-0 h-auto min-h-24 items-end justify-between gap-3 rounded-none bg-linear-to-t from-black/85 via-black/35 to-transparent p-4 text-left transition-opacity duration-300 sm:group-hover:pointer-events-none sm:group-hover:opacity-0",
 									expandedProject === index && "pointer-events-none opacity-0",
 								)}
 							>
@@ -218,9 +218,9 @@ export default function Projects() {
 													asChild
 													key={`${index}_Project`}
 													variant="outline"
-													className="h-9 w-fit gap-1 px-3 py-2 text-nowrap"
+													className="h-9 w-fit gap-1 border-white/70 bg-black/50 px-3 py-2 text-nowrap text-white hover:bg-white/20 hover:text-white"
 												>
-													<a key={`${index}_Project`} href={action.url} target="_blank" rel="noopener noreferrer">
+													<a href={action.url} target="_blank" rel="noopener noreferrer">
 														{action.name}
 													</a>
 												</Button>
