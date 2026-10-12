@@ -33,7 +33,7 @@ export default function About() {
 							/>
 						</h2>
 					</div>
-					<p className="text-base leading-7 text-foreground/80 sm:text-lg lg:text-xl lg:leading-8">
+					<p className="max-w-3xl text-base leading-7 text-foreground/80 sm:text-lg lg:text-xl lg:leading-8">
 						Most of what I learn starts with something I want to build.
 						<br />
 						Online, I go by Febkosq8.

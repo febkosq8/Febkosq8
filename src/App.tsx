@@ -146,7 +146,7 @@ function App() {
 	}, []);
 
 	return (
-		<div className="relative flex h-screen w-screen flex-col overflow-hidden bg-background text-slate-600 dark:text-slate-100">
+		<div className="relative flex h-screen w-screen flex-col overflow-hidden bg-background text-foreground">
 			<FunBackground iconCount={30} showIcons={pathname !== "/chaos"} />
 			<Header />
 			<main

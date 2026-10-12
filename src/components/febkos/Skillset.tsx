@@ -264,7 +264,7 @@ function SkillTile({ skill, featured = false }: { skill: SkillItem; featured?: b
 				</div>
 				<skill.icon className="size-4 shrink-0" aria-hidden="true" />
 			</div>
-			{skill.category && <span className="text-xs leading-none text-card-foreground/60">{skill.category}</span>}
+			{skill.category && <span className="text-xs leading-none text-foreground">{skill.category}</span>}
 		</div>
 	);
 
@@ -327,11 +327,11 @@ export default function Skillset() {
 				</div>
 
 				<div className="mt-8 w-full">
-					<Card hoverLift={false} className="mb-4 border-primary/80 bg-primary/40">
+					<Card hoverLift={false} className="mb-4 border-primary/60 bg-primary/15">
 						<div className="mb-4 flex items-end justify-between gap-4">
 							<div>
 								<p className="text-xs font-semibold tracking-wide text-primary uppercase">Core stack</p>
-								<h3 className="mt-1 text-lg font-semibold">The tools I reach for most</h3>
+								<h3 className="mt-1 text-lg font-semibold text-foreground">The tools I reach for most</h3>
 							</div>
 						</div>
 						<div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
