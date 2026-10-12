@@ -202,7 +202,12 @@ export default function Projects() {
 									{item.actions.length > 0 && (
 										<div className="projectItemBtns flex flex-row flex-wrap gap-2">
 											{item.actions.map((action, index) => (
-												<Button asChild key={`${index}_Project`} className="h-9 w-fit gap-1 px-3 py-2 text-nowrap">
+												<Button
+													asChild
+													key={`${index}_Project`}
+													variant="outline"
+													className="h-9 w-fit gap-1 px-3 py-2 text-nowrap"
+												>
 													<a key={`${index}_Project`} href={action.url} target="_blank" rel="noopener noreferrer">
 														{action.name}
 													</a>
