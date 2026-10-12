@@ -110,26 +110,30 @@ export default function Header() {
 			<a href="/" className="font-bold">
 				<AnimatedText text="Febkosq8" />
 			</a>
-			{isChaos && chaosStats?.active && (
+			{isChaos && (
 				<div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-2">
 					<span className="whitespace-nowrap text-xs font-bold uppercase tracking-[0.08em]">Chaos Control</span>
-					<span aria-hidden="true" className="h-5 w-px bg-border" />
-					<div className="chaos-header-stats" aria-live="polite">
-						<span>{chaosStats.charges} charges remain</span>
-						<span>{chaosStats.elapsed} elapsed</span>
-					</div>
-					<span aria-hidden="true" className="h-5 w-px bg-border" />
-					<Button
-						className="chaos-header-exit"
-						type="button"
-						variant="outline"
-						size="icon"
-						aria-label="Exit chaos mission"
-						title="Exit chaos mission"
-						onClick={() => navigate("/")}
-					>
-						<ImExit aria-hidden="true" />
-					</Button>
+					{chaosStats?.active && (
+						<>
+							<span aria-hidden="true" className="h-5 w-px bg-border" />
+							<div className="chaos-header-stats" aria-live="polite">
+								<span>{chaosStats.charges} charges remain</span>
+								<span>{chaosStats.elapsed} elapsed</span>
+							</div>
+							<span aria-hidden="true" className="h-5 w-px bg-border" />
+							<Button
+								className="chaos-header-exit"
+								type="button"
+								variant="outline"
+								size="icon"
+								aria-label="Exit chaos mission"
+								title="Exit chaos mission"
+								onClick={() => navigate("/")}
+							>
+								<ImExit aria-hidden="true" />
+							</Button>
+						</>
+					)}
 				</div>
 			)}
 			<div className="flex items-center gap-2">

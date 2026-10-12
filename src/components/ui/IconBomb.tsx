@@ -206,6 +206,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 	const [chaosMode, setChaosMode] = useState(isChaosRoute);
 	const [gameStarted, setGameStarted] = useState(false);
 	const [gameComplete, setGameComplete] = useState(false);
+	const [dialogueResetKey, setDialogueResetKey] = useState(0);
 	const [enteringParticles, setEnteringParticles] = useState<Set<number>>(() => new Set());
 	const [visibleParticleCount, setVisibleParticleCount] = useState(0);
 	const visibleParticleCountRef = useRef(0);
@@ -414,6 +415,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 			const targetState = control.state ?? "idle";
 			const viewportIsTooSmall = getPlayableArea() < minimumPlayableArea;
 			const resetParticles = createParticles(targetCount);
+			setDialogueResetKey((current) => current + 1);
 			viewportTooSmallRef.current = viewportIsTooSmall;
 			setParticleState(resetParticles);
 			clearClickTimers();
@@ -660,6 +662,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 			{chaosMode && !viewportTooSmall && !gameStarted && (
 				<div className="chaos-rules" aria-live="polite">
 					<TypingAnimation
+						key={dialogueResetKey}
 						strings={prelude}
 						startWhenVisible={false}
 						perTick={{ update: 2, unit: "character" }}
@@ -673,6 +676,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 				<div className="chaos-collapse-message chaos-collapse-message--complete" aria-live="polite">
 					<div className="chaos-credits" aria-label="Mission credits">
 						<TypingAnimation
+							key={dialogueResetKey}
 							strings={credits}
 							startWhenVisible={false}
 							perTick={{ update: 2, unit: "character" }}
