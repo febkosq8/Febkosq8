@@ -1,9 +1,17 @@
 import LinkPill from "@feb/components/ui/LinkPill";
+import Button from "@feb/components/ui/Button";
 import { Menu } from "@feb/components/ui/Menu";
 import ThemeSwitcher from "@feb/components/ui/ThemeSwitcher";
 import { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa";
-import { useLocation } from "react-router";
+import { useLocation, useNavigate } from "react-router";
+import { ImExit } from "react-icons/im";
+
+interface ChaosStats {
+	charges: number;
+	elapsed: string;
+	active: boolean;
+}
 
 function AnimatedText({ text }: { text: string }) {
 	const [colorIndex, setColorIndex] = useState(0);
@@ -68,13 +76,23 @@ function AnimatedText({ text }: { text: string }) {
 
 export default function Header() {
 	const { pathname } = useLocation();
+	const navigate = useNavigate();
 	const [currHref, setCurrHref] = useState(window.location.hash);
+	const [chaosStats, setChaosStats] = useState<ChaosStats | null>(null);
 	const isChaos = pathname === "/chaos";
 
 	useEffect(() => {
 		window.addEventListener("hashchange", () => {
 			setCurrHref(window.location.hash);
 		});
+	}, []);
+
+	useEffect(() => {
+		const handleChaosStats = (event: Event) => {
+			setChaosStats((event as CustomEvent<ChaosStats>).detail);
+		};
+		window.addEventListener("chaos-stats", handleChaosStats);
+		return () => window.removeEventListener("chaos-stats", handleChaosStats);
 	}, []);
 
 	const navigationItems = [
@@ -87,11 +105,30 @@ export default function Header() {
 	return (
 		<div
 			data-site-header
-			className="relative z-50 flex w-full shrink-0 items-center justify-between border border-b-2 bg-background px-8 py-1 text-lg lg:text-2xl"
+			className="relative z-50 flex w-full shrink-0 items-center justify-between border border-b-2 bg-background px-3 py-1 text-lg sm:px-8 lg:text-2xl"
 		>
 			<a href="/" className="font-bold">
 				<AnimatedText text="Febkosq8" />
 			</a>
+			{isChaos && chaosStats?.active && (
+				<div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-2">
+					<div className="chaos-header-stats" aria-live="polite">
+						<span>{chaosStats.charges} charges remain</span>
+						<span>{chaosStats.elapsed} elapsed</span>
+					</div>
+					<Button
+						className="chaos-header-exit"
+						type="button"
+						variant="outline"
+						size="icon"
+						aria-label="Exit chaos mission"
+						title="Exit chaos mission"
+						onClick={() => navigate("/")}
+					>
+						<ImExit aria-hidden="true" />
+					</Button>
+				</div>
+			)}
 			<div className="flex items-center gap-2">
 				{!isChaos && (
 					<>

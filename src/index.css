@@ -221,6 +221,28 @@
 	white-space: normal;
 }
 
+.chaos-header-stats {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 1rem;
+	min-width: 0;
+	font-weight: 700;
+	font-size: 0.8rem;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+	.chaos-header-stats {
+		flex-direction: column;
+		gap: 0.5rem;
+		font-size: 0.65rem;
+		line-height: 1.1;
+	}
+}
+
 .chaos-collapse-message--complete {
 	inset: 0;
 	top: auto;
@@ -235,6 +257,11 @@
 	bottom: 1.5rem;
 	left: 50%;
 	transform: translateX(-50%);
+}
+
+.chaos-header-exit {
+	cursor: pointer;
+	color: hsl(0 84% 60%);
 }
 
 .chaos-credits {

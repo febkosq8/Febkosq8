@@ -573,7 +573,20 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 	};
 
 	useEffect(() => {
+		window.dispatchEvent(
+			new CustomEvent("chaos-stats", {
+				detail: {
+					charges: particles.length,
+					elapsed: formatElapsedTime(chaosElapsedSeconds),
+					active: chaosMode && gameStarted && !gameComplete,
+				},
+			}),
+		);
+	}, [chaosElapsedSeconds, chaosMode, gameComplete, gameStarted, particles.length]);
+
+	useEffect(() => {
 		return () => {
+			window.dispatchEvent(new CustomEvent("chaos-stats", { detail: { active: false } }));
 			clearClickTimers();
 			clickShakeTimers.current.forEach((timer) => clearTimeout(timer));
 			clickShakeTimers.current.clear();
@@ -631,7 +644,12 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 					<div>THE ORBITAL WINDOW COLLAPSED.</div>
 					<div>THE COMPUTER CANNOT VERIFY THIS ESCAPE PATH.</div>
 					<div>THE MISSION MUST BE ABORTED.</div>
-					<Button className="pointer-events-auto mt-3" variant="outline" size="sm" onClick={() => navigate("/")}>
+					<Button
+						className="chaos-give-up pointer-events-auto"
+						variant="outline"
+						size="sm"
+						onClick={() => navigate("/")}
+					>
 						Leave mission
 					</Button>
 				</div>
@@ -646,15 +664,6 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 						loop={false}
 						postStringFinish="newline"
 					/>
-				</div>
-			)}
-			{chaosMode && gameStarted && !gameComplete && (
-				<div className="chaos-collapse-message" aria-live="polite">
-					<div>{particles.length} charges remain</div>
-					<div>{formatElapsedTime(chaosElapsedSeconds)} has gone by</div>
-					<Button className="pointer-events-auto mt-3" variant="outline" size="sm" onClick={() => navigate("/")}>
-						Give up
-					</Button>
 				</div>
 			)}
 			{chaosMode && gameComplete && (
