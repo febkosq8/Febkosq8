@@ -67,7 +67,9 @@ const particleColors = [
 	"hsl(12 70% 42%)",
 ];
 
-const minimumPlayableArea = 320 * 480;
+const minimumPlayableWidth = 320;
+const minimumPlayableHeight = 480;
+const minimumPlayableArea = minimumPlayableWidth * minimumPlayableHeight;
 const playableAreaPerIcon = 180 * 180;
 const iconSpawnAnimation = {
 	intervalMs: 600,
@@ -80,9 +82,22 @@ const iconCapture = {
 } as const;
 const gameplayElapsedUpdateIntervalMs = 300;
 
-function getPlayableArea() {
+function getPlayableDimensions() {
 	const headerBottom = document.querySelector<HTMLElement>("[data-site-header]")?.getBoundingClientRect().bottom ?? 0;
-	return window.innerWidth * Math.max(0, window.innerHeight - headerBottom);
+	return {
+		width: window.innerWidth,
+		height: Math.max(0, window.innerHeight - headerBottom),
+	};
+}
+
+function getPlayableArea() {
+	const { width, height } = getPlayableDimensions();
+	return width * height;
+}
+
+function isViewportTooSmall() {
+	const { width, height } = getPlayableDimensions();
+	return width < minimumPlayableWidth || height < minimumPlayableHeight || width * height < minimumPlayableArea;
 }
 
 function getVisibleParticleLimit(availableCount: number) {
@@ -411,7 +426,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 			const control = (event as CustomEvent<ChaosControl>).detail ?? {};
 			const targetCount = Number.isFinite(control.count) ? Math.max(0, Math.floor(control.count!)) : count;
 			const targetState = control.state ?? "idle";
-			const viewportIsTooSmall = getPlayableArea() < minimumPlayableArea;
+			const viewportIsTooSmall = isViewportTooSmall();
 			const resetParticles = createParticles(targetCount);
 			setDialogueResetKey((current) => current + 1);
 			viewportTooSmallRef.current = viewportIsTooSmall;

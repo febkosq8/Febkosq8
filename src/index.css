@@ -327,9 +327,7 @@
 .fun-background__wash {
 	position: absolute;
 	filter: blur(20px) hue-rotate(-18deg);
-	animation:
-		fun-hue 26s ease-in-out infinite alternate,
-		fun-drift 32s ease-in-out infinite alternate;
+	animation: fun-hue 26s ease-in-out infinite alternate;
 	inset: -20%;
 	overflow: hidden;
 }
@@ -372,6 +370,12 @@
 	pointer-events: auto;
 	color: var(--icon-color);
 	font-size: var(--icon-size);
+}
+
+@media (max-width: 640px) {
+	.fun-background__icon {
+		font-size: calc(var(--icon-size) * 0.6);
+	}
 }
 
 .chaos-collapse .fun-background__icon {
