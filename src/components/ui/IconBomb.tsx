@@ -445,24 +445,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 				return;
 			}
 
-			const isEligible = getPlayableArea() >= minimumPlayableArea;
-			if (isEligible) {
-				if (viewportTooSmallRef.current) {
-					window["chaos-game"]?.({});
-				} else {
-					setVisibleCount(getVisibleParticleLimit(particlesRef.current.length));
-				}
-				return;
-			}
-			if (viewportTooSmallRef.current) return;
-
-			viewportTooSmallRef.current = true;
-			clearClickTimers();
-			clearChaosTimers();
-			setParticleState([]);
-			setGameStarted(false);
-			setGameComplete(false);
-			setViewportTooSmall(true);
+			window["chaos-game"]?.({});
 		};
 
 		window.addEventListener("resize", handleViewportResize);
@@ -564,8 +547,8 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 				clickTimers.current.set(id, removalTimer);
 				return;
 			}
-			particle.vx *= -1.5;
-			particle.vy *= -1.5;
+			particle.vx *= -1.15;
+			particle.vy *= -1.15;
 			particle.spin *= 3;
 			setParticleState(particlesRef.current.map((currentParticle) => ({ ...currentParticle })));
 		}, iconCapture.responseDelayMs);
