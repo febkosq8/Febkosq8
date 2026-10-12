@@ -87,7 +87,7 @@ export default function Header() {
 	return (
 		<div
 			data-site-header
-			className="relative z-50 flex w-full items-center justify-between border border-b-2 bg-background px-8 py-1 text-lg lg:text-2xl"
+			className="relative z-50 flex w-full shrink-0 items-center justify-between border border-b-2 bg-background px-8 py-1 text-lg lg:text-2xl"
 		>
 			<a href="/" className="font-bold">
 				<AnimatedText text="Febkosq8" />

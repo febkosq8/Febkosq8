@@ -4,6 +4,7 @@ import WrongPage from "@feb/pages/WrongPage";
 import Button from "@feb/components/ui/Button";
 import FunBackground from "@feb/components/ui/FunBackground";
 import IconBomb from "@feb/components/ui/IconBomb";
+import { cx } from "@rinzai/zen";
 import { useEffect, useRef, useState } from "react";
 import { Route, Routes, useLocation } from "react-router";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
@@ -175,7 +176,7 @@ function App() {
 			<FunBackground iconCount={25} showIcons={pathname !== "/chaos"} />
 			<Header />
 			<main
-				className={pathname === "/chaos" ? "relative z-10 h-screen overflow-hidden" : "relative z-10 overflow-y-auto"}
+				className={cx("relative z-10 min-h-0 flex-1", pathname === "/chaos" ? "overflow-hidden" : "overflow-y-auto")}
 			>
 				<Routes>
 					<Route path="/" element={<Febkos />} />
