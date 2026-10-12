@@ -63,18 +63,21 @@ function App() {
 			document.documentElement.classList.remove("chaos-collapse");
 			return;
 		}
+		const funModeBeforeChaos = document.documentElement.classList.contains("fun");
 
 		if (window.location.hash) {
 			window.history.replaceState(window.history.state, "", `${window.location.pathname}${window.location.search}`);
 			setDocumentTitle(pathname);
 		}
 		document.documentElement.classList.add("fun");
-		localStorage.setItem("fun-mode", "true");
 		const timeoutId = window.setTimeout(() => {
 			window["chaos-game"]?.({});
 		}, 0);
 
-		return () => window.clearTimeout(timeoutId);
+		return () => {
+			window.clearTimeout(timeoutId);
+			document.documentElement.classList.toggle("fun", funModeBeforeChaos);
+		};
 	}, [pathname]);
 
 	useEffect(() => {
