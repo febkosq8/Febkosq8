@@ -194,7 +194,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 	const isChaosRoute = typeof window !== "undefined" && window.location.pathname === "/chaos";
 	const navigate = useNavigate();
 	useEffect(() => {
-		if (isChaosRoute) document.title = "Febkosq8 - Chaos";
+		if (isChaosRoute) document.title = "Febkosq8 - Chaos Control";
 	}, [isChaosRoute]);
 	const [funModeEnabled, setFunModeEnabled] = useState(
 		() => typeof document !== "undefined" && document.documentElement.classList.contains("fun"),
