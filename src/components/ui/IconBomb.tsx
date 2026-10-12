@@ -69,6 +69,7 @@ const particleColors = [
 ];
 
 const minimumPlayableArea = 320 * 480;
+const playableAreaPerIcon = 180 * 180;
 const iconSpawnAnimation = {
 	intervalMs: 600,
 	durationMs: 1000,
@@ -83,6 +84,11 @@ const gameplayElapsedUpdateIntervalMs = 300;
 function getPlayableArea() {
 	const headerBottom = document.querySelector<HTMLElement>("[data-site-header]")?.getBoundingClientRect().bottom ?? 0;
 	return window.innerWidth * Math.max(0, window.innerHeight - headerBottom);
+}
+
+function getVisibleParticleLimit(availableCount: number) {
+	if (availableCount <= 0) return 0;
+	return Math.min(Math.floor(getPlayableArea() / playableAreaPerIcon), availableCount);
 }
 
 function randomBetween(minimum: number, maximum: number) {
@@ -269,17 +275,18 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 	const startIconSpawn = (targetCount: number) => {
 		if (preludeRevealTimer.current) clearInterval(preludeRevealTimer.current);
 		const maximumCount = Math.max(0, Math.floor(targetCount));
-		let revealedCount = Math.min(1, maximumCount);
+		const visibleLimit = getVisibleParticleLimit(maximumCount);
+		let revealedCount = Math.min(1, visibleLimit);
 		const firstParticle = particlesRef.current[0];
 		if (firstParticle) markParticlesEntering([firstParticle.id]);
 		setVisibleParticleCount(revealedCount);
-		if (revealedCount >= maximumCount) return;
+		if (revealedCount >= visibleLimit) return;
 		preludeRevealTimer.current = setInterval(() => {
 			revealedCount += 1;
 			const particle = particlesRef.current[revealedCount - 1];
 			if (particle) markParticlesEntering([particle.id]);
 			setVisibleParticleCount(revealedCount);
-			if (revealedCount >= maximumCount && preludeRevealTimer.current) {
+			if (revealedCount >= visibleLimit && preludeRevealTimer.current) {
 				clearInterval(preludeRevealTimer.current);
 				preludeRevealTimer.current = null;
 			}
@@ -406,7 +413,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 				startIconSpawn(targetCount);
 			} else {
 				if (preludeRevealTimer.current) clearInterval(preludeRevealTimer.current);
-				setVisibleParticleCount(viewportIsTooSmall ? 0 : targetCount);
+				setVisibleParticleCount(viewportIsTooSmall ? 0 : getVisibleParticleLimit(targetCount));
 				markParticlesEntering(resetParticles.map((particle) => particle.id));
 			}
 			if (viewportIsTooSmall) setParticles([]);
@@ -428,11 +435,18 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 
 	useEffect(() => {
 		const handleViewportResize = () => {
-			if (!chaosModeRef.current) return;
+			if (!chaosModeRef.current) {
+				setVisibleParticleCount(getVisibleParticleLimit(particlesRef.current.length));
+				return;
+			}
 
 			const isEligible = getPlayableArea() >= minimumPlayableArea;
 			if (isEligible) {
-				if (viewportTooSmallRef.current) window["chaos-game"]?.({});
+				if (viewportTooSmallRef.current) {
+					window["chaos-game"]?.({});
+				} else {
+					setVisibleParticleCount(getVisibleParticleLimit(particlesRef.current.length));
+				}
 				return;
 			}
 			if (viewportTooSmallRef.current) return;
@@ -484,6 +498,11 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 			next.delete(id);
 			return next;
 		});
+		const nextVisibleCount = getVisibleParticleLimit(remaining.length);
+		if (remaining.length >= visibleParticleCount && remaining[nextVisibleCount - 1]) {
+			markParticlesEntering([remaining[nextVisibleCount - 1].id]);
+		}
+		setVisibleParticleCount(nextVisibleCount);
 		setParticleState(remaining.map((particle) => ({ ...particle })));
 	};
 
@@ -497,7 +516,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 			if (preludeRevealTimer.current) clearInterval(preludeRevealTimer.current);
 			const hiddenParticles = particlesRef.current.slice(visibleParticleCount);
 			markParticlesEntering(hiddenParticles.map((particle) => particle.id));
-			setVisibleParticleCount(particlesRef.current.length);
+			setVisibleParticleCount(getVisibleParticleLimit(particlesRef.current.length));
 			const startedAt = Date.now();
 			const updateElapsedTime = () => {
 				setChaosElapsedSeconds(Math.floor((Date.now() - startedAt) / 1000));
