@@ -23,7 +23,7 @@ const MenuComponent: React.FC<MenuProps> = ({ className, active, buttonText, chi
 					variant="ghost"
 					type="button"
 					className={cx(
-						"w-fit gap-1 p-2 text-xl font-bold text-muted-foreground",
+						"w-fit gap-1 p-2 text-xl font-bold text-foreground",
 						active ? "bg-primary text-primary-foreground" : "",
 						className,
 					)}
