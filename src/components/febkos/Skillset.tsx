@@ -248,7 +248,8 @@ const categories = [
 
 const allSkills = categories
 	.slice(1)
-	.flatMap((category) => category.items.map((skill) => ({ ...skill, category: category.label })));
+	.flatMap((category) => category.items.map((skill) => ({ ...skill, category: category.label })))
+	.sort((a, b) => a.name.localeCompare(b.name));
 const coreStack = allSkills.filter((skill) => skill.core).sort((a, b) => a.name.localeCompare(b.name));
 
 function SkillTile({ skill, featured = false }: { skill: SkillItem; featured?: boolean }) {
