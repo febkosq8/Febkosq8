@@ -199,7 +199,7 @@ export default function Socials() {
 												}
 											}}
 											aria-pressed={funMode}
-											title={`${funMode ? "Turn off" : "Turn on"} fun mode.${prefersReducedMotion ? " Reduced motion preferred; icons will be disabled." : ""}`}
+											title={`${funMode ? "Turn off" : "Turn on"} fun mode.${prefersReducedMotion ? " Reduced motion preferred; icons will be disabled." : ""}\nDouble click to unleash chaos.`}
 										>
 											<span className="flex items-center text-base leading-none text-primary" aria-hidden="true">
 												<GiPartyPopper

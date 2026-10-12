@@ -5,6 +5,11 @@
 
 @custom-variant dark (&:is(.dark *));
 
+:root {
+	--fun-enter-duration: 800ms;
+	--fun-capture-color: hsl(0 0% 100%);
+}
+
 @theme {
 	--spacing-fit-screen: calc(100dvh - 4rem);
 
@@ -217,12 +222,9 @@
 }
 
 .chaos-collapse-message--complete {
-	display: flex;
 	inset: 0;
 	top: auto;
 	left: auto;
-	justify-content: center;
-	align-items: center;
 	transform: none;
 	width: 100%;
 	height: 100%;
@@ -231,21 +233,44 @@
 .chaos-collapse-message--complete > button {
 	position: absolute;
 	bottom: 1.5rem;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+.chaos-credits {
+	position: absolute;
+	mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 82%, transparent);
+	inset: 0;
+	overflow: hidden;
+}
+
+.chaos-credits__roll {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, calc(-1.8em * var(--roll-offset, 0)));
+	transition: transform 220ms ease-out;
+	padding: 0 1rem 45vh;
+	width: min(42rem, 100%);
+	color: var(--foreground);
+	font-weight: 700;
+	font-size: clamp(1rem, 2vw, 1.5rem);
+	line-height: 1.8;
+	text-align: center;
+}
+
+.chaos-credits__line {
+	min-height: 1.8em;
+	white-space: pre-line;
 }
 
 .chaos-rules {
 	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
 	z-index: 40;
-	box-sizing: border-box;
-	padding: 0 1rem;
-	width: 100vw;
-	color: var(--foreground);
-	font-weight: 700;
-	font-size: clamp(1rem, 2vw, 1.5rem);
-	text-align: center;
+	mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 82%, transparent);
+	inset: 0;
+	overflow: hidden;
+	pointer-events: none;
 }
 
 .dark .fun-background {
@@ -306,9 +331,13 @@
 	animation: fun-pop 260ms ease-out forwards;
 }
 
+.fun-background__icon--entering {
+	animation: fun-enter var(--fun-enter-duration) ease-out both;
+}
+
 .fun-background__icon--threshold-popping {
 	animation: fun-threshold-pop var(--threshold-duration, 3000ms) ease-in-out forwards;
-	color: hsl(8 88% 58%);
+	color: var(--fun-capture-color);
 }
 
 @keyframes fun-pop {
@@ -323,6 +352,28 @@
 	100% {
 		transform: translate(-50%, -50%) rotate(var(--icon-rotation)) scale(0.2);
 		opacity: 0;
+	}
+}
+
+@keyframes fun-enter {
+	0% {
+		transform: translate(-50%, -50%) rotate(calc(var(--icon-rotation) + 720deg)) scale(0.2);
+		opacity: 0;
+	}
+	25% {
+		transform: translate(calc(-50% + 12px), calc(-50% - 14px)) rotate(calc(var(--icon-rotation) + 540deg)) scale(0.52);
+		opacity: 0.7;
+	}
+	50% {
+		transform: translate(calc(-50% - 14px), calc(-50% - 8px)) rotate(calc(var(--icon-rotation) + 360deg)) scale(0.8);
+		opacity: 1;
+	}
+	75% {
+		transform: translate(calc(-50% - 8px), calc(-50% + 12px)) rotate(calc(var(--icon-rotation) + 180deg)) scale(1.08);
+	}
+	100% {
+		transform: translate(-50%, -50%) rotate(var(--icon-rotation)) scale(1);
+		opacity: 0.76;
 	}
 }
 

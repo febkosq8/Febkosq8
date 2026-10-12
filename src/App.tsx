@@ -173,7 +173,7 @@ function App() {
 
 	return (
 		<div className="relative flex h-screen w-screen flex-col overflow-hidden bg-background text-slate-600 dark:text-slate-100">
-			<FunBackground iconCount={25} showIcons={pathname !== "/chaos"} />
+			<FunBackground iconCount={30} showIcons={pathname !== "/chaos"} />
 			<Header />
 			<main
 				className={cx("relative z-10 min-h-0 flex-1", pathname === "/chaos" ? "overflow-hidden" : "overflow-y-auto")}

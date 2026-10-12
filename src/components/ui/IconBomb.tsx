@@ -69,6 +69,13 @@ const particleColors = [
 ];
 
 const minimumPlayableArea = 320 * 480;
+const iconSpawnAnimation = {
+	intervalMs: 300,
+	durationMs: 800,
+} as const;
+const iconCaptureAnimationDurationMs = 2000;
+const iconClickResponseDelayMs = 220;
+const gameplayElapsedUpdateIntervalMs = 300;
 
 function getPlayableArea() {
 	const headerBottom = document.querySelector<HTMLElement>("[data-site-header]")?.getBoundingClientRect().bottom ?? 0;
@@ -169,12 +176,17 @@ function formatElapsedTime(totalSeconds: number) {
 export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBombProps) {
 	const isChaosRoute = typeof window !== "undefined" && window.location.pathname === "/chaos";
 	const navigate = useNavigate();
+	const [funModeEnabled, setFunModeEnabled] = useState(
+		() => typeof document !== "undefined" && document.documentElement.classList.contains("fun"),
+	);
 	const [particles, setParticles] = useState<Particle[]>(() => createParticles(count));
 	const [thresholdPoppingParticles, setThresholdPoppingParticles] = useState<Set<number>>(() => new Set());
 	const [thresholdMotion, setThresholdMotion] = useState<Map<number, ThresholdMotion>>(() => new Map());
 	const [chaosMode, setChaosMode] = useState(isChaosRoute);
 	const [gameStarted, setGameStarted] = useState(false);
 	const [gameComplete, setGameComplete] = useState(false);
+	const [enteringParticles, setEnteringParticles] = useState<Set<number>>(() => new Set());
+	const [visibleParticleCount, setVisibleParticleCount] = useState(0);
 	const [viewportTooSmall, setViewportTooSmall] = useState(false);
 	const [chaosElapsedSeconds, setChaosElapsedSeconds] = useState(0);
 	const particlesRef = useRef(particles);
@@ -185,14 +197,87 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 	const viewportTooSmallRef = useRef(false);
 	const chaosTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 	const completionRespawnTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+	const enteringParticleTimers = useRef(new Map<number, ReturnType<typeof setTimeout>>());
+	const preludeRevealTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+	const clearClickTimers = () => {
+		clickTimers.current.forEach((timer) => clearTimeout(timer));
+		clickTimers.current.clear();
+	};
+	const clearChaosTimers = () => {
+		if (chaosTimer.current) clearInterval(chaosTimer.current);
+		if (completionRespawnTimer.current) clearInterval(completionRespawnTimer.current);
+		chaosTimer.current = null;
+		completionRespawnTimer.current = null;
+	};
+	const setParticleState = (nextParticles: Particle[]) => {
+		particlesRef.current = nextParticles;
+		setParticles(nextParticles);
+	};
+	const resetParticleEffects = () => {
+		setThresholdMotion(new Map());
+		setThresholdPoppingParticles(new Set());
+	};
 	const normalizedPopClickThreshold = Number.isFinite(popClickThreshold)
 		? Math.max(1, Math.floor(popClickThreshold))
 		: 6;
-	const rules = useMemo(
+	const markParticlesEntering = (ids: number[]) => {
+		setEnteringParticles((current) => new Set([...current, ...ids]));
+		ids.forEach((id) => {
+			const existingTimer = enteringParticleTimers.current.get(id);
+			if (existingTimer) clearTimeout(existingTimer);
+			const timer = setTimeout(() => {
+				enteringParticleTimers.current.delete(id);
+				setEnteringParticles((current) => {
+					const next = new Set(current);
+					next.delete(id);
+					return next;
+				});
+			}, iconSpawnAnimation.durationMs);
+			enteringParticleTimers.current.set(id, timer);
+		});
+	};
+	const startIconSpawn = (targetCount: number) => {
+		if (preludeRevealTimer.current) clearInterval(preludeRevealTimer.current);
+		const maximumCount = Math.max(0, Math.floor(targetCount));
+		let revealedCount = Math.min(1, maximumCount);
+		const firstParticle = particlesRef.current[0];
+		if (firstParticle) markParticlesEntering([firstParticle.id]);
+		setVisibleParticleCount(revealedCount);
+		if (revealedCount >= maximumCount) return;
+		preludeRevealTimer.current = setInterval(() => {
+			revealedCount += 1;
+			const particle = particlesRef.current[revealedCount - 1];
+			if (particle) markParticlesEntering([particle.id]);
+			setVisibleParticleCount(revealedCount);
+			if (revealedCount >= maximumCount && preludeRevealTimer.current) {
+				clearInterval(preludeRevealTimer.current);
+				preludeRevealTimer.current = null;
+			}
+		}, iconSpawnAnimation.intervalMs);
+	};
+
+	useEffect(() => {
+		if (isChaosRoute || !funModeEnabled) return;
+		startIconSpawn(count);
+		return () => {
+			if (preludeRevealTimer.current) clearInterval(preludeRevealTimer.current);
+		};
+	}, [count, funModeEnabled, isChaosRoute]);
+
+	useEffect(() => {
+		if (typeof document === "undefined") return;
+		const observer = new MutationObserver(() => {
+			setFunModeEnabled(document.documentElement.classList.contains("fun"));
+		});
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+		return () => observer.disconnect();
+	}, []);
+	const prelude = useMemo(
 		() => [
 			`${count} CHARGES ESCAPED FROM A GREAT MYSTERY LAND.`,
 			"THEY ARE FRAGMENTS OF A BROKEN STAR ENGINE.",
 			"THE ENGINE KEPT DISTANT WORLDS IN ORBIT.",
+			"<--delay-2-->",
 			"LONG BEFORE THE ESCAPE, THE WORLDS WERE OUT OF SYNC.",
 			"THEIR SEAS ROSE AT DIFFERENT TIMES.",
 			"THEIR MOONS FORGOT WHICH WAY TO TURN.",
@@ -203,8 +288,10 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			"THE CHARGES WERE MADE FROM THOSE MEMORIES.",
 			"A CRACK IN THE SKY TAUGHT THE CHARGES HOW TO RUN.",
 			"EVERY CAPTURE SEALS THE CRACK FOR ONE MORE NIGHT.",
-			`CAPTURE A CHARGE WITH A ${normalizedPopClickThreshold}-HIT COMBO.`,
+			"<--delay-3-->",
+			"<--clearAll-->",
 			`CURRENT OBJECTIVE :\nCAPTURE ALL ${count} CHARGES.`,
+			`CAPTURE A CHARGE WITH A ${normalizedPopClickThreshold}-HIT COMBO.`,
 			"SELECT A CHARGE TO INITIATE THE ORBITAL SEALING PROTOCOL.",
 		],
 		[count, normalizedPopClickThreshold],
@@ -237,6 +324,7 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			"THE NEXT GATE WILL NOT OPEN BY ACCIDENT",
 			"THE NEXT ESCAPE MAY NOT BE SO FRIENDLY",
 			"THANK YOU FOR YOUR SERVICE TO THIS UNIVERSE",
+			"<--clearAll-->",
 			"CREDITS",
 			"WORLD BUILDING: ME",
 			"FIELD NAVIGATION: YOU",
@@ -271,9 +359,8 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			const viewportIsTooSmall = getPlayableArea() < minimumPlayableArea;
 			const resetParticles = createParticles(targetCount);
 			viewportTooSmallRef.current = viewportIsTooSmall;
-			particlesRef.current = resetParticles;
-			clickTimers.current.forEach((timer) => clearTimeout(timer));
-			clickTimers.current.clear();
+			setParticleState(resetParticles);
+			clearClickTimers();
 			clickCounts.current.clear();
 			hasClickedIcon.current = targetState !== "idle";
 			chaosModeRef.current = true;
@@ -282,18 +369,21 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			setGameComplete(!viewportIsTooSmall && targetState === "complete");
 			setViewportTooSmall(viewportIsTooSmall);
 			setChaosElapsedSeconds(0);
-			setThresholdMotion(new Map());
-			setThresholdPoppingParticles(new Set());
-			setParticles(viewportIsTooSmall ? [] : resetParticles);
-			if (chaosTimer.current) clearInterval(chaosTimer.current);
-			chaosTimer.current = null;
-			if (completionRespawnTimer.current) clearInterval(completionRespawnTimer.current);
-			completionRespawnTimer.current = null;
+			resetParticleEffects();
+			if (targetState === "idle" && !viewportIsTooSmall) {
+				startIconSpawn(targetCount);
+			} else {
+				if (preludeRevealTimer.current) clearInterval(preludeRevealTimer.current);
+				setVisibleParticleCount(viewportIsTooSmall ? 0 : targetCount);
+				markParticlesEntering(resetParticles.map((particle) => particle.id));
+			}
+			if (viewportIsTooSmall) setParticles([]);
+			clearChaosTimers();
 			if (!viewportIsTooSmall && targetState === "playing") {
 				const startedAt = Date.now();
 				chaosTimer.current = setInterval(() => {
 					setChaosElapsedSeconds(Math.floor((Date.now() - startedAt) / 1000));
-				}, 1000);
+				}, gameplayElapsedUpdateIntervalMs);
 			}
 		};
 
@@ -316,14 +406,9 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			if (viewportTooSmallRef.current) return;
 
 			viewportTooSmallRef.current = true;
-			clickTimers.current.forEach((timer) => clearTimeout(timer));
-			clickTimers.current.clear();
-			if (chaosTimer.current) clearInterval(chaosTimer.current);
-			chaosTimer.current = null;
-			if (completionRespawnTimer.current) clearInterval(completionRespawnTimer.current);
-			completionRespawnTimer.current = null;
-			particlesRef.current = [];
-			setParticles([]);
+			clearClickTimers();
+			clearChaosTimers();
+			setParticleState([]);
 			setGameStarted(false);
 			setGameComplete(false);
 			setViewportTooSmall(true);
@@ -338,16 +423,13 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 		particlesRef.current = remaining;
 		clickCounts.current.delete(id);
 		if (remaining.length === 0) {
-			if (chaosTimer.current) clearInterval(chaosTimer.current);
-			chaosTimer.current = null;
-			if (completionRespawnTimer.current) clearInterval(completionRespawnTimer.current);
+			clearChaosTimers();
 			const initialRespawnCount = Math.min(1, Math.max(0, Math.floor(count)));
 			const resetParticles = createParticles(initialRespawnCount);
-			particlesRef.current = resetParticles;
+			setParticleState(resetParticles);
 			clickCounts.current.clear();
-			setThresholdMotion(new Map());
-			setThresholdPoppingParticles(new Set());
-			setParticles(resetParticles);
+			resetParticleEffects();
+			markParticlesEntering(resetParticles.map((particle) => particle.id));
 			setGameComplete(true);
 			if (initialRespawnCount < count) {
 				let respawnCount = initialRespawnCount;
@@ -355,13 +437,13 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 					respawnCount += 1;
 					const newParticle = createParticles(1, particlesRef.current.length)[0];
 					const nextParticles = [...particlesRef.current, newParticle];
-					particlesRef.current = nextParticles;
-					setParticles(nextParticles);
+					setParticleState(nextParticles);
+					markParticlesEntering([newParticle.id]);
 					if (respawnCount >= count && completionRespawnTimer.current) {
 						clearInterval(completionRespawnTimer.current);
 						completionRespawnTimer.current = null;
 					}
-				}, 1000);
+				}, iconSpawnAnimation.intervalMs);
 			}
 			return;
 		}
@@ -370,7 +452,7 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			next.delete(id);
 			return next;
 		});
-		setParticles(remaining.map((particle) => ({ ...particle })));
+		setParticleState(remaining.map((particle) => ({ ...particle })));
 	};
 
 	const handleParticleClick = (id: number) => {
@@ -379,6 +461,10 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 		if (chaosModeRef.current && !hasClickedIcon.current) {
 			hasClickedIcon.current = true;
 			setGameStarted(true);
+			if (preludeRevealTimer.current) clearInterval(preludeRevealTimer.current);
+			const hiddenParticles = particlesRef.current.slice(visibleParticleCount);
+			markParticlesEntering(hiddenParticles.map((particle) => particle.id));
+			setVisibleParticleCount(particlesRef.current.length);
 			const startedAt = Date.now();
 			const updateElapsedTime = () => {
 				setChaosElapsedSeconds(Math.floor((Date.now() - startedAt) / 1000));
@@ -398,7 +484,7 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 				const spinDirection = Math.random() > 0.5 ? 1 : -1;
 				const travelDirection = Math.random() > 0.5 ? 1 : -1;
 				const motion: ThresholdMotion = {
-					duration: 3000,
+					duration: iconCaptureAnimationDurationMs,
 					shake: 4 + Math.floor(Math.random() * 10),
 					tilt: -18 + Math.floor(Math.random() * 37),
 					spin: spinDirection * (540 + Math.floor(Math.random() * 1080)),
@@ -407,7 +493,7 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 				particle.vx = travelDirection * (Math.abs(particle.vx) + 40);
 				particle.vy = -travelDirection * (Math.abs(particle.vy) + 40);
 				particle.spin = 0;
-				setParticles(particlesRef.current.map((currentParticle) => ({ ...currentParticle })));
+				setParticleState(particlesRef.current.map((currentParticle) => ({ ...currentParticle })));
 				setThresholdMotion((current) => new Map(current).set(id, motion));
 				setThresholdPoppingParticles((current) => new Set(current).add(id));
 				const removalTimer = setTimeout(() => {
@@ -424,16 +510,17 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			particle.vx *= -1.5;
 			particle.vy *= -1.5;
 			particle.spin *= 3;
-			setParticles(particlesRef.current.map((currentParticle) => ({ ...currentParticle })));
-		}, 220);
+			setParticleState(particlesRef.current.map((currentParticle) => ({ ...currentParticle })));
+		}, iconClickResponseDelayMs);
 		clickTimers.current.set(id, timer);
 	};
 
 	useEffect(() => {
 		return () => {
-			clickTimers.current.forEach((timer) => clearTimeout(timer));
-			if (chaosTimer.current) clearInterval(chaosTimer.current);
-			if (completionRespawnTimer.current) clearInterval(completionRespawnTimer.current);
+			clearClickTimers();
+			enteringParticleTimers.current.forEach((timer) => clearTimeout(timer));
+			if (preludeRevealTimer.current) clearInterval(preludeRevealTimer.current);
+			clearChaosTimers();
 		};
 	}, []);
 
@@ -492,7 +579,14 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			)}
 			{chaosMode && !viewportTooSmall && !gameStarted && (
 				<div className="chaos-rules" aria-live="polite">
-					<TypingAnimation strings={rules} startWhenVisible={false} perTick={{ update: 2, unit: "character" }} />
+					<TypingAnimation
+						strings={prelude}
+						startWhenVisible={false}
+						perTick={{ update: 2, unit: "character" }}
+						delay={{ pause: 520 }}
+						loop={false}
+						postStringFinish="newline"
+					/>
 				</div>
 			)}
 			{chaosMode && gameStarted && !gameComplete && (
@@ -506,12 +600,16 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			)}
 			{chaosMode && gameComplete && (
 				<div className="chaos-collapse-message chaos-collapse-message--complete" aria-live="polite">
-					<TypingAnimation
-						strings={credits}
-						startWhenVisible={false}
-						perTick={{ update: 2, unit: "character" }}
-						loop={false}
-					/>
+					<div className="chaos-credits" aria-label="Mission credits">
+						<TypingAnimation
+							strings={credits}
+							startWhenVisible={false}
+							perTick={{ update: 2, unit: "character" }}
+							delay={{ pause: 360 }}
+							loop={false}
+							postStringFinish="newline"
+						/>
+					</div>
 					<Button className="pointer-events-auto mt-3" variant="outline" size="sm" onClick={() => navigate("/")}>
 						Return home
 					</Button>
@@ -519,14 +617,14 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			)}
 			{!viewportTooSmall && (
 				<div className="fun-background__icons">
-					{particles.map(({ Icon, ...particle }) => (
+					{particles.slice(0, visibleParticleCount).map(({ Icon, ...particle }) => (
 						<Button
 							key={particle.id}
 							type="button"
 							variant="ghost"
 							size="icon"
 							aria-label="Interactive background icon"
-							className={`fun-background__icon${thresholdPoppingParticles.has(particle.id) ? " fun-background__icon--threshold-popping" : ""}`}
+							className={`fun-background__icon${enteringParticles.has(particle.id) ? " fun-background__icon--entering" : ""}${thresholdPoppingParticles.has(particle.id) ? " fun-background__icon--threshold-popping" : ""}`}
 							onClick={() => handleParticleClick(particle.id)}
 							style={
 								{
@@ -535,7 +633,7 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 									"--icon-size": particle.size,
 									"--icon-color": particle.color,
 									"--icon-rotation": `${particle.rotation}deg`,
-									"--threshold-duration": `${thresholdMotion.get(particle.id)?.duration ?? 2200}ms`,
+									"--threshold-duration": `${thresholdMotion.get(particle.id)?.duration ?? iconCaptureAnimationDurationMs}ms`,
 									"--threshold-shake": `${thresholdMotion.get(particle.id)?.shake ?? 5}px`,
 									"--threshold-tilt": `${thresholdMotion.get(particle.id)?.tilt ?? 0}deg`,
 									"--threshold-spin": `${thresholdMotion.get(particle.id)?.spin ?? 720}deg`,
