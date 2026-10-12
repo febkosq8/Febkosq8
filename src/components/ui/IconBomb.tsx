@@ -24,7 +24,6 @@ import { FiAperture, FiCoffee } from "react-icons/fi";
 import { GiTrophy, GiUnicorn } from "react-icons/gi";
 import { MdAutoAwesome, MdOutlineSportsEsports } from "react-icons/md";
 import { RiNeteaseCloudMusicLine } from "react-icons/ri";
-import { TbPalette } from "react-icons/tb";
 import { FcDvdLogo } from "react-icons/fc";
 
 const iconParticles = [
@@ -44,7 +43,6 @@ const iconParticles = [
 	{ Icon: FaGlobe, size: "2.4rem", radius: 24 },
 	{ Icon: FaLeaf, size: "2.1rem", radius: 21 },
 	{ Icon: FaMoon, size: "2.3rem", radius: 23 },
-	{ Icon: TbPalette, size: "2.6rem", radius: 26 },
 	{ Icon: FaPuzzlePiece, size: "2.3rem", radius: 23 },
 	{ Icon: FaSnowflake, size: "2.4rem", radius: 24 },
 	{ Icon: FaSun, size: "2.7rem", radius: 27 },
@@ -69,6 +67,13 @@ const particleColors = [
 	"hsl(195 80% 52%)",
 	"hsl(12 70% 42%)",
 ];
+
+const minimumPlayableArea = 320 * 480;
+
+function getPlayableArea() {
+	const headerBottom = document.querySelector<HTMLElement>("[data-site-header]")?.getBoundingClientRect().bottom ?? 0;
+	return window.innerWidth * Math.max(0, window.innerHeight - headerBottom);
+}
 
 type Particle = (typeof iconParticles)[number] & {
 	id: number;
@@ -170,12 +175,14 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 	const [chaosMode, setChaosMode] = useState(isChaosRoute);
 	const [gameStarted, setGameStarted] = useState(false);
 	const [gameComplete, setGameComplete] = useState(false);
+	const [viewportTooSmall, setViewportTooSmall] = useState(false);
 	const [chaosElapsedSeconds, setChaosElapsedSeconds] = useState(0);
 	const particlesRef = useRef(particles);
 	const clickTimers = useRef(new Map<number, ReturnType<typeof setTimeout>>());
 	const clickCounts = useRef(new Map<number, number>());
 	const hasClickedIcon = useRef(false);
 	const chaosModeRef = useRef(isChaosRoute);
+	const viewportTooSmallRef = useRef(false);
 	const chaosTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 	const completionRespawnTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 	const normalizedPopClickThreshold = Number.isFinite(popClickThreshold)
@@ -261,7 +268,9 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			const control = (event as CustomEvent<ChaosControl>).detail ?? {};
 			const targetCount = Number.isFinite(control.count) ? Math.max(0, Math.floor(control.count!)) : count;
 			const targetState = control.state ?? "idle";
+			const viewportIsTooSmall = getPlayableArea() < minimumPlayableArea;
 			const resetParticles = createParticles(targetCount);
+			viewportTooSmallRef.current = viewportIsTooSmall;
 			particlesRef.current = resetParticles;
 			clickTimers.current.forEach((timer) => clearTimeout(timer));
 			clickTimers.current.clear();
@@ -269,17 +278,18 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			hasClickedIcon.current = targetState !== "idle";
 			chaosModeRef.current = true;
 			setChaosMode(true);
-			setGameStarted(targetState !== "idle");
-			setGameComplete(targetState === "complete");
+			setGameStarted(!viewportIsTooSmall && targetState !== "idle");
+			setGameComplete(!viewportIsTooSmall && targetState === "complete");
+			setViewportTooSmall(viewportIsTooSmall);
 			setChaosElapsedSeconds(0);
 			setThresholdMotion(new Map());
 			setThresholdPoppingParticles(new Set());
-			setParticles(resetParticles);
+			setParticles(viewportIsTooSmall ? [] : resetParticles);
 			if (chaosTimer.current) clearInterval(chaosTimer.current);
 			chaosTimer.current = null;
 			if (completionRespawnTimer.current) clearInterval(completionRespawnTimer.current);
 			completionRespawnTimer.current = null;
-			if (targetState === "playing") {
+			if (!viewportIsTooSmall && targetState === "playing") {
 				const startedAt = Date.now();
 				chaosTimer.current = setInterval(() => {
 					setChaosElapsedSeconds(Math.floor((Date.now() - startedAt) / 1000));
@@ -293,6 +303,35 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			if (chaosTimer.current) clearInterval(chaosTimer.current);
 		};
 	}, [count]);
+
+	useEffect(() => {
+		const handleViewportResize = () => {
+			if (!chaosModeRef.current) return;
+
+			const isEligible = getPlayableArea() >= minimumPlayableArea;
+			if (isEligible) {
+				if (viewportTooSmallRef.current) window["chaos-game"]?.({});
+				return;
+			}
+			if (viewportTooSmallRef.current) return;
+
+			viewportTooSmallRef.current = true;
+			clickTimers.current.forEach((timer) => clearTimeout(timer));
+			clickTimers.current.clear();
+			if (chaosTimer.current) clearInterval(chaosTimer.current);
+			chaosTimer.current = null;
+			if (completionRespawnTimer.current) clearInterval(completionRespawnTimer.current);
+			completionRespawnTimer.current = null;
+			particlesRef.current = [];
+			setParticles([]);
+			setGameStarted(false);
+			setGameComplete(false);
+			setViewportTooSmall(true);
+		};
+
+		window.addEventListener("resize", handleViewportResize);
+		return () => window.removeEventListener("resize", handleViewportResize);
+	}, []);
 
 	const removeParticle = (id: number) => {
 		const remaining = particlesRef.current.filter((particle) => particle.id !== id);
@@ -441,7 +480,17 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 
 	return (
 		<>
-			{chaosMode && !gameStarted && (
+			{chaosMode && viewportTooSmall && (
+				<div className="chaos-collapse-message chaos-collapse-message--error" aria-live="assertive">
+					<div>THE ORBITAL WINDOW COLLAPSED.</div>
+					<div>THE COMPUTER CANNOT VERIFY THIS ESCAPE PATH.</div>
+					<div>THE MISSION MUST BE ABORTED.</div>
+					<Button className="pointer-events-auto mt-3" variant="outline" size="sm" onClick={() => navigate("/")}>
+						Leave mission
+					</Button>
+				</div>
+			)}
+			{chaosMode && !viewportTooSmall && !gameStarted && (
 				<div className="chaos-rules" aria-live="polite">
 					<TypingAnimation strings={rules} startWhenVisible={false} perTick={{ update: 2, unit: "character" }} />
 				</div>
@@ -468,35 +517,37 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 					</Button>
 				</div>
 			)}
-			<div className="fun-background__icons">
-				{particles.map(({ Icon, ...particle }) => (
-					<Button
-						key={particle.id}
-						type="button"
-						variant="ghost"
-						size="icon"
-						aria-label="Interactive background icon"
-						className={`fun-background__icon${thresholdPoppingParticles.has(particle.id) ? " fun-background__icon--threshold-popping" : ""}`}
-						onClick={() => handleParticleClick(particle.id)}
-						style={
-							{
-								"--icon-top": `${particle.y}px`,
-								"--icon-left": `${particle.x}px`,
-								"--icon-size": particle.size,
-								"--icon-color": particle.color,
-								"--icon-rotation": `${particle.rotation}deg`,
-								"--threshold-duration": `${thresholdMotion.get(particle.id)?.duration ?? 2200}ms`,
-								"--threshold-shake": `${thresholdMotion.get(particle.id)?.shake ?? 5}px`,
-								"--threshold-tilt": `${thresholdMotion.get(particle.id)?.tilt ?? 0}deg`,
-								"--threshold-spin": `${thresholdMotion.get(particle.id)?.spin ?? 720}deg`,
-								"--threshold-reverse-spin": `${thresholdMotion.get(particle.id)?.reverseSpin ?? -720}deg`,
-							} as React.CSSProperties
-						}
-					>
-						<Icon />
-					</Button>
-				))}
-			</div>
+			{!viewportTooSmall && (
+				<div className="fun-background__icons">
+					{particles.map(({ Icon, ...particle }) => (
+						<Button
+							key={particle.id}
+							type="button"
+							variant="ghost"
+							size="icon"
+							aria-label="Interactive background icon"
+							className={`fun-background__icon${thresholdPoppingParticles.has(particle.id) ? " fun-background__icon--threshold-popping" : ""}`}
+							onClick={() => handleParticleClick(particle.id)}
+							style={
+								{
+									"--icon-top": `${particle.y}px`,
+									"--icon-left": `${particle.x}px`,
+									"--icon-size": particle.size,
+									"--icon-color": particle.color,
+									"--icon-rotation": `${particle.rotation}deg`,
+									"--threshold-duration": `${thresholdMotion.get(particle.id)?.duration ?? 2200}ms`,
+									"--threshold-shake": `${thresholdMotion.get(particle.id)?.shake ?? 5}px`,
+									"--threshold-tilt": `${thresholdMotion.get(particle.id)?.tilt ?? 0}deg`,
+									"--threshold-spin": `${thresholdMotion.get(particle.id)?.spin ?? 720}deg`,
+									"--threshold-reverse-spin": `${thresholdMotion.get(particle.id)?.reverseSpin ?? -720}deg`,
+								} as React.CSSProperties
+							}
+						>
+							<Icon />
+						</Button>
+					))}
+				</div>
+			)}
 		</>
 	);
 }
