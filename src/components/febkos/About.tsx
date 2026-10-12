@@ -5,7 +5,7 @@ import useActiveSectionTitle from "@feb/components/febkos/useActiveSectionTitle"
 import { FaRegAddressCard } from "react-icons/fa";
 
 const aboutCardClass =
-	"flex w-full min-h-40 flex-col justify-between [&_.card-header]:border-0! [&_.card-header]:p-0! [&_.card-header]:text-sm! [&_.card-header]:font-semibold [&_.card-header]:uppercase [&_.card-header]:text-primary [&_.card-content]:mt-5! [&_.card-content]:p-0! [&_.card-content]:text-lg! [&_.card-content]:leading-7 [&_.card-footer]:mt-5! [&_.card-footer]:border-0! [&_.card-footer]:p-0!";
+	"flex h-full w-full min-h-56 flex-col [&_.card-header]:border-0! [&_.card-header]:p-0! [&_.card-header]:text-sm! [&_.card-header]:font-semibold [&_.card-header]:uppercase [&_.card-header]:text-primary [&_.card-content]:mt-5! [&_.card-content]:flex! [&_.card-content]:flex-col [&_.card-content]:gap-1 [&_.card-content]:p-0! [&_.card-content]:text-base! [&_.card-content]:leading-6 [&_.card-footer]:mt-auto! [&_.card-footer]:border-0! [&_.card-footer]:p-0!";
 const aboutHeading = ["Security-minded builder,\ncurious by default."];
 export default function About() {
 	const sectionRef = useActiveSectionTitle(() => {
@@ -40,10 +40,13 @@ export default function About() {
 					</p>
 				</div>
 
-				<div className="mt-8 grid w-full gap-3 md:grid-cols-2 lg:grid-cols-3">
+				<div className="mt-8 grid w-full auto-rows-fr gap-3 md:grid-cols-2 lg:grid-cols-3">
 					<Card className={aboutCardClass}>
 						<Card.Header>Work</Card.Header>
-						<Card.Content>Security Engineer</Card.Content>
+						<Card.Content>
+							<p className="font-semibold">Security Engineer</p>
+							<p className="text-foreground/75">Securing the systems that keep air transport moving.</p>
+						</Card.Content>
 						<Card.Footer>
 							<Button asChild size="sm" variant="outline" className="rounded-full">
 								<a href="https://www.sita.aero" target="_blank" rel="noreferrer">
@@ -55,9 +58,8 @@ export default function About() {
 					<Card className={aboutCardClass}>
 						<Card.Header>Graduate studies</Card.Header>
 						<Card.Content>
-							<span className="font-semibold">Master of Science in</span>
-							<br />
-							<span className="font-normal text-foreground/75 italic">Advanced Computer Science</span>
+							<p className="font-semibold">Master of Science</p>
+							<p className="text-foreground/75">Advanced Computer Science</p>
 						</Card.Content>
 						<Card.Footer>
 							<Button asChild size="sm" variant="outline" className="rounded-full">
@@ -70,11 +72,8 @@ export default function About() {
 					<Card className={aboutCardClass}>
 						<Card.Header>Undergraduate studies</Card.Header>
 						<Card.Content>
-							<span className="font-semibold">Bachelor of Technology in</span>
-							<br />
-							<span className="font-normal text-foreground/75 italic">
-								Computer Science and Engineering with Cybersecurity Specialization
-							</span>
+							<p className="font-semibold">Bachelor of Technology</p>
+							<p className="text-foreground/75">Computer Science and Engineering with a Cybersecurity Specialization</p>
 						</Card.Content>
 						<Card.Footer>
 							<Button asChild size="sm" variant="outline" className="rounded-full">
@@ -86,7 +85,10 @@ export default function About() {
 					</Card>
 					<Card className={aboutCardClass}>
 						<Card.Header>Leadership</Card.Header>
-						<Card.Content>University Innovation Fellow, Fall 2019</Card.Content>
+						<Card.Content>
+							<p className="font-semibold">University Innovation Fellow</p>
+							<p className="text-foreground/75">A member of the Fall 2019 cohort.</p>
+						</Card.Content>
 						<Card.Footer>
 							<Button asChild size="sm" variant="outline" className="rounded-full">
 								<a
@@ -101,7 +103,10 @@ export default function About() {
 					</Card>
 					<Card className={aboutCardClass}>
 						<Card.Header>Creative</Card.Header>
-						<Card.Content>Gameplay montage creator</Card.Content>
+						<Card.Content>
+							<p className="font-semibold">Gameplay montage creator</p>
+							<p className="text-foreground/75">Creating gaming montages from daily gameplay</p>
+						</Card.Content>
 						<Card.Footer>
 							<Button asChild size="sm" variant="outline" className="rounded-full">
 								<a href="https://www.youtube.com/@Febkosq8DoesStuff" target="_blank" rel="noreferrer">
@@ -112,7 +117,10 @@ export default function About() {
 					</Card>
 					<Card className={aboutCardClass}>
 						<Card.Header>Off-hours</Card.Header>
-						<Card.Content>Gaming, homelabbing, and learning new things.</Card.Content>
+						<Card.Content>
+							<p className="font-semibold">Gaming and homelabbing</p>
+							<p className="text-foreground/75">Building, experimenting, and learning beyond the day job.</p>
+						</Card.Content>
 						<Card.Footer>
 							<Button asChild size="sm" variant="outline" className="rounded-full">
 								<a href="https://steamcommunity.com/id/febkosq8" target="_blank" rel="noreferrer">
