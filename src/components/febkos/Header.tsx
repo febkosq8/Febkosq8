@@ -105,35 +105,41 @@ export default function Header() {
 	return (
 		<div
 			data-site-header
-			className="relative z-50 flex w-full shrink-0 items-center justify-between border border-b-2 bg-background px-3 py-1 text-lg sm:px-8 lg:text-2xl"
+			className="relative z-50 flex w-full shrink-0 items-center justify-between border border-b-2 bg-background px-2 py-0.5 text-sm sm:px-8 sm:py-1 sm:text-lg lg:text-2xl"
 		>
 			<a href="/" className="font-bold">
 				<AnimatedText text="Febkosq8" />
 			</a>
 			{isChaos && (
-				<div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-2">
-					<span className="whitespace-nowrap text-xs font-bold uppercase tracking-[0.08em]">Chaos Control</span>
+				<div className="chaos-header-center static left-auto flex translate-x-0 items-center gap-1 sm:absolute sm:left-1/2 sm:-translate-x-1/2 sm:gap-2">
+					<span className="whitespace-nowrap text-[0.625rem] font-bold uppercase tracking-[0.04em] sm:text-xs sm:tracking-[0.08em]">
+						Chaos Control
+					</span>
 					{chaosStats?.active && (
 						<>
 							<span aria-hidden="true" className="h-5 w-px bg-border" />
 							<div className="chaos-header-stats" aria-live="polite">
-								<span>{chaosStats.charges} charges remain</span>
-								<span>{chaosStats.elapsed} elapsed</span>
+								<span>
+									<span className="text-primary">{chaosStats.charges}</span> charges remain
+								</span>
+								<span>
+									<span className="text-primary">{chaosStats.elapsed}</span> elapsed
+								</span>
 							</div>
-							<span aria-hidden="true" className="h-5 w-px bg-border" />
-							<Button
-								className="chaos-header-exit"
-								type="button"
-								variant="outline"
-								size="icon"
-								aria-label="Exit chaos mission"
-								title="Exit chaos mission"
-								onClick={() => navigate("/")}
-							>
-								<ImExit aria-hidden="true" />
-							</Button>
 						</>
 					)}
+					<span aria-hidden="true" className="h-5 w-px bg-border" />
+					<Button
+						className="chaos-header-exit"
+						type="button"
+						variant="outline"
+						size="icon"
+						aria-label="Exit chaos mission"
+						title="Exit chaos mission"
+						onClick={() => navigate("/")}
+					>
+						<ImExit aria-hidden="true" />
+					</Button>
 				</div>
 			)}
 			<div className="flex items-center gap-2">

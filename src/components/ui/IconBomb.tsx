@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router";
 import Button from "@feb/components/ui/Button";
 import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import { BsEmojiSunglasses, BsLightningChargeFill } from "react-icons/bs";
@@ -192,7 +191,6 @@ function formatElapsedTime(totalSeconds: number) {
 
 export default function IconBomb({ count = 10 }: IconBombProps) {
 	const isChaosRoute = typeof window !== "undefined" && window.location.pathname === "/chaos";
-	const navigate = useNavigate();
 	useEffect(() => {
 		if (isChaosRoute) document.title = "Febkosq8 - Chaos Control";
 	}, [isChaosRoute]);
@@ -649,14 +647,6 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 					<div>THE ORBITAL WINDOW COLLAPSED.</div>
 					<div>THE COMPUTER CANNOT VERIFY THIS ESCAPE PATH.</div>
 					<div>THE MISSION MUST BE ABORTED.</div>
-					<Button
-						className="chaos-give-up pointer-events-auto"
-						variant="outline"
-						size="sm"
-						onClick={() => navigate("/")}
-					>
-						Leave mission
-					</Button>
 				</div>
 			)}
 			{chaosMode && !viewportTooSmall && !gameStarted && (
@@ -685,9 +675,6 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 							postStringFinish="newline"
 						/>
 					</div>
-					<Button className="pointer-events-auto mt-3" variant="outline" size="sm" onClick={() => navigate("/")}>
-						Return home
-					</Button>
 				</div>
 			)}
 			{!viewportTooSmall && (
