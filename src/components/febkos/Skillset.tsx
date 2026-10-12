@@ -8,21 +8,26 @@ import {
 	SiC,
 	SiCloudflare,
 	SiCplusplus,
+	SiDiscorddotjs,
 	SiExpress,
 	SiGit,
 	SiGithub,
 	SiGooglecloud,
 	SiHtml5,
+	SiImmich,
 	SiJavascript,
 	SiMarkdown,
 	SiMongodb,
 	SiNodedotjs,
 	SiOpentext,
 	SiOwasp,
+	SiProxmox,
 	SiPython,
 	SiReact,
+	SiTailscale,
 	SiTailwindcss,
 	SiTypescript,
+	SiUptimekuma,
 	SiVite,
 	SiVitest,
 } from "react-icons/si";
@@ -111,11 +116,13 @@ const stackList: SkillItem[] = [
 		name: "Tailwind CSS",
 		icon: SiTailwindcss,
 		url: "https://tailwindcss.com/",
+		core: true,
 	},
 	{
 		name: "Vite",
 		icon: SiVite,
 		url: "https://vite.dev/",
+		core: true,
 	},
 	{
 		name: "Vitest",
@@ -193,11 +200,42 @@ const technologiesList: SkillItem[] = [
 		name: "Oracle Cloud",
 		icon: GrOracle,
 		url: "https://www.oracle.com/cloud/",
+		core: true,
 	},
 	{
 		name: "VS Code",
 		icon: BiLogoVisualStudio,
 		url: "https://code.visualstudio.com/",
+		core: true,
+	},
+];
+const selfHostedList: SkillItem[] = [
+	{
+		name: "Proxmox",
+		icon: SiProxmox,
+		url: "https://www.proxmox.com/",
+		core: true,
+	},
+	{
+		name: "Uptime Kuma",
+		icon: SiUptimekuma,
+		url: "https://uptime.kuma.pet/",
+	},
+	{
+		name: "Tailscale",
+		icon: SiTailscale,
+		url: "https://tailscale.com/",
+		core: true,
+	},
+	{
+		name: "Immich",
+		icon: SiImmich,
+		url: "https://immich.app/",
+	},
+	{
+		name: "Discord Bot",
+		icon: SiDiscorddotjs,
+		url: "https://docs.discord.com/developers/bots/overview",
 	},
 ];
 
@@ -207,6 +245,7 @@ const categories = [
 	{ id: "stack", label: "Development", items: stackList },
 	{ id: "appSec", label: "AppSec", items: appSecList },
 	{ id: "technologies", label: "Platforms & tools", items: technologiesList },
+	{ id: "selfHosted", label: "Self-hosted", items: selfHostedList },
 ] as const;
 
 const allSkills = categories
