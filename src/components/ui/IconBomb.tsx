@@ -74,7 +74,7 @@ const iconSpawnAnimation = {
 	durationMs: 1000,
 } as const;
 const iconCapture = {
-	requiredClicks: 1,
+	requiredClicks: 4,
 	durationMs: 2000,
 	responseDelayMs: 220,
 } as const;
@@ -291,7 +291,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 			"<--clearAll-->",
 			"FIELD CONTROL TRANSFERRED TO YOU.",
 			`OBJECTIVE :\nCAPTURE ALL ${count} CHARGES.`,
-			`ONE CLICK SEALS A CHARGE.`,
+			`${iconCapture.requiredClicks} CLICKS SEAL A CHARGE.`,
 			"SELECT A CHARGE TO BEGIN.",
 		],
 		[count],
