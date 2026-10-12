@@ -205,6 +205,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 	const [gameComplete, setGameComplete] = useState(false);
 	const [enteringParticles, setEnteringParticles] = useState<Set<number>>(() => new Set());
 	const [visibleParticleCount, setVisibleParticleCount] = useState(0);
+	const visibleParticleCountRef = useRef(0);
 	const [viewportTooSmall, setViewportTooSmall] = useState(false);
 	const [chaosElapsedSeconds, setChaosElapsedSeconds] = useState(0);
 	const particlesRef = useRef(particles);
@@ -219,6 +220,10 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 	const clickShakeTimers = useRef(new Map<number, ReturnType<typeof setTimeout>>());
 	const pointerActivatedParticles = useRef(new Set<number>());
 	const preludeRevealTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+	const setVisibleCount = (nextCount: number) => {
+		visibleParticleCountRef.current = nextCount;
+		setVisibleParticleCount(nextCount);
+	};
 	const clearClickTimers = () => {
 		clickTimers.current.forEach((timer) => clearTimeout(timer));
 		clickTimers.current.clear();
@@ -279,13 +284,13 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 		let revealedCount = Math.min(1, visibleLimit);
 		const firstParticle = particlesRef.current[0];
 		if (firstParticle) markParticlesEntering([firstParticle.id]);
-		setVisibleParticleCount(revealedCount);
+		setVisibleCount(revealedCount);
 		if (revealedCount >= visibleLimit) return;
 		preludeRevealTimer.current = setInterval(() => {
 			revealedCount += 1;
 			const particle = particlesRef.current[revealedCount - 1];
 			if (particle) markParticlesEntering([particle.id]);
-			setVisibleParticleCount(revealedCount);
+			setVisibleCount(revealedCount);
 			if (revealedCount >= visibleLimit && preludeRevealTimer.current) {
 				clearInterval(preludeRevealTimer.current);
 				preludeRevealTimer.current = null;
@@ -413,7 +418,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 				startIconSpawn(targetCount);
 			} else {
 				if (preludeRevealTimer.current) clearInterval(preludeRevealTimer.current);
-				setVisibleParticleCount(viewportIsTooSmall ? 0 : getVisibleParticleLimit(targetCount));
+				setVisibleCount(viewportIsTooSmall ? 0 : getVisibleParticleLimit(targetCount));
 				markParticlesEntering(resetParticles.map((particle) => particle.id));
 			}
 			if (viewportIsTooSmall) setParticles([]);
@@ -436,7 +441,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 	useEffect(() => {
 		const handleViewportResize = () => {
 			if (!chaosModeRef.current) {
-				setVisibleParticleCount(getVisibleParticleLimit(particlesRef.current.length));
+				setVisibleCount(getVisibleParticleLimit(particlesRef.current.length));
 				return;
 			}
 
@@ -445,7 +450,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 				if (viewportTooSmallRef.current) {
 					window["chaos-game"]?.({});
 				} else {
-					setVisibleParticleCount(getVisibleParticleLimit(particlesRef.current.length));
+					setVisibleCount(getVisibleParticleLimit(particlesRef.current.length));
 				}
 				return;
 			}
@@ -502,7 +507,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 		if (remaining.length >= visibleParticleCount && remaining[nextVisibleCount - 1]) {
 			markParticlesEntering([remaining[nextVisibleCount - 1].id]);
 		}
-		setVisibleParticleCount(nextVisibleCount);
+		setVisibleCount(nextVisibleCount);
 		setParticleState(remaining.map((particle) => ({ ...particle })));
 	};
 
@@ -516,7 +521,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 			if (preludeRevealTimer.current) clearInterval(preludeRevealTimer.current);
 			const hiddenParticles = particlesRef.current.slice(visibleParticleCount);
 			markParticlesEntering(hiddenParticles.map((particle) => particle.id));
-			setVisibleParticleCount(getVisibleParticleLimit(particlesRef.current.length));
+			setVisibleCount(getVisibleParticleLimit(particlesRef.current.length));
 			const startedAt = Date.now();
 			const updateElapsedTime = () => {
 				setChaosElapsedSeconds(Math.floor((Date.now() - startedAt) / 1000));
@@ -594,7 +599,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 		const tick = (time: number) => {
 			const delta = Math.min((time - previousTime) / 1000, 0.04);
 			previousTime = time;
-			const current = particlesRef.current;
+			const current = particlesRef.current.slice(0, visibleParticleCountRef.current);
 			const width = window.innerWidth;
 			const height = window.innerHeight;
 			const bottomInset = 0;
@@ -620,7 +625,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 				particle.x = Math.max(particle.radius, Math.min(width - particle.radius, particle.x));
 				particle.y = Math.max(headerBottom + particle.radius, Math.min(bottomBoundary, particle.y));
 			});
-			setParticles(current.map((particle) => ({ ...particle })));
+			setParticles(particlesRef.current.map((particle) => ({ ...particle })));
 			frameId = requestAnimationFrame(tick);
 		};
 		frameId = requestAnimationFrame(tick);
