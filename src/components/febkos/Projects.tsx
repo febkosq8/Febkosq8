@@ -168,7 +168,7 @@ export default function Projects() {
 								aria-expanded={expandedProject === index}
 								onClick={() => setExpandedProject(expandedProject === index ? null : index)}
 								className={cx(
-									"absolute inset-x-0 bottom-0 h-auto items-end justify-between gap-3 rounded-none bg-linear-to-t from-black/90 to-transparent p-4 text-left transition-opacity duration-300 max-sm:pointer-events-none max-sm:opacity-0 sm:group-hover:pointer-events-none sm:group-hover:opacity-0",
+									"absolute inset-x-0 bottom-0 h-auto items-end justify-between gap-3 rounded-none bg-linear-to-t from-black/90 to-transparent p-4 text-left transition-opacity duration-300 sm:group-hover:pointer-events-none sm:group-hover:opacity-0",
 									expandedProject === index && "pointer-events-none opacity-0",
 								)}
 							>
@@ -178,9 +178,10 @@ export default function Projects() {
 								</span>
 							</Button>
 							<div
+								onClick={() => setExpandedProject(null)}
 								className={cx(
-									"absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/95 via-black/75 to-black/5 p-4 transition-opacity duration-300 max-sm:pointer-events-auto max-sm:opacity-100 sm:pointer-events-none sm:group-hover:pointer-events-auto sm:group-hover:opacity-100",
-									expandedProject === index ? "opacity-100 sm:pointer-events-auto" : "opacity-0",
+									"pointer-events-none absolute inset-0 flex flex-col justify-end bg-linear-to-t from-black/95 via-black/75 to-black/5 p-4 opacity-0 transition-opacity duration-300 sm:group-hover:pointer-events-auto sm:group-hover:opacity-100",
+									expandedProject === index && "pointer-events-auto opacity-100",
 								)}
 							>
 								<div className="flex flex-col gap-3">

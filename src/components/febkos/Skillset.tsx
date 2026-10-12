@@ -2,7 +2,7 @@ import Card from "@feb/components/ui/Card";
 import Button from "@feb/components/ui/Button";
 import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import { FaTools } from "react-icons/fa";
-import { FaCss3, FaNetworkWired, FaShieldHalved } from "react-icons/fa6";
+import { FaArrowUpRightFromSquare, FaCss3, FaNetworkWired, FaShieldHalved } from "react-icons/fa6";
 import {
 	SiBurpsuite,
 	SiC,
@@ -39,6 +39,7 @@ export type SkillItem = {
 	icon: IconType;
 	url?: string;
 	core?: boolean;
+	category?: string;
 };
 const languagesList: SkillItem[] = [
 	{
@@ -176,12 +177,12 @@ const technologiesList: SkillItem[] = [
 		name: "Cloudflare",
 		icon: SiCloudflare,
 		url: "https://www.cloudflare.com/",
+		core: true,
 	},
 	{
 		name: "Azure",
 		icon: TbBrandAzure,
 		url: "https://azure.microsoft.com/",
-		core: true,
 	},
 	{
 		name: "Google Cloud",
@@ -194,7 +195,7 @@ const technologiesList: SkillItem[] = [
 		url: "https://www.oracle.com/cloud/",
 	},
 	{
-		name: "Visual Studio Code",
+		name: "VS Code",
 		icon: BiLogoVisualStudio,
 		url: "https://code.visualstudio.com/",
 	},
@@ -208,15 +209,23 @@ const categories = [
 	{ id: "technologies", label: "Platforms & tools", items: technologiesList },
 ] as const;
 
-const allSkills = categories.slice(1).flatMap((category) => category.items);
+const allSkills = categories
+	.slice(1)
+	.flatMap((category) => category.items.map((skill) => ({ ...skill, category: category.label })));
 const coreStack = allSkills.filter((skill) => skill.core);
 
 function SkillTile({ skill, featured = false }: { skill: SkillItem; featured?: boolean }) {
-	const className = `group relative block overflow-hidden rounded-md border border-foreground/15 bg-card p-3 transition-[border-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-primary hover:shadow-md ${featured ? "sm:min-w-35 sm:flex-1" : ""}`;
+	const className = `group relative block overflow-hidden rounded-md border border-foreground/15 bg-card p-2 sm:p-3 transition-[border-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-primary hover:shadow-md ${featured ? "sm:min-w-35 sm:flex-1" : ""}`;
 	const content = (
-		<div className="mb-3 flex items-center justify-between gap-2">
-			<span className="min-w-0 text-sm font-semibold text-card-foreground">{skill.name}</span>
-			<skill.icon className="size-4 shrink-0" aria-hidden="true" />
+		<div className="flex flex-col gap-0.5">
+			<div className="flex items-center justify-between gap-2">
+				<div className="flex min-w-0 items-center gap-1">
+					<span className="min-w-0 text-sm font-semibold text-card-foreground">{skill.name}</span>
+					{skill.url && <FaArrowUpRightFromSquare className="size-3 shrink-0" aria-hidden="true" />}
+				</div>
+				<skill.icon className="size-4 shrink-0" aria-hidden="true" />
+			</div>
+			{skill.category && <span className="text-xs leading-none text-card-foreground/60">{skill.category}</span>}
 		</div>
 	);
 
@@ -237,8 +246,9 @@ function SkillTile({ skill, featured = false }: { skill: SkillItem; featured?: b
 
 export default function Skillset() {
 	const [activeCategory, setActiveCategory] = useState("all");
+	const activeCategoryLabel = categories.find((category) => category.id === activeCategory)?.label;
 	const visibleSkills =
-		activeCategory === "all" ? allSkills : (categories.find((category) => category.id === activeCategory)?.items ?? []);
+		activeCategory === "all" ? allSkills : allSkills.filter((skill) => skill.category === activeCategoryLabel);
 
 	return (
 		<div className="skillset flex w-full min-h-fit-screen justify-center p-5" id="skillset">
@@ -281,7 +291,7 @@ export default function Skillset() {
 						</div>
 					</Card>
 
-					<div className="mb-4 flex gap-2 overflow-x-auto pb-1" role="tablist" aria-label="Skill categories">
+					<div className="mb-4 flex flex-wrap gap-2 pb-1" role="tablist" aria-label="Skill categories">
 						{categories.map((category) => {
 							const isActive = category.id === activeCategory;
 							return (
