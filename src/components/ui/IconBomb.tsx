@@ -85,6 +85,10 @@ function getPlayableArea() {
 	return window.innerWidth * Math.max(0, window.innerHeight - headerBottom);
 }
 
+function randomBetween(minimum: number, maximum: number) {
+	return minimum + Math.random() * (maximum - minimum);
+}
+
 type Particle = (typeof iconParticles)[number] & {
 	id: number;
 	color: string;
@@ -111,25 +115,30 @@ interface ThresholdMotion {
 function createParticles(count: number, idOffset = 0): Particle[] {
 	const viewportWidth = typeof window === "undefined" ? 1440 : window.innerWidth;
 	const viewportHeight = typeof window === "undefined" ? 900 : window.innerHeight;
+	const headerBottom =
+		typeof document === "undefined"
+			? 0
+			: (document.querySelector<HTMLElement>("[data-site-header]")?.getBoundingClientRect().bottom ?? 0);
 	const particleCount = Math.max(0, Math.floor(count));
 
 	return Array.from({ length: particleCount }, (_, index) => {
 		const particleId = index + idOffset;
-		const template = iconParticles[particleId % iconParticles.length];
-		const horizontalSeed = (particleId * 0.61803398875) % 1;
-		const verticalSeed = (particleId * 0.41421356237) % 1;
-		const direction = particleId % 2 === 0 ? 1 : -1;
+		const template = iconParticles[Math.floor(Math.random() * iconParticles.length)];
+		const direction = Math.random() > 0.5 ? 1 : -1;
 
 		return {
 			...template,
 			id: particleId,
 			color: particleColors[Math.floor(Math.random() * particleColors.length)],
-			x: (0.08 + horizontalSeed * 0.84) * viewportWidth,
-			y: (0.08 + verticalSeed * 0.84) * viewportHeight,
-			vx: direction * (24 + ((particleId * 13) % 25)),
-			vy: -direction * (20 + ((particleId * 17) % 28)),
-			rotation: 0,
-			spin: direction * (18 + ((particleId * 11) % 28)),
+			x: randomBetween(template.radius, Math.max(template.radius, viewportWidth - template.radius)),
+			y: randomBetween(
+				headerBottom + template.radius,
+				Math.max(headerBottom + template.radius, viewportHeight - template.radius),
+			),
+			vx: direction * randomBetween(24, 49),
+			vy: randomBetween(-48, 48),
+			rotation: randomBetween(0, 360),
+			spin: direction * randomBetween(18, 46),
 		};
 	});
 }
@@ -183,6 +192,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 	);
 	const [particles, setParticles] = useState<Particle[]>(() => createParticles(count));
 	const [thresholdPoppingParticles, setThresholdPoppingParticles] = useState<Set<number>>(() => new Set());
+	const [clickedParticles, setClickedParticles] = useState<Map<number, number>>(() => new Map());
 	const [thresholdMotion, setThresholdMotion] = useState<Map<number, ThresholdMotion>>(() => new Map());
 	const [chaosMode, setChaosMode] = useState(isChaosRoute);
 	const [gameStarted, setGameStarted] = useState(false);
@@ -200,6 +210,8 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 	const chaosTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 	const completionRespawnTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 	const enteringParticleTimers = useRef(new Map<number, ReturnType<typeof setTimeout>>());
+	const clickShakeTimers = useRef(new Map<number, ReturnType<typeof setTimeout>>());
+	const pointerActivatedParticles = useRef(new Set<number>());
 	const preludeRevealTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 	const clearClickTimers = () => {
 		clickTimers.current.forEach((timer) => clearTimeout(timer));
@@ -216,8 +228,27 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 		setParticles(nextParticles);
 	};
 	const resetParticleEffects = () => {
+		setClickedParticles(new Map());
 		setThresholdMotion(new Map());
 		setThresholdPoppingParticles(new Set());
+	};
+	const markParticleClicked = (id: number) => {
+		setClickedParticles((current) => {
+			const next = new Map(current);
+			next.set(id, (next.get(id) ?? 0) + 1);
+			return next;
+		});
+		const existingTimer = clickShakeTimers.current.get(id);
+		if (existingTimer) clearTimeout(existingTimer);
+		const timer = setTimeout(() => {
+			clickShakeTimers.current.delete(id);
+			setClickedParticles((current) => {
+				const next = new Map(current);
+				next.delete(id);
+				return next;
+			});
+		}, 240);
+		clickShakeTimers.current.set(id, timer);
 	};
 	const markParticlesEntering = (ids: number[]) => {
 		setEnteringParticles((current) => new Set([...current, ...ids]));
@@ -458,6 +489,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 
 	const handleParticleClick = (id: number) => {
 		if (gameComplete) return;
+		markParticleClicked(id);
 
 		if (chaosModeRef.current && !hasClickedIcon.current) {
 			hasClickedIcon.current = true;
@@ -515,10 +547,20 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 		}, iconCapture.responseDelayMs);
 		clickTimers.current.set(id, timer);
 	};
+	const handleParticlePointerDown = (id: number) => {
+		pointerActivatedParticles.current.add(id);
+		handleParticleClick(id);
+	};
+	const handleParticleKeyboardClick = (id: number) => {
+		if (pointerActivatedParticles.current.delete(id)) return;
+		handleParticleClick(id);
+	};
 
 	useEffect(() => {
 		return () => {
 			clearClickTimers();
+			clickShakeTimers.current.forEach((timer) => clearTimeout(timer));
+			clickShakeTimers.current.clear();
 			enteringParticleTimers.current.forEach((timer) => clearTimeout(timer));
 			if (preludeRevealTimer.current) clearInterval(preludeRevealTimer.current);
 			clearChaosTimers();
@@ -625,8 +667,9 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 							variant="ghost"
 							size="icon"
 							aria-label="Interactive background icon"
-							className={`fun-background__icon${enteringParticles.has(particle.id) ? " fun-background__icon--entering" : ""}${thresholdPoppingParticles.has(particle.id) ? " fun-background__icon--threshold-popping" : ""}`}
-							onClick={() => handleParticleClick(particle.id)}
+							className={`fun-background__icon${enteringParticles.has(particle.id) ? " fun-background__icon--entering" : ""}${clickedParticles.has(particle.id) ? " fun-background__icon--clicked" : ""}${(clickedParticles.get(particle.id) ?? 0) % 2 === 0 && clickedParticles.has(particle.id) ? " fun-background__icon--clicked-alt" : ""}${thresholdPoppingParticles.has(particle.id) ? " fun-background__icon--threshold-popping" : ""}`}
+							onPointerDown={() => handleParticlePointerDown(particle.id)}
+							onClick={() => handleParticleKeyboardClick(particle.id)}
 							style={
 								{
 									"--icon-top": `${particle.y}px`,
