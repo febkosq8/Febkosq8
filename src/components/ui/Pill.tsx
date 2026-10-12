@@ -12,10 +12,10 @@ interface PillProps {
 }
 
 const Pill = forwardRef<any, PillProps>(({ as, children, active, className, href, ...props }, ref) => {
-	const Tag = as || Link;
+	const Tag = as || (href === undefined ? "button" : Link);
 	return (
 		<Tag
-			to={href}
+			{...(href === undefined ? { type: "button" } : { to: href })}
 			className={cx(
 				`px-3 py-2 text-xl font-bold ${
 					active ? "bg-primary text-primary-foreground" : "text-muted-foreground"
@@ -24,7 +24,7 @@ const Pill = forwardRef<any, PillProps>(({ as, children, active, className, href
 			)}
 			ref={ref}
 			{...props}
-			viewTransition
+			{...(href === undefined ? {} : { viewTransition: true })}
 		>
 			{children}
 		</Tag>

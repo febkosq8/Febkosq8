@@ -3,6 +3,7 @@ import Febkos from "@feb/pages/Febkos";
 import WrongPage from "@feb/pages/WrongPage";
 import Button from "@feb/components/ui/Button";
 import FunBackground from "@feb/components/ui/FunBackground";
+import IconBomb from "@feb/components/ui/IconBomb";
 import { useEffect, useRef, useState } from "react";
 import { Route, Routes, useLocation } from "react-router";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
@@ -21,9 +22,11 @@ function setDocumentTitle(pathname: string, sectionId?: string) {
 
 	document.title = sectionTitle
 		? `Febkosq8 - ${sectionTitle}`
-		: normalizedPath === "/" || normalizedPath === "/cv"
-			? "Febkosq8"
-			: "404 | Febkosq8";
+		: normalizedPath === "/chaos"
+			? "Febkosq8 - Chaos"
+			: normalizedPath === "/" || normalizedPath === "/cv"
+				? "Febkosq8"
+				: "404 | Febkosq8";
 }
 
 function App() {
@@ -35,6 +38,44 @@ function App() {
 	useEffect(() => {
 		setDocumentTitle(pathname, hash.toLowerCase().slice(1));
 	}, [hash, pathname]);
+
+	useEffect(() => {
+		const triggerChaos = (control?: ChaosControl) => {
+			document.documentElement.classList.add("chaos-collapse");
+			window.dispatchEvent(new CustomEvent<ChaosControl>("chaos-collapse", { detail: control }));
+			if (control === undefined) {
+				console.info(
+					'[chaos] Game reset. Use window["chaos-game"]({ count, state }) to control it.\n' +
+						"state: idle | playing | complete\n" +
+						'example: window["chaos-game"]({ count: 10, state: "playing" })',
+				);
+			}
+		};
+
+		window["chaos-game"] = triggerChaos;
+		return () => {
+			if (window["chaos-game"] === triggerChaos) delete window["chaos-game"];
+		};
+	}, []);
+
+	useEffect(() => {
+		if (pathname !== "/chaos") {
+			document.documentElement.classList.remove("chaos-collapse");
+			return;
+		}
+
+		if (window.location.hash) {
+			window.history.replaceState(window.history.state, "", `${window.location.pathname}${window.location.search}`);
+			setDocumentTitle(pathname);
+		}
+		document.documentElement.classList.add("fun");
+		localStorage.setItem("fun-mode", "true");
+		const timeoutId = window.setTimeout(() => {
+			window["chaos-game"]?.({});
+		}, 0);
+
+		return () => window.clearTimeout(timeoutId);
+	}, [pathname]);
 
 	useEffect(() => {
 		pendingHashNavigation.current = hash.toLowerCase().slice(1) || null;
@@ -125,14 +166,18 @@ function App() {
 			}
 		}, 500);
 	}, []);
+
 	return (
 		<div className="relative flex h-screen w-screen flex-col overflow-hidden bg-background text-slate-600 dark:text-slate-100">
-			<FunBackground iconCount={40} />
+			<FunBackground iconCount={25} showIcons={pathname !== "/chaos"} />
 			<Header />
-			<main className="relative z-10 overflow-y-auto">
+			<main
+				className={pathname === "/chaos" ? "relative z-10 h-screen overflow-hidden" : "relative z-10 overflow-y-auto"}
+			>
 				<Routes>
 					<Route path="/" element={<Febkos />} />
 					<Route path="/cv" element={<Febkos />} />
+					<Route path="/chaos" element={<IconBomb count={40} />} />
 					<Route path="*" element={<WrongPage />} />
 				</Routes>
 			</main>

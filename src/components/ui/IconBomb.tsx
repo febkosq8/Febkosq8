@@ -1,5 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useNavigate } from "react-router";
 import Button from "@feb/components/ui/Button";
+import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import { BsEmojiSunglasses, BsLightningChargeFill } from "react-icons/bs";
 import {
 	FaCircle,
@@ -92,27 +94,28 @@ interface ThresholdMotion {
 	reverseSpin: number;
 }
 
-function createParticles(count: number): Particle[] {
+function createParticles(count: number, idOffset = 0): Particle[] {
 	const viewportWidth = typeof window === "undefined" ? 1440 : window.innerWidth;
 	const viewportHeight = typeof window === "undefined" ? 900 : window.innerHeight;
 	const particleCount = Math.max(0, Math.floor(count));
 
 	return Array.from({ length: particleCount }, (_, index) => {
-		const template = iconParticles[index % iconParticles.length];
-		const horizontalSeed = (index * 0.61803398875) % 1;
-		const verticalSeed = (index * 0.41421356237) % 1;
-		const direction = index % 2 === 0 ? 1 : -1;
+		const particleId = index + idOffset;
+		const template = iconParticles[particleId % iconParticles.length];
+		const horizontalSeed = (particleId * 0.61803398875) % 1;
+		const verticalSeed = (particleId * 0.41421356237) % 1;
+		const direction = particleId % 2 === 0 ? 1 : -1;
 
 		return {
 			...template,
-			id: index,
+			id: particleId,
 			color: particleColors[Math.floor(Math.random() * particleColors.length)],
 			x: (0.08 + horizontalSeed * 0.84) * viewportWidth,
 			y: (0.08 + verticalSeed * 0.84) * viewportHeight,
-			vx: direction * (24 + ((index * 13) % 25)),
-			vy: -direction * (20 + ((index * 17) % 28)),
+			vx: direction * (24 + ((particleId * 13) % 25)),
+			vy: -direction * (20 + ((particleId * 17) % 28)),
 			rotation: 0,
-			spin: direction * (18 + ((index * 11) % 28)),
+			spin: direction * (18 + ((particleId * 11) % 28)),
 		};
 	});
 }
@@ -147,21 +150,182 @@ function resolveParticleCollisions(particles: Particle[]) {
 	}
 }
 
+function formatElapsedTime(totalSeconds: number) {
+	const minutes = Math.floor(totalSeconds / 60);
+	const seconds = totalSeconds % 60;
+	const parts = [];
+
+	if (minutes > 0) parts.push(`${minutes}m`);
+	if (seconds > 0) parts.push(`${seconds}s`);
+
+	return parts.join(" ") || "0s";
+}
+
 export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBombProps) {
+	const isChaosRoute = typeof window !== "undefined" && window.location.pathname === "/chaos";
+	const navigate = useNavigate();
 	const [particles, setParticles] = useState<Particle[]>(() => createParticles(count));
 	const [thresholdPoppingParticles, setThresholdPoppingParticles] = useState<Set<number>>(() => new Set());
 	const [thresholdMotion, setThresholdMotion] = useState<Map<number, ThresholdMotion>>(() => new Map());
+	const [chaosMode, setChaosMode] = useState(isChaosRoute);
+	const [gameStarted, setGameStarted] = useState(false);
+	const [gameComplete, setGameComplete] = useState(false);
+	const [chaosElapsedSeconds, setChaosElapsedSeconds] = useState(0);
 	const particlesRef = useRef(particles);
 	const clickTimers = useRef(new Map<number, ReturnType<typeof setTimeout>>());
 	const clickCounts = useRef(new Map<number, number>());
+	const hasClickedIcon = useRef(false);
+	const chaosModeRef = useRef(isChaosRoute);
+	const chaosTimer = useRef<ReturnType<typeof setInterval> | null>(null);
+	const completionRespawnTimer = useRef<ReturnType<typeof setInterval> | null>(null);
 	const normalizedPopClickThreshold = Number.isFinite(popClickThreshold)
 		? Math.max(1, Math.floor(popClickThreshold))
 		: 6;
+	const rules = useMemo(
+		() => [
+			`${count} CHARGES ESCAPED FROM A GREAT MYSTERY LAND.`,
+			"THEY ARE FRAGMENTS OF A BROKEN STAR ENGINE.",
+			"THE ENGINE KEPT DISTANT WORLDS IN ORBIT.",
+			"LONG BEFORE THE ESCAPE, THE WORLDS WERE OUT OF SYNC.",
+			"THEIR SEAS ROSE AT DIFFERENT TIMES.",
+			"THEIR MOONS FORGOT WHICH WAY TO TURN.",
+			"THE ORBITAL ARCHIVISTS BUILT THE STAR ENGINE.",
+			"IT WAS NOT A WEAPON.",
+			"IT WAS A PROMISE THAT EVERYTHING COULD RETURN.",
+			"THE ENGINE STORED THE MEMORY OF EVERY ORBIT.",
+			"THE CHARGES WERE MADE FROM THOSE MEMORIES.",
+			"A CRACK IN THE SKY TAUGHT THE CHARGES HOW TO RUN.",
+			"EVERY CAPTURE SEALS THE CRACK FOR ONE MORE NIGHT.",
+			`CAPTURE A CHARGE WITH A ${normalizedPopClickThreshold}-HIT COMBO.`,
+			`CURRENT OBJECTIVE :\nCAPTURE ALL ${count} CHARGES.`,
+			"SELECT A CHARGE TO INITIATE THE ORBITAL SEALING PROTOCOL.",
+		],
+		[count, normalizedPopClickThreshold],
+	);
+	const credits = useMemo(
+		() => [
+			"MISSION COMPLETE",
+			"ALL CHARGES HAVE BEEN CAPTURED",
+			"THE ORBITAL SEALING PROTOCOL IS COMPLETE",
+			"THE CRACK IS CLOSED",
+			"THE GREAT MYSTERY LAND IS QUIET AGAIN",
+			"THE CHARGES WERE FRAGMENTS OF A BROKEN STAR ENGINE",
+			"THE ENGINE ONCE KEPT DISTANT WORLDS IN ORBIT",
+			"WHEN THE SKY FOLDED, THE CHARGES FELL THROUGH THE CRACK",
+			"THE GREAT MYSTERY LAND CAUGHT THEM",
+			"AND TAUGHT THEM HOW TO RUN",
+			"YOU ENTERED THE FIELD WITHOUT A MAP",
+			"THE COMPUTER OPENED THE GATES",
+			"TOGETHER, YOU CLOSED THE LOOP",
+			"BUT THE LOOP IS SEALED, NOT HEALED",
+			"THE ARCHIVISTS HAVE FOUND A MISSING ORBIT",
+			"A WORLD ERASED FROM EVERY STAR MAP",
+			"THE ENGINE IS TRYING TO RESTORE WHAT NO ONE REMEMBERS",
+			"SOMETHING ON THE OTHER SIDE HEARD THE SEAL CLOSE",
+			"SOMETHING ANSWERED WITH A SINGLE FLASH",
+			"THE COMPUTER MARKED IT AS AN UNRESOLVED VARIABLE",
+			"THE CHARGES MARKED IT AS A WARNING",
+			"FOR TONIGHT, THE CRACK HOLDS",
+			"FOR TONIGHT, THE CHARGES SLEEP",
+			"THE NEXT GATE WILL NOT OPEN BY ACCIDENT",
+			"THE NEXT ESCAPE MAY NOT BE SO FRIENDLY",
+			"THANK YOU FOR YOUR SERVICE TO THIS UNIVERSE",
+			"CREDITS",
+			"WORLD BUILDING: ME",
+			"FIELD NAVIGATION: YOU",
+			"ORBITAL SIMULATION: COMPUTER",
+			"COSMIC BACKDROP: UNIVERSE",
+			"ARCHIVE CURATION: ME",
+			"CHARGE RECOVERY: YOU",
+			"MOTION CALCULATION: COMPUTER",
+			"GRAVITY CONTROL: UNIVERSE",
+			"CRACK CONTAINMENT: ME",
+			"COMBO TESTING: YOU",
+			"SIGNAL ANALYSIS: COMPUTER",
+			"STARLIGHT PROVISION: UNIVERSE",
+			"MISSION CONTROL: ME",
+			"ESCAPE ROUTE SCOUTING: YOU",
+			"TIMELINE STABILIZATION: COMPUTER",
+			"COSMIC CONSEQUENCES: UNIVERSE",
+			"STAR MAP DESIGN: ME",
+			"FINAL APPROACH: YOU",
+			"ERROR DETECTION: COMPUTER",
+			"FINAL WARNING: UNIVERSE",
+			"THANKS FOR PLAYING",
+		],
+		[],
+	);
+
+	useEffect(() => {
+		const handleChaosCollapse = (event: Event) => {
+			const control = (event as CustomEvent<ChaosControl>).detail ?? {};
+			const targetCount = Number.isFinite(control.count) ? Math.max(0, Math.floor(control.count!)) : count;
+			const targetState = control.state ?? "idle";
+			const resetParticles = createParticles(targetCount);
+			particlesRef.current = resetParticles;
+			clickTimers.current.forEach((timer) => clearTimeout(timer));
+			clickTimers.current.clear();
+			clickCounts.current.clear();
+			hasClickedIcon.current = targetState !== "idle";
+			chaosModeRef.current = true;
+			setChaosMode(true);
+			setGameStarted(targetState !== "idle");
+			setGameComplete(targetState === "complete");
+			setChaosElapsedSeconds(0);
+			setThresholdMotion(new Map());
+			setThresholdPoppingParticles(new Set());
+			setParticles(resetParticles);
+			if (chaosTimer.current) clearInterval(chaosTimer.current);
+			chaosTimer.current = null;
+			if (completionRespawnTimer.current) clearInterval(completionRespawnTimer.current);
+			completionRespawnTimer.current = null;
+			if (targetState === "playing") {
+				const startedAt = Date.now();
+				chaosTimer.current = setInterval(() => {
+					setChaosElapsedSeconds(Math.floor((Date.now() - startedAt) / 1000));
+				}, 1000);
+			}
+		};
+
+		window.addEventListener("chaos-collapse", handleChaosCollapse);
+		return () => {
+			window.removeEventListener("chaos-collapse", handleChaosCollapse);
+			if (chaosTimer.current) clearInterval(chaosTimer.current);
+		};
+	}, [count]);
 
 	const removeParticle = (id: number) => {
 		const remaining = particlesRef.current.filter((particle) => particle.id !== id);
 		particlesRef.current = remaining;
 		clickCounts.current.delete(id);
+		if (remaining.length === 0) {
+			if (chaosTimer.current) clearInterval(chaosTimer.current);
+			chaosTimer.current = null;
+			if (completionRespawnTimer.current) clearInterval(completionRespawnTimer.current);
+			const initialRespawnCount = Math.min(1, Math.max(0, Math.floor(count)));
+			const resetParticles = createParticles(initialRespawnCount);
+			particlesRef.current = resetParticles;
+			clickCounts.current.clear();
+			setThresholdMotion(new Map());
+			setThresholdPoppingParticles(new Set());
+			setParticles(resetParticles);
+			setGameComplete(true);
+			if (initialRespawnCount < count) {
+				let respawnCount = initialRespawnCount;
+				completionRespawnTimer.current = setInterval(() => {
+					respawnCount += 1;
+					const newParticle = createParticles(1, particlesRef.current.length)[0];
+					const nextParticles = [...particlesRef.current, newParticle];
+					particlesRef.current = nextParticles;
+					setParticles(nextParticles);
+					if (respawnCount >= count && completionRespawnTimer.current) {
+						clearInterval(completionRespawnTimer.current);
+						completionRespawnTimer.current = null;
+					}
+				}, 1000);
+			}
+			return;
+		}
 		setThresholdMotion((current) => {
 			const next = new Map(current);
 			next.delete(id);
@@ -171,6 +335,18 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 	};
 
 	const handleParticleClick = (id: number) => {
+		if (gameComplete) return;
+
+		if (chaosModeRef.current && !hasClickedIcon.current) {
+			hasClickedIcon.current = true;
+			setGameStarted(true);
+			const startedAt = Date.now();
+			const updateElapsedTime = () => {
+				setChaosElapsedSeconds(Math.floor((Date.now() - startedAt) / 1000));
+			};
+			updateElapsedTime();
+			chaosTimer.current = setInterval(updateElapsedTime, 1000);
+		}
 		const clickCount = (clickCounts.current.get(id) ?? 0) + 1;
 		clickCounts.current.set(id, clickCount);
 		const existingTimer = clickTimers.current.get(id);
@@ -215,7 +391,11 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 	};
 
 	useEffect(() => {
-		return () => clickTimers.current.forEach((timer) => clearTimeout(timer));
+		return () => {
+			clickTimers.current.forEach((timer) => clearTimeout(timer));
+			if (chaosTimer.current) clearInterval(chaosTimer.current);
+			if (completionRespawnTimer.current) clearInterval(completionRespawnTimer.current);
+		};
 	}, []);
 
 	useEffect(() => {
@@ -229,6 +409,7 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			const current = particlesRef.current;
 			const width = window.innerWidth;
 			const height = window.innerHeight;
+			const bottomInset = 0;
 			const headerBottom =
 				document.querySelector<HTMLElement>("[data-site-header]")?.getBoundingClientRect().bottom ?? 0;
 			current.forEach((particle) => {
@@ -239,12 +420,18 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 					particle.x = Math.max(particle.radius, Math.min(width - particle.radius, particle.x));
 					particle.vx *= -1;
 				}
-				if (particle.y <= headerBottom + particle.radius || particle.y >= height - particle.radius) {
-					particle.y = Math.max(headerBottom + particle.radius, Math.min(height - particle.radius, particle.y));
+				const bottomBoundary = height - particle.radius - bottomInset;
+				if (particle.y <= headerBottom + particle.radius || particle.y >= bottomBoundary) {
+					particle.y = Math.max(headerBottom + particle.radius, Math.min(bottomBoundary, particle.y));
 					particle.vy *= -1;
 				}
 			});
 			resolveParticleCollisions(current);
+			current.forEach((particle) => {
+				const bottomBoundary = height - particle.radius - bottomInset;
+				particle.x = Math.max(particle.radius, Math.min(width - particle.radius, particle.x));
+				particle.y = Math.max(headerBottom + particle.radius, Math.min(bottomBoundary, particle.y));
+			});
 			setParticles(current.map((particle) => ({ ...particle })));
 			frameId = requestAnimationFrame(tick);
 		};
@@ -253,34 +440,63 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 	}, []);
 
 	return (
-		<div className="fun-background__icons">
-			{particles.map(({ Icon, ...particle }) => (
-				<Button
-					key={particle.id}
-					type="button"
-					variant="ghost"
-					size="icon"
-					aria-label="Interactive background icon"
-					className={`fun-background__icon${thresholdPoppingParticles.has(particle.id) ? " fun-background__icon--threshold-popping" : ""}`}
-					onClick={() => handleParticleClick(particle.id)}
-					style={
-						{
-							"--icon-top": `${particle.y}px`,
-							"--icon-left": `${particle.x}px`,
-							"--icon-size": particle.size,
-							"--icon-color": particle.color,
-							"--icon-rotation": `${particle.rotation}deg`,
-							"--threshold-duration": `${thresholdMotion.get(particle.id)?.duration ?? 2200}ms`,
-							"--threshold-shake": `${thresholdMotion.get(particle.id)?.shake ?? 5}px`,
-							"--threshold-tilt": `${thresholdMotion.get(particle.id)?.tilt ?? 0}deg`,
-							"--threshold-spin": `${thresholdMotion.get(particle.id)?.spin ?? 720}deg`,
-							"--threshold-reverse-spin": `${thresholdMotion.get(particle.id)?.reverseSpin ?? -720}deg`,
-						} as React.CSSProperties
-					}
-				>
-					<Icon />
-				</Button>
-			))}
-		</div>
+		<>
+			{chaosMode && !gameStarted && (
+				<div className="chaos-rules" aria-live="polite">
+					<TypingAnimation strings={rules} startWhenVisible={false} perTick={{ update: 2, unit: "character" }} />
+				</div>
+			)}
+			{chaosMode && gameStarted && !gameComplete && (
+				<div className="chaos-collapse-message" aria-live="polite">
+					<div>{particles.length} charges remain</div>
+					<div>{formatElapsedTime(chaosElapsedSeconds)} has gone by</div>
+					<Button className="pointer-events-auto mt-3" variant="outline" size="sm" onClick={() => navigate("/")}>
+						Give up
+					</Button>
+				</div>
+			)}
+			{chaosMode && gameComplete && (
+				<div className="chaos-collapse-message chaos-collapse-message--complete" aria-live="polite">
+					<TypingAnimation
+						strings={credits}
+						startWhenVisible={false}
+						perTick={{ update: 2, unit: "character" }}
+						loop={false}
+					/>
+					<Button className="pointer-events-auto mt-3" variant="outline" size="sm" onClick={() => navigate("/")}>
+						Return home
+					</Button>
+				</div>
+			)}
+			<div className="fun-background__icons">
+				{particles.map(({ Icon, ...particle }) => (
+					<Button
+						key={particle.id}
+						type="button"
+						variant="ghost"
+						size="icon"
+						aria-label="Interactive background icon"
+						className={`fun-background__icon${thresholdPoppingParticles.has(particle.id) ? " fun-background__icon--threshold-popping" : ""}`}
+						onClick={() => handleParticleClick(particle.id)}
+						style={
+							{
+								"--icon-top": `${particle.y}px`,
+								"--icon-left": `${particle.x}px`,
+								"--icon-size": particle.size,
+								"--icon-color": particle.color,
+								"--icon-rotation": `${particle.rotation}deg`,
+								"--threshold-duration": `${thresholdMotion.get(particle.id)?.duration ?? 2200}ms`,
+								"--threshold-shake": `${thresholdMotion.get(particle.id)?.shake ?? 5}px`,
+								"--threshold-tilt": `${thresholdMotion.get(particle.id)?.tilt ?? 0}deg`,
+								"--threshold-spin": `${thresholdMotion.get(particle.id)?.spin ?? 720}deg`,
+								"--threshold-reverse-spin": `${thresholdMotion.get(particle.id)?.reverseSpin ?? -720}deg`,
+							} as React.CSSProperties
+						}
+					>
+						<Icon />
+					</Button>
+				))}
+			</div>
+		</>
 	);
 }

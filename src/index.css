@@ -195,6 +195,59 @@
 	pointer-events: auto;
 }
 
+.chaos-collapse #root .fixed {
+	display: none;
+}
+
+.chaos-collapse-message {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 40;
+	box-sizing: border-box;
+	padding: 0 1rem;
+	width: 100vw;
+	pointer-events: none;
+	color: var(--foreground);
+	font-weight: 700;
+	font-size: clamp(1rem, 2vw, 1.5rem);
+	text-align: center;
+	white-space: nowrap;
+}
+
+.chaos-collapse-message--complete {
+	display: flex;
+	inset: 0;
+	top: auto;
+	left: auto;
+	justify-content: center;
+	align-items: center;
+	transform: none;
+	width: 100%;
+	height: 100%;
+}
+
+.chaos-collapse-message--complete > button {
+	position: absolute;
+	bottom: 1.5rem;
+}
+
+.chaos-rules {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 40;
+	box-sizing: border-box;
+	padding: 0 1rem;
+	width: 100vw;
+	color: var(--foreground);
+	font-weight: 700;
+	font-size: clamp(1rem, 2vw, 1.5rem);
+	text-align: center;
+}
+
 .dark .fun-background {
 	background: transparent;
 }
@@ -223,7 +276,7 @@
 
 .fun-background__icons {
 	display: none;
-	position: absolute;
+	position: fixed;
 	inset: 0;
 }
 
@@ -238,6 +291,7 @@
 	transform: translate(-50%, -50%) rotate(var(--icon-rotation));
 	opacity: 0.76;
 	filter: drop-shadow(0 8px 12px hsl(215 35% 16% / 0.14));
+	transition: color 120ms ease-out;
 	will-change: top, left, transform;
 	cursor: pointer;
 	border: 0;
@@ -254,6 +308,7 @@
 
 .fun-background__icon--threshold-popping {
 	animation: fun-threshold-pop var(--threshold-duration, 3000ms) ease-in-out forwards;
+	color: hsl(8 88% 58%);
 }
 
 @keyframes fun-pop {

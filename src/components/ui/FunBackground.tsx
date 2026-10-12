@@ -5,9 +5,10 @@ import { useEffect, useState } from "react";
 interface FunBackgroundProps {
 	iconCount?: number;
 	popClickThreshold?: number;
+	showIcons?: boolean;
 }
 
-export default function FunBackground({ iconCount = 10, popClickThreshold = 4 }: FunBackgroundProps) {
+export default function FunBackground({ iconCount = 10, popClickThreshold = 4, showIcons = true }: FunBackgroundProps) {
 	const [prefersReducedMotion, setPrefersReducedMotion] = useState(
 		() => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
 	);
@@ -24,7 +25,7 @@ export default function FunBackground({ iconCount = 10, popClickThreshold = 4 }:
 	return (
 		<div className="fun-background">
 			<GradientWashBackground />
-			{!prefersReducedMotion && <IconBomb count={iconCount} popClickThreshold={popClickThreshold} />}
+			{showIcons && !prefersReducedMotion && <IconBomb count={iconCount} popClickThreshold={popClickThreshold} />}
 		</div>
 	);
 }

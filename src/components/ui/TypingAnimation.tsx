@@ -91,13 +91,15 @@ export default function TypingAnimation({
 		let timeout: ReturnType<typeof setTimeout>;
 
 		const animate = () => {
+			if (!loop && stringIndexRef.current >= strings.length) return;
+
 			const string = strings[stringIndexRef.current];
-			if (!loop && characterIndexRef.current >= string.length) return;
 
 			if (!deletingRef.current) {
 				characterIndexRef.current = getNextIndex(string, characterIndexRef.current, tickAmount, tickUnit, 1);
 				setCurrentText(string.slice(0, characterIndexRef.current));
-				deletingRef.current = loop && characterIndexRef.current === string.length;
+				deletingRef.current =
+					characterIndexRef.current === string.length && (loop || stringIndexRef.current < strings.length - 1);
 			} else {
 				characterIndexRef.current = getNextIndex(string, characterIndexRef.current, tickAmount, tickUnit, -1);
 				setCurrentText(string.slice(0, characterIndexRef.current));

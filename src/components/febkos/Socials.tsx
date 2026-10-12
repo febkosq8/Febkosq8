@@ -2,6 +2,7 @@ import Card from "@feb/components/ui/Card";
 import Button from "@feb/components/ui/Button";
 import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import {
 	FaAmazon,
 	FaBlogger,
@@ -28,6 +29,7 @@ function getRandomFunIconColor() {
 
 const socialsHeading = ["Let's connect"];
 export default function Socials() {
+	const navigate = useNavigate();
 	const [funMode, setFunMode] = useState(() => localStorage.getItem(funModeStorageKey) === "true");
 	const [funIconColor, setFunIconColor] = useState(getRandomFunIconColor);
 	const [prefersReducedMotion, setPrefersReducedMotion] = useState(
@@ -169,10 +171,13 @@ export default function Socials() {
 											variant="outline"
 											className="group/button h-10 gap-2 border-foreground/25 bg-card px-3 py-2 text-sm leading-none hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:text-primary-foreground"
 											onClick={() => setFunMode((enabled) => !enabled)}
+											onDoubleClick={() => {
+												if (!prefersReducedMotion) {
+													navigate("/chaos", { replace: true });
+												}
+											}}
 											aria-pressed={funMode}
-											title={
-												prefersReducedMotion ? "Reduced motion is enabled; icons are disabled." : "Toggle fun mode"
-											}
+											title={`${funMode ? "Turn off" : "Turn on"} fun mode.${prefersReducedMotion ? " Reduced motion preferred; icons will be disabled." : ""}`}
 										>
 											<span
 												className="flex items-center text-base leading-none text-primary transition-colors group-hover/button:text-primary-foreground"
@@ -183,9 +188,9 @@ export default function Socials() {
 													style={{ "--fun-icon-color": funIconColor } as React.CSSProperties}
 												/>
 											</span>
-											Unleash Chaos
+											{funMode ? "I can't handle it" : "Go Crazy"}
 											{prefersReducedMotion && funMode && (
-												<span className="text-xs opacity-75">Reduced motion detected - no icons deployed</span>
+												<span className="text-xs opacity-75">Reduced motion preferred - no icons deployed</span>
 											)}
 										</Button>
 									)}
