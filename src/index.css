@@ -327,6 +327,10 @@
 	font-size: var(--icon-size);
 }
 
+.chaos-collapse .fun-background__icon {
+	cursor: crosshair;
+}
+
 .fun-background__icon--popping {
 	animation: fun-pop 260ms ease-out forwards;
 }

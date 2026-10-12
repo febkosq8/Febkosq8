@@ -70,8 +70,8 @@ const particleColors = [
 
 const minimumPlayableArea = 320 * 480;
 const iconSpawnAnimation = {
-	intervalMs: 300,
-	durationMs: 800,
+	intervalMs: 600,
+	durationMs: 1000,
 } as const;
 const iconCaptureAnimationDurationMs = 2000;
 const iconClickResponseDelayMs = 220;
@@ -288,7 +288,7 @@ export default function IconBomb({ count = 10, popClickThreshold = 4 }: IconBomb
 			"THE CHARGES WERE MADE FROM THOSE MEMORIES.",
 			"A CRACK IN THE SKY TAUGHT THE CHARGES HOW TO RUN.",
 			"EVERY CAPTURE SEALS THE CRACK FOR ONE MORE NIGHT.",
-			"<--delay-3-->",
+			"<--delay-6-->",
 			"<--clearAll-->",
 			`CURRENT OBJECTIVE :\nCAPTURE ALL ${count} CHARGES.`,
 			`CAPTURE A CHARGE WITH A ${normalizedPopClickThreshold}-HIT COMBO.`,
