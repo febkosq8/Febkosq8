@@ -5,30 +5,11 @@ import Button from "@feb/components/ui/Button";
 import FunBackground from "@feb/components/ui/FunBackground";
 import IconBomb from "@feb/components/ui/IconBomb";
 import { cx } from "@rinzai/zen";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Route, Routes, useLocation } from "react-router";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa6";
 
-const sectionTitles: Record<string, string> = {
-	intro: "",
-	about: "About",
-	skillset: "Skillset",
-	projects: "Projects",
-	socials: "Socials",
-};
-
-function setDocumentTitle(pathname: string, sectionId?: string) {
-	const sectionTitle = sectionId === undefined ? undefined : sectionTitles[sectionId];
-	const normalizedPath = pathname.replace(/\/$/, "") || "/";
-
-	document.title = sectionTitle
-		? `Febkosq8 - ${sectionTitle}`
-		: normalizedPath === "/chaos"
-			? "Febkosq8 - Chaos"
-			: normalizedPath === "/" || normalizedPath === "/cv"
-				? "Febkosq8"
-				: "404 | Febkosq8";
-}
+const sectionIds = ["intro", "about", "skillset", "projects", "socials"];
 
 function App() {
 	const { hash, pathname } = useLocation();
@@ -36,9 +17,9 @@ function App() {
 	const sectionsRef = useRef<HTMLElement[]>([]);
 	const [navigationAvailability, setNavigationAvailability] = useState({ up: false, down: false });
 
-	useEffect(() => {
-		setDocumentTitle(pathname, hash.toLowerCase().slice(1));
-	}, [hash, pathname]);
+	useLayoutEffect(() => {
+		document.title = "Febkosq8";
+	}, []);
 
 	useEffect(() => {
 		const triggerChaos = (control?: ChaosControl) => {
@@ -68,7 +49,6 @@ function App() {
 
 		if (window.location.hash) {
 			window.history.replaceState(window.history.state, "", `${window.location.pathname}${window.location.search}`);
-			setDocumentTitle(pathname);
 		}
 		document.documentElement.classList.add("fun");
 		const timeoutId = window.setTimeout(() => {
@@ -87,7 +67,7 @@ function App() {
 		const main = document.querySelector("main");
 		if (!main) return;
 
-		const sections = Object.keys(sectionTitles)
+		const sections = sectionIds
 			.map((id) => document.getElementById(id))
 			.filter((section): section is HTMLElement => section !== null);
 		sectionsRef.current = sections;
@@ -104,8 +84,6 @@ function App() {
 				up: activeSectionIndex > 0,
 				down: activeSectionIndex >= 0 && activeSectionIndex < sections.length - 1,
 			});
-
-			setDocumentTitle(pathname, activeSection?.id);
 
 			if (!activeSection) return;
 			if (pendingHashNavigation.current === activeSection.id) {

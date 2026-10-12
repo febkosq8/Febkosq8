@@ -33,6 +33,7 @@ import {
 } from "react-icons/si";
 import type { IconType } from "react-icons";
 import { useState } from "react";
+import useActiveSectionTitle from "@feb/components/febkos/useActiveSectionTitle";
 import { BiLogoVisualStudio } from "react-icons/bi";
 import { GrOracle } from "react-icons/gr";
 import { TbBrandAzure } from "react-icons/tb";
@@ -283,13 +284,21 @@ function SkillTile({ skill, featured = false }: { skill: SkillItem; featured?: b
 }
 
 export default function Skillset() {
+	const sectionRef = useActiveSectionTitle(() => {
+		document.title = "Febkosq8 - Skillset";
+	});
 	const [activeCategory, setActiveCategory] = useState("all");
 	const activeCategoryLabel = categories.find((category) => category.id === activeCategory)?.label;
 	const visibleSkills =
 		activeCategory === "all" ? allSkills : allSkills.filter((skill) => skill.category === activeCategoryLabel);
 
 	return (
-		<div className="skillset flex w-full min-h-fit-screen justify-center p-5" id="skillset">
+		<div
+			ref={sectionRef}
+			className="skillset flex w-full min-h-fit-screen justify-center p-5"
+			id="skillset"
+			data-title-section
+		>
 			<div className="w-full max-w-6xl py-10">
 				<div className="flex flex-col gap-5 border-b border-border pb-8">
 					<div>

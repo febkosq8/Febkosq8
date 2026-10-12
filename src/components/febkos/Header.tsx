@@ -112,10 +112,13 @@ export default function Header() {
 			</a>
 			{isChaos && chaosStats?.active && (
 				<div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-2">
+					<span className="whitespace-nowrap text-xs font-bold uppercase tracking-[0.08em]">Chaos Control</span>
+					<span aria-hidden="true" className="h-5 w-px bg-border" />
 					<div className="chaos-header-stats" aria-live="polite">
 						<span>{chaosStats.charges} charges remain</span>
 						<span>{chaosStats.elapsed} elapsed</span>
 					</div>
+					<span aria-hidden="true" className="h-5 w-px bg-border" />
 					<Button
 						className="chaos-header-exit"
 						type="button"

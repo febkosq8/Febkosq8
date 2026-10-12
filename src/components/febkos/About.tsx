@@ -1,14 +1,19 @@
 import Button from "@feb/components/ui/Button";
 import Card from "@feb/components/ui/Card";
 import TypingAnimation from "@feb/components/ui/TypingAnimation";
+import useActiveSectionTitle from "@feb/components/febkos/useActiveSectionTitle";
 import { FaRegAddressCard } from "react-icons/fa";
 
 const aboutCardClass =
 	"flex w-full min-h-40 flex-col justify-between [&_.card-header]:border-0! [&_.card-header]:p-0! [&_.card-header]:text-sm! [&_.card-header]:font-semibold [&_.card-header]:uppercase [&_.card-header]:text-primary [&_.card-content]:mt-5! [&_.card-content]:p-0! [&_.card-content]:text-lg! [&_.card-content]:leading-7 [&_.card-footer]:mt-5! [&_.card-footer]:border-0! [&_.card-footer]:p-0!";
 const aboutHeading = ["Security-minded builder,\ncurious by default."];
 export default function About() {
+	const sectionRef = useActiveSectionTitle(() => {
+		document.title = "Febkosq8 - About";
+	});
+
 	return (
-		<div className="home flex min-h-fit-screen justify-center p-5" id="about">
+		<div ref={sectionRef} className="home flex min-h-fit-screen justify-center p-5" id="about" data-title-section>
 			<div className="w-full max-w-6xl py-10">
 				<div className="flex flex-col gap-5 border-b border-border pb-8">
 					<div>

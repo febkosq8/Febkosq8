@@ -1,4 +1,10 @@
+import { useEffect } from "react";
+
 export default function WrongPage() {
+	useEffect(() => {
+		document.title = "404 | Febkosq8";
+	}, []);
+
 	return (
 		<div>
 			<div className="flex min-h-fit-screen flex-col items-center justify-center">

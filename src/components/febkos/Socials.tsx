@@ -21,6 +21,7 @@ import {
 } from "react-icons/fa6";
 import { FaHeartbeat } from "react-icons/fa";
 import { GiPartyPopper } from "react-icons/gi";
+import useActiveSectionTitle from "@feb/components/febkos/useActiveSectionTitle";
 
 const funModeStorageKey = "fun-mode";
 const funIconColors = ["#ef4444", "#f97316", "#eab308", "#22c55e", "#06b6d4", "#3b82f6", "#a855f7", "#ec4899"];
@@ -31,6 +32,9 @@ function getRandomFunIconColor() {
 
 const socialsHeading = ["Let's connect"];
 export default function Socials() {
+	const sectionRef = useActiveSectionTitle(() => {
+		document.title = "Febkosq8 - Socials";
+	});
 	const navigate = useNavigate();
 	const [funMode, setFunMode] = useState(() => localStorage.getItem(funModeStorageKey) === "true");
 	const [funIconColor, setFunIconColor] = useState(getRandomFunIconColor);
@@ -109,7 +113,12 @@ export default function Socials() {
 	];
 
 	return (
-		<div className="socials flex w-full min-h-fit-screen justify-center p-5 pb-16" id="socials">
+		<div
+			ref={sectionRef}
+			className="socials flex w-full min-h-fit-screen justify-center p-5 pb-16"
+			id="socials"
+			data-title-section
+		>
 			<div className="w-full max-w-6xl py-10">
 				<div className="flex flex-col gap-5 border-b border-border pb-8">
 					<div>

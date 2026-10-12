@@ -193,6 +193,9 @@ function formatElapsedTime(totalSeconds: number) {
 export default function IconBomb({ count = 10 }: IconBombProps) {
 	const isChaosRoute = typeof window !== "undefined" && window.location.pathname === "/chaos";
 	const navigate = useNavigate();
+	useEffect(() => {
+		if (isChaosRoute) document.title = "Febkosq8 - Chaos";
+	}, [isChaosRoute]);
 	const [funModeEnabled, setFunModeEnabled] = useState(
 		() => typeof document !== "undefined" && document.documentElement.classList.contains("fun"),
 	);

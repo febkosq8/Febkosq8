@@ -9,6 +9,7 @@ import Button from "@feb/components/ui/Button";
 import TypingAnimation from "@feb/components/ui/TypingAnimation";
 import { cx } from "@rinzai/zen";
 import { useState } from "react";
+import useActiveSectionTitle from "@feb/components/febkos/useActiveSectionTitle";
 import { FaCode, FaDiscord, FaGithub, FaInfoCircle, FaNpm } from "react-icons/fa";
 const projectsHeading = ["Things I've built"];
 const projectItems = [
@@ -115,10 +116,18 @@ const projectItems = [
 	},
 ];
 export default function Projects() {
+	const sectionRef = useActiveSectionTitle(() => {
+		document.title = "Febkosq8 - Projects";
+	});
 	const [expandedProject, setExpandedProject] = useState<number | null>(null);
 
 	return (
-		<div className="projects flex w-full min-h-fit-screen justify-center p-5" id="projects">
+		<div
+			ref={sectionRef}
+			className="projects flex w-full min-h-fit-screen justify-center p-5"
+			id="projects"
+			data-title-section
+		>
 			<div className="w-full max-w-6xl py-10">
 				<div className="flex flex-col gap-5 border-b border-border pb-8">
 					<div>

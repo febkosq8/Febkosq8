@@ -1,5 +1,6 @@
 import Button from "@feb/components/ui/Button";
 import TypingAnimation from "@feb/components/ui/TypingAnimation";
+import useActiveSectionTitle from "@feb/components/febkos/useActiveSectionTitle";
 
 const introName = ["Febin Koshy Philip"];
 const selfDescriptions = [
@@ -14,8 +15,17 @@ const selfDescriptions = [
 ];
 
 export default function Intro() {
+	const sectionRef = useActiveSectionTitle(() => {
+		document.title = "Febkosq8";
+	});
+
 	return (
-		<div className="intro flex w-full min-h-fit-screen items-center justify-center p-5 text-foreground" id="intro">
+		<div
+			ref={sectionRef}
+			className="intro flex w-full min-h-fit-screen items-center justify-center p-5 text-foreground"
+			id="intro"
+			data-title-section
+		>
 			<div className="w-full max-w-6xl">
 				<p className="mb-4 text-sm font-semibold text-primary uppercase lg:text-base">Hello, I'm</p>
 				<h1 className="max-w-4xl text-5xl leading-none font-semibold sm:text-6xl lg:text-8xl">
