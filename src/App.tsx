@@ -159,7 +159,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={<Febkos />} />
 					<Route path="/cv" element={<Febkos />} />
-					<Route path="/chaos" element={<IconBomb count={40} />} />
+					<Route path="/chaos" element={<IconBomb count={50} />} />
 					<Route path="*" element={<WrongPage />} />
 				</Routes>
 			</main>

@@ -382,6 +382,10 @@
 	cursor: crosshair;
 }
 
+.chaos-collapse .fun-background__icon--handling {
+	cursor: not-allowed;
+}
+
 .fun-background__icon--popping {
 	animation: fun-pop 260ms ease-out forwards;
 }
@@ -391,7 +395,7 @@
 }
 
 .fun-background__icon--clicked {
-	animation: fun-click-shake 280ms ease-out;
+	animation: fun-click-shake 420ms ease-out;
 }
 
 .fun-background__icon--clicked-alt {
@@ -446,13 +450,13 @@
 		transform: translate(-50%, -50%) rotate(var(--icon-rotation));
 	}
 	25% {
-		transform: translate(calc(-50% - 10px), -50%) rotate(calc(var(--icon-rotation) - 12deg));
+		transform: translate(calc(-50% - 24px), calc(-50% - 10px)) rotate(calc(var(--icon-rotation) - 24deg));
 	}
 	50% {
-		transform: translate(calc(-50% + 10px), -50%) rotate(calc(var(--icon-rotation) + 12deg));
+		transform: translate(calc(-50% + 24px), calc(-50% + 10px)) rotate(calc(var(--icon-rotation) + 24deg));
 	}
 	75% {
-		transform: translate(calc(-50% - 6px), -50%) rotate(calc(var(--icon-rotation) - 6deg));
+		transform: translate(calc(-50% - 14px), calc(-50% + 6px)) rotate(calc(var(--icon-rotation) - 14deg));
 	}
 }
 
@@ -462,13 +466,13 @@
 		transform: translate(-50%, -50%) rotate(var(--icon-rotation));
 	}
 	25% {
-		transform: translate(calc(-50% - 10px), -50%) rotate(calc(var(--icon-rotation) - 12deg));
+		transform: translate(calc(-50% - 24px), calc(-50% - 10px)) rotate(calc(var(--icon-rotation) - 24deg));
 	}
 	50% {
-		transform: translate(calc(-50% + 10px), -50%) rotate(calc(var(--icon-rotation) + 12deg));
+		transform: translate(calc(-50% + 24px), calc(-50% + 10px)) rotate(calc(var(--icon-rotation) + 24deg));
 	}
 	75% {
-		transform: translate(calc(-50% - 6px), -50%) rotate(calc(var(--icon-rotation) - 6deg));
+		transform: translate(calc(-50% - 14px), calc(-50% + 6px)) rotate(calc(var(--icon-rotation) - 14deg));
 	}
 }
 
