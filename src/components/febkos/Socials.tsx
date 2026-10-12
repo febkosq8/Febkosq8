@@ -16,8 +16,10 @@ import {
 	FaRocket,
 	FaShare,
 	FaSteam,
+	FaArrowUpRightFromSquare,
 	FaYoutube,
 } from "react-icons/fa6";
+import { FaHeartbeat } from "react-icons/fa";
 import { GiPartyPopper } from "react-icons/gi";
 
 const funModeStorageKey = "fun-mode";
@@ -131,6 +133,26 @@ export default function Socials() {
 						Find me online, get in touch, or support the work behind these projects.
 					</p>
 				</div>
+
+				<Card hoverLift={false} className="mt-8 border-primary/60 bg-primary/5">
+					<Card.Header className="flex-row items-center gap-2">
+						<span className="text-primary" aria-hidden="true">
+							<FaHeartbeat />
+						</span>
+						Live service status
+					</Card.Header>
+					<Card.Content className="flex flex-col gap-3">
+						<p className="text-sm leading-6 text-foreground/70">
+							A live view of my services and infrastructure, monitored with Uptime Kuma.
+						</p>
+						<Button asChild className="w-fit gap-2">
+							<a href="https://status.febkosq8.me/" target="_blank" rel="noreferrer">
+								View live status
+								<FaArrowUpRightFromSquare aria-hidden="true" />
+							</a>
+						</Button>
+					</Card.Content>
+				</Card>
 
 				<div className="mt-8 flex flex-col gap-3">
 					{groups.map((group) => (
