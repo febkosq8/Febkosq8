@@ -180,7 +180,7 @@ export default function Projects() {
 								aria-expanded={expandedProject === index}
 								onClick={() => setExpandedProject(expandedProject === index ? null : index)}
 								className={cx(
-									"absolute inset-x-0 bottom-0 h-auto min-h-24 items-end justify-between gap-3 rounded-none bg-linear-to-t from-black/85 via-black/35 to-transparent p-4 text-left transition-opacity duration-300 sm:group-hover:pointer-events-none sm:group-hover:opacity-0",
+									"absolute inset-x-0 bottom-0 h-auto min-h-32 items-end justify-between gap-3 rounded-none bg-linear-to-t from-black/80 via-black/20 to-transparent p-4 text-left transition-opacity duration-300 sm:group-hover:pointer-events-none sm:group-hover:opacity-0",
 									expandedProject === index && "pointer-events-none opacity-0",
 								)}
 							>

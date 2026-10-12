@@ -161,7 +161,7 @@ export default function Header() {
 										<a
 											href={item.href}
 											className={`block px-4 py-2 text-sm transition-colors hover:bg-accent hover:text-primary ${
-												currHref === item.href ? "font-bold text-primary" : "text-foreground"
+												currHref === item.href ? "font-semibold text-primary" : "text-foreground"
 											}`}
 										>
 											{item.label}
