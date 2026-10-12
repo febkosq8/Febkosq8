@@ -51,7 +51,6 @@ const languagesList: SkillItem[] = [
 		name: "TypeScript",
 		icon: SiTypescript,
 		url: "https://www.typescriptlang.org/",
-		core: true,
 	},
 	{
 		name: "JavaScript",
@@ -122,7 +121,6 @@ const stackList: SkillItem[] = [
 		name: "Vite",
 		icon: SiVite,
 		url: "https://vite.dev/",
-		core: true,
 	},
 	{
 		name: "Vitest",
@@ -251,7 +249,7 @@ const categories = [
 const allSkills = categories
 	.slice(1)
 	.flatMap((category) => category.items.map((skill) => ({ ...skill, category: category.label })));
-const coreStack = allSkills.filter((skill) => skill.core);
+const coreStack = allSkills.filter((skill) => skill.core).sort((a, b) => a.name.localeCompare(b.name));
 
 function SkillTile({ skill, featured = false }: { skill: SkillItem; featured?: boolean }) {
 	const className = `group relative block overflow-hidden rounded-md border border-foreground/15 bg-card p-2 sm:p-3 transition-[border-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-primary hover:shadow-md ${featured ? "sm:min-w-35 sm:flex-1" : ""}`;
