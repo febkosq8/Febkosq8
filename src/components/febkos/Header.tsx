@@ -3,6 +3,7 @@ import { Menu } from "@feb/components/ui/Menu";
 import ThemeSwitcher from "@feb/components/ui/ThemeSwitcher";
 import { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa";
+import { useLocation } from "react-router";
 
 function AnimatedText({ text }: { text: string }) {
 	const [colorIndex, setColorIndex] = useState(0);
@@ -66,7 +67,10 @@ function AnimatedText({ text }: { text: string }) {
 }
 
 export default function Header() {
+	const { pathname } = useLocation();
 	const [currHref, setCurrHref] = useState(window.location.hash);
+	const isChaos = pathname === "/chaos";
+
 	useEffect(() => {
 		window.addEventListener("hashchange", () => {
 			setCurrHref(window.location.hash);
@@ -89,32 +93,35 @@ export default function Header() {
 				<AnimatedText text="Febkosq8" />
 			</a>
 			<div className="flex items-center gap-2">
-				{/* Desktop Navigation - Hidden on small screens */}
-				<div className="hidden items-center gap-2 md:flex">
-					{navigationItems.map((item) => (
-						<LinkPill key={item.label} active={currHref === item.href} href={item.href}>
-							{item.label}
-						</LinkPill>
-					))}
-				</div>
-
-				{/* Mobile Navigation - Dropdown menu for small screens */}
-				<div className="md:hidden">
-					<Menu buttonText={<FaBars />}>
-						{navigationItems.map((item) => (
-							<Menu.Item key={item.label} asChild>
-								<a
-									href={item.href}
-									className={`block px-4 py-2 text-sm transition-colors hover:bg-accent hover:text-primary ${
-										currHref === item.href ? "font-bold text-primary" : "text-foreground"
-									}`}
-								>
+				{!isChaos && (
+					<>
+						{/* Desktop Navigation - Hidden on small screens */}
+						<div className="hidden items-center gap-2 md:flex">
+							{navigationItems.map((item) => (
+								<LinkPill key={item.label} active={currHref === item.href} href={item.href}>
 									{item.label}
-								</a>
-							</Menu.Item>
-						))}
-					</Menu>
-				</div>
+								</LinkPill>
+							))}
+						</div>
+						{/* Mobile Navigation - Dropdown menu for small screens */}
+						<div className="md:hidden">
+							<Menu buttonText={<FaBars />}>
+								{navigationItems.map((item) => (
+									<Menu.Item key={item.label} asChild>
+										<a
+											href={item.href}
+											className={`block px-4 py-2 text-sm transition-colors hover:bg-accent hover:text-primary ${
+												currHref === item.href ? "font-bold text-primary" : "text-foreground"
+											}`}
+										>
+											{item.label}
+										</a>
+									</Menu.Item>
+								))}
+							</Menu>
+						</div>
+					</>
+				)}
 
 				<ThemeSwitcher />
 			</div>
