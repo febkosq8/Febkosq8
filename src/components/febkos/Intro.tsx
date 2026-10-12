@@ -29,7 +29,7 @@ export default function Intro() {
 					<span className="text-foreground">A</span>
 					<TypingAnimation strings={selfDescriptions} />
 				</p>
-				<p className="mt-8 text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8 xl:whitespace-nowrap">
+				<p className="mt-8 text-base leading-7 text-foreground/80 sm:text-lg lg:text-xl lg:leading-8 xl:whitespace-nowrap">
 					I build things to understand them, turning complicated problems into practical tools and curiosity into better
 					systems.
 				</p>

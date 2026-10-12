@@ -130,7 +130,10 @@ export default function Projects() {
 								Projects <FaCode />
 							</a>
 						</p>
-						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl" id="projectsTitle">
+						<h2
+							className="mt-3 max-w-3xl text-3xl leading-tight font-semibold text-foreground lg:text-5xl"
+							id="projectsTitle"
+						>
 							<TypingAnimation
 								strings={projectsHeading}
 								placeholder="Things I've built"
@@ -138,7 +141,7 @@ export default function Projects() {
 							/>
 						</h2>
 					</div>
-					<p className="max-w-3xl text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">
+					<p className="max-w-3xl text-base leading-7 text-foreground/80 sm:text-lg lg:text-xl lg:leading-8">
 						A selection of web apps, bots, developer tools, and security projects.
 					</p>
 				</div>

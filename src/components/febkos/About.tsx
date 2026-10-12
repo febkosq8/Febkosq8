@@ -20,7 +20,7 @@ export default function About() {
 								About me <FaRegAddressCard />
 							</a>
 						</p>
-						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl">
+						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold text-foreground lg:text-5xl">
 							<TypingAnimation
 								strings={aboutHeading}
 								placeholder={aboutHeading[0]}
@@ -28,7 +28,7 @@ export default function About() {
 							/>
 						</h2>
 					</div>
-					<p className="text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">
+					<p className="text-base leading-7 text-foreground/80 sm:text-lg lg:text-xl lg:leading-8">
 						Most of what I learn starts with something I want to build.
 						<br />
 						Online, I go by Febkosq8.

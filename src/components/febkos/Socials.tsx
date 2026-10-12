@@ -121,7 +121,10 @@ export default function Socials() {
 								Socials <FaShare />
 							</a>
 						</p>
-						<h2 className="mt-3 max-w-3xl text-3xl leading-tight font-semibold lg:text-5xl" id="socialsTitle">
+						<h2
+							className="mt-3 max-w-3xl text-3xl leading-tight font-semibold text-foreground lg:text-5xl"
+							id="socialsTitle"
+						>
 							<TypingAnimation
 								strings={socialsHeading}
 								placeholder="Let's connect"
@@ -129,7 +132,7 @@ export default function Socials() {
 							/>
 						</h2>
 					</div>
-					<p className="max-w-3xl text-base leading-7 text-foreground/70 sm:text-lg lg:text-xl lg:leading-8">
+					<p className="max-w-3xl text-base leading-7 text-foreground/80 sm:text-lg lg:text-xl lg:leading-8">
 						Find me online, get in touch, or support the work behind these projects.
 					</p>
 				</div>
@@ -171,17 +174,14 @@ export default function Socials() {
 											asChild
 											variant="outline"
 											key={link.label}
-											className="group/button h-10 gap-2 border-foreground/25 bg-card px-3 py-2 text-sm leading-none hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:text-primary-foreground"
+											className="h-10 gap-2 px-3 py-2 text-sm leading-none"
 										>
 											<a
 												href={link.href}
 												target={link.href.startsWith("mailto:") ? undefined : "_blank"}
 												rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
 											>
-												<span
-													className="flex items-center text-base leading-none text-primary transition-colors group-hover/button:text-primary-foreground"
-													aria-hidden="true"
-												>
+												<span className="flex items-center text-base leading-none text-primary" aria-hidden="true">
 													{link.icon}
 												</span>
 												{link.label}
@@ -191,7 +191,7 @@ export default function Socials() {
 									{group.title === "Explore" && (
 										<Button
 											variant="outline"
-											className="group/button h-10 gap-2 border-foreground/25 bg-card px-3 py-2 text-sm leading-none hover:-translate-y-0.5 hover:border-primary hover:bg-primary hover:text-primary-foreground"
+											className="h-10 gap-2 px-3 py-2 text-sm leading-none"
 											onClick={() => setFunMode((enabled) => !enabled)}
 											onDoubleClick={() => {
 												if (!prefersReducedMotion) {
@@ -201,12 +201,9 @@ export default function Socials() {
 											aria-pressed={funMode}
 											title={`${funMode ? "Turn off" : "Turn on"} fun mode.${prefersReducedMotion ? " Reduced motion preferred; icons will be disabled." : ""}`}
 										>
-											<span
-												className="flex items-center text-base leading-none text-primary transition-colors group-hover/button:text-primary-foreground"
-												aria-hidden="true"
-											>
+											<span className="flex items-center text-base leading-none text-primary" aria-hidden="true">
 												<GiPartyPopper
-													className="text-(--fun-icon-color) transition-colors group-hover/button:text-primary-foreground"
+													className="text-(--fun-icon-color)"
 													style={{ "--fun-icon-color": funIconColor } as React.CSSProperties}
 												/>
 											</span>
