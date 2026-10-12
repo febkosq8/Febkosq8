@@ -155,7 +155,7 @@ export default function Header() {
 						</div>
 						{/* Mobile Navigation - Dropdown menu for small screens */}
 						<div className="md:hidden">
-							<Menu buttonText={<FaBars />}>
+							<Menu className="text-sm sm:text-xl" buttonText={<FaBars />}>
 								{navigationItems.map((item) => (
 									<Menu.Item key={item.label} asChild>
 										<a
