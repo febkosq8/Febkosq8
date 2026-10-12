@@ -496,6 +496,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 			const initialRespawnCount = Math.min(1, Math.max(0, Math.floor(count)));
 			const resetParticles = createParticles(initialRespawnCount);
 			setParticleState(resetParticles);
+			setVisibleCount(getVisibleParticleLimit(resetParticles.length));
 			clickCounts.current.clear();
 			resetParticleEffects();
 			markParticlesEntering(resetParticles.map((particle) => particle.id));
@@ -507,6 +508,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 					const newParticle = createParticles(1, particlesRef.current.length)[0];
 					const nextParticles = [...particlesRef.current, newParticle];
 					setParticleState(nextParticles);
+					setVisibleCount(getVisibleParticleLimit(nextParticles.length));
 					markParticlesEntering([newParticle.id]);
 					if (respawnCount >= count && completionRespawnTimer.current) {
 						clearInterval(completionRespawnTimer.current);
@@ -686,7 +688,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 					/>
 				</div>
 			)}
-			{chaosMode && gameComplete && (
+			{chaosMode && !viewportTooSmall && gameComplete && (
 				<div className="chaos-collapse-message chaos-collapse-message--complete" aria-live="polite">
 					<div className="chaos-credits" aria-label="Mission credits">
 						<TypingAnimation
