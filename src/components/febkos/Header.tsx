@@ -1,8 +1,17 @@
 import LinkPill from "@feb/components/ui/LinkPill";
+import Button from "@feb/components/ui/Button";
 import { Menu } from "@feb/components/ui/Menu";
 import ThemeSwitcher from "@feb/components/ui/ThemeSwitcher";
 import { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa";
+import { useLocation, useNavigate } from "react-router";
+import { ImExit } from "react-icons/im";
+
+interface ChaosStats {
+	charges: number;
+	elapsed: string;
+	active: boolean;
+}
 
 function AnimatedText({ text }: { text: string }) {
 	const [colorIndex, setColorIndex] = useState(0);
@@ -26,7 +35,7 @@ function AnimatedText({ text }: { text: string }) {
 	];
 
 	useEffect(() => {
-		// Start animation letter by letter after 1s
+		// Start animation letter by letter after 500ms
 		const startDelay = setTimeout(() => {
 			// Start each letter with a 750ms delay between them
 			text.split("").forEach((_, index) => {
@@ -34,7 +43,7 @@ function AnimatedText({ text }: { text: string }) {
 					setAnimatingLetters((prev) => [...prev, index]);
 				}, index * 750);
 			});
-		}, 1000);
+		}, 500);
 
 		return () => clearTimeout(startDelay);
 	}, [text]);
@@ -66,11 +75,24 @@ function AnimatedText({ text }: { text: string }) {
 }
 
 export default function Header() {
+	const { pathname } = useLocation();
+	const navigate = useNavigate();
 	const [currHref, setCurrHref] = useState(window.location.hash);
+	const [chaosStats, setChaosStats] = useState<ChaosStats | null>(null);
+	const isChaos = pathname === "/chaos";
+
 	useEffect(() => {
 		window.addEventListener("hashchange", () => {
 			setCurrHref(window.location.hash);
 		});
+	}, []);
+
+	useEffect(() => {
+		const handleChaosStats = (event: Event) => {
+			setChaosStats((event as CustomEvent<ChaosStats>).detail);
+		};
+		window.addEventListener("chaos-stats", handleChaosStats);
+		return () => window.removeEventListener("chaos-stats", handleChaosStats);
 	}, []);
 
 	const navigationItems = [
@@ -81,37 +103,75 @@ export default function Header() {
 	];
 
 	return (
-		<div className="z-50 flex w-full items-center justify-between border border-b-2 bg-background px-8 py-1 text-lg lg:text-2xl">
+		<div
+			data-site-header
+			className="relative z-50 flex w-full shrink-0 items-center justify-between border border-b-2 bg-background px-2 py-0.5 text-sm sm:px-8 sm:py-1 sm:text-lg lg:text-2xl"
+		>
 			<a href="/" className="font-bold">
 				<AnimatedText text="Febkosq8" />
 			</a>
+			{isChaos && (
+				<div className="chaos-header-center static left-auto flex translate-x-0 items-center gap-1 sm:absolute sm:left-1/2 sm:-translate-x-1/2 sm:gap-2">
+					<span className="whitespace-nowrap text-[0.625rem] font-bold uppercase tracking-[0.04em] sm:text-xs sm:tracking-[0.08em]">
+						Chaos Control
+					</span>
+					{chaosStats?.active && (
+						<>
+							<span aria-hidden="true" className="h-5 w-px bg-border" />
+							<div className="chaos-header-stats" aria-live="polite">
+								<span>
+									<span className="text-primary">{chaosStats.charges}</span> charges remain
+								</span>
+								<span>
+									<span className="text-primary">{chaosStats.elapsed}</span> elapsed
+								</span>
+							</div>
+						</>
+					)}
+					<span aria-hidden="true" className="h-5 w-px bg-border" />
+					<Button
+						className="chaos-header-exit"
+						type="button"
+						variant="outline"
+						size="icon"
+						aria-label="Exit chaos mission"
+						title="Exit chaos mission"
+						onClick={() => navigate("/")}
+					>
+						<ImExit aria-hidden="true" />
+					</Button>
+				</div>
+			)}
 			<div className="flex items-center gap-2">
-				{/* Desktop Navigation - Hidden on small screens */}
-				<div className="hidden items-center gap-2 md:flex">
-					{navigationItems.map((item) => (
-						<LinkPill key={item.label} active={currHref === item.href} href={item.href}>
-							{item.label}
-						</LinkPill>
-					))}
-				</div>
-
-				{/* Mobile Navigation - Dropdown menu for small screens */}
-				<div className="md:hidden">
-					<Menu buttonText={<FaBars />}>
-						{navigationItems.map((item) => (
-							<Menu.Item key={item.label} asChild>
-								<a
-									href={item.href}
-									className={`block px-4 py-2 text-sm transition-colors hover:bg-accent hover:text-primary ${
-										currHref === item.href ? "font-bold text-primary" : "text-foreground"
-									}`}
-								>
+				{!isChaos && (
+					<>
+						{/* Desktop Navigation - Hidden on small screens */}
+						<div className="hidden items-center gap-2 md:flex">
+							{navigationItems.map((item) => (
+								<LinkPill key={item.label} active={currHref === item.href} href={item.href}>
 									{item.label}
-								</a>
-							</Menu.Item>
-						))}
-					</Menu>
-				</div>
+								</LinkPill>
+							))}
+						</div>
+						{/* Mobile Navigation - Dropdown menu for small screens */}
+						<div className="md:hidden">
+							<Menu className="text-sm sm:text-xl" buttonText={<FaBars />}>
+								{navigationItems.map((item) => (
+									<Menu.Item key={item.label} asChild>
+										<a
+											href={item.href}
+											className={`block px-4 py-2 text-sm transition-colors hover:bg-accent hover:text-primary ${
+												currHref === item.href ? "font-semibold text-primary" : "text-foreground"
+											}`}
+										>
+											{item.label}
+										</a>
+									</Menu.Item>
+								))}
+							</Menu>
+						</div>
+					</>
+				)}
 
 				<ThemeSwitcher />
 			</div>

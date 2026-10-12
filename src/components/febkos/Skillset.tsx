@@ -1,190 +1,371 @@
-import BadgeDisplay from "@feb/components/ui/BadgeDisplay";
 import Card from "@feb/components/ui/Card";
+import Button from "@feb/components/ui/Button";
+import TypingAnimation from "@feb/components/ui/TypingAnimation";
+import { FaTools } from "react-icons/fa";
+import { FaArrowUpRightFromSquare, FaCss3, FaNetworkWired, FaShieldHalved } from "react-icons/fa6";
+import {
+	SiBurpsuite,
+	SiC,
+	SiCloudflare,
+	SiCplusplus,
+	SiDiscorddotjs,
+	SiExpress,
+	SiGit,
+	SiGithub,
+	SiGooglecloud,
+	SiHtml5,
+	SiImmich,
+	SiJavascript,
+	SiMarkdown,
+	SiMongodb,
+	SiNodedotjs,
+	SiOpentext,
+	SiOwasp,
+	SiProxmox,
+	SiPython,
+	SiReact,
+	SiTailscale,
+	SiTailwindcss,
+	SiTypescript,
+	SiUptimekuma,
+	SiVite,
+	SiVitest,
+} from "react-icons/si";
+import type { IconType } from "react-icons";
+import { useState } from "react";
+import useActiveSectionTitle from "@feb/components/febkos/useActiveSectionTitle";
+import { BiLogoVisualStudio } from "react-icons/bi";
+import { GrOracle } from "react-icons/gr";
+import { TbBrandAzure } from "react-icons/tb";
+import { VscAzureDevops } from "react-icons/vsc";
 
+const skillsetHeading = ["What I work with"];
 export type SkillItem = {
-	badge: string;
 	name: string;
-	bgColor: string;
+	icon: IconType;
+	url?: string;
+	core?: boolean;
+	category?: string;
 };
 const languagesList: SkillItem[] = [
 	{
-		badge: "https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white",
 		name: "TypeScript",
-		bgColor: "#007ACC",
+		icon: SiTypescript,
+		url: "https://www.typescriptlang.org/",
 	},
 	{
-		badge: "https://img.shields.io/badge/JavaScript-3A3A3A?style=for-the-badge&logo=javascript&logoColor=F7DF1E",
 		name: "JavaScript",
-		bgColor: "#3A3A3A",
+		icon: SiJavascript,
+		url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
 	},
 	{
-		badge: "https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white",
 		name: "HTML",
-		bgColor: "#E34F26",
+		icon: SiHtml5,
+		url: "https://developer.mozilla.org/en-US/docs/Web/HTML",
 	},
 	{
-		badge: "https://img.shields.io/badge/css-%23663399.svg?style=for-the-badge&logo=css&logoColor=white",
 		name: "CSS",
-		bgColor: "#663399",
+		icon: FaCss3,
+		url: "https://developer.mozilla.org/en-US/docs/Web/CSS",
 	},
 	{
-		badge: "https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54",
 		name: "Python",
-		bgColor: "#3670A0",
+		icon: SiPython,
+		url: "https://www.python.org/",
 	},
 	{
-		badge: "https://img.shields.io/badge/markdown-3F4F8C.svg?style=for-the-badge&logo=markdown&logoColor=white",
 		name: "Markdown",
-		bgColor: "#3F4F8C",
+		icon: SiMarkdown,
+		url: "https://www.markdownguide.org/",
 	},
 	{
-		badge: "https://img.shields.io/badge/C++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white",
 		name: "C++",
-		bgColor: "#00599C",
+		icon: SiCplusplus,
+		url: "https://isocpp.org/",
 	},
 	{
-		badge: "https://img.shields.io/badge/C-%234B6B8A.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white",
 		name: "C",
-		bgColor: "#4B6B8A",
+		icon: SiC,
+		url: "https://en.cppreference.com/w/c",
 	},
 ];
 const stackList: SkillItem[] = [
 	{
-		badge: "https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB",
 		name: "React",
-		bgColor: "#20232A",
+		icon: SiReact,
+		url: "https://react.dev/",
+		core: true,
 	},
 	{
-		badge: "https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white",
 		name: "Node.js",
-		bgColor: "#6DA55F",
+		icon: SiNodedotjs,
+		url: "https://nodejs.org/",
+		core: true,
 	},
 	{
-		badge: "https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB",
 		name: "Express.js",
-		bgColor: "#404D59",
+		icon: SiExpress,
+		url: "https://expressjs.com/",
 	},
 	{
-		badge: "https://img.shields.io/badge/MongoDB-3F8F4B?style=for-the-badge&logo=mongodb&logoColor=white",
 		name: "MongoDB",
-		bgColor: "#3F8F4B",
+		icon: SiMongodb,
+		url: "https://www.mongodb.com/",
 	},
 	{
-		badge: "https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white",
 		name: "Tailwind CSS",
-		bgColor: "#38B2AC",
+		icon: SiTailwindcss,
+		url: "https://tailwindcss.com/",
+		core: true,
 	},
 	{
-		badge: "https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white",
 		name: "Vite",
-		bgColor: "#646CFF",
+		icon: SiVite,
+		url: "https://vite.dev/",
 	},
 	{
-		badge: "https://img.shields.io/badge/-Vitest-252529?style=for-the-badge&logo=vitest&logoColor=FCC72B",
 		name: "Vitest",
-		bgColor: "#252529",
+		icon: SiVitest,
+		url: "https://vitest.dev/",
 	},
 ];
 const appSecList: SkillItem[] = [
 	{
-		badge: "https://img.shields.io/badge/Burp%20Suite-E85D2A?style=for-the-badge&logo=burpsuite&logoColor=white",
 		name: "Burp Suite",
-		bgColor: "#E85D2A",
+		icon: SiBurpsuite,
+		url: "https://portswigger.net/burp",
+		core: true,
 	},
 	{
-		badge: "https://img.shields.io/badge/OpenText%20DAST-1A2A4A?style=for-the-badge&logoColor=white",
 		name: "OpenText DAST",
-		bgColor: "#1A2A4A",
+		icon: SiOpentext,
+		url: "https://www.opentext.com/uk/products/dynamic-application-security-testing",
 	},
 	{
-		badge: "https://img.shields.io/badge/OWASP%20ZAP-1E3A5F?style=for-the-badge&logo=owasp&logoColor=white",
 		name: "OWASP ZAP",
-		bgColor: "#1E3A5F",
+		icon: FaShieldHalved,
+		url: "https://www.zaproxy.org/",
 	},
 	{
-		badge: "https://img.shields.io/badge/Nmap-2C5282?style=for-the-badge&logoColor=white",
 		name: "Nmap",
-		bgColor: "#2C5282",
+		icon: FaNetworkWired,
+		url: "https://nmap.org/",
 	},
 	{
-		badge: "https://img.shields.io/badge/OWASP-2D2D2D?style=for-the-badge&logo=owasp&logoColor=white",
 		name: "OWASP",
-		bgColor: "#2D2D2D",
+		icon: SiOwasp,
+		url: "https://owasp.org/",
 	},
 	{
-		badge: "https://img.shields.io/badge/MITRE%20ATT%26CK-7A1A28?style=for-the-badge&logoColor=white",
 		name: "MITRE ATT&CK",
-		bgColor: "#7A1A28",
+		icon: FaShieldHalved,
+		url: "https://attack.mitre.org/",
 	},
 ];
 const technologiesList: SkillItem[] = [
 	{
-		badge: "https://img.shields.io/badge/Git-D94C3A?style=for-the-badge&logo=git&logoColor=white",
 		name: "Git",
-		bgColor: "#D94C3A",
+		icon: SiGit,
+		url: "https://git-scm.com/",
 	},
 	{
-		badge: "https://img.shields.io/badge/GitHub-4C2A85?style=for-the-badge&logo=github&logoColor=white",
 		name: "GitHub",
-		bgColor: "#4C2A85",
+		icon: SiGithub,
+		url: "https://github.com/",
+		core: true,
 	},
 	{
-		badge: "https://img.shields.io/badge/Azure%20DevOps-2F6FB2?style=for-the-badge&logo=azure-devops&logoColor=white",
 		name: "Azure DevOps",
-		bgColor: "#2F6FB2",
+		icon: VscAzureDevops,
+		url: "https://azure.microsoft.com/products/devops",
 	},
 	{
-		badge: "https://img.shields.io/badge/Cloudflare-E07A2F?style=for-the-badge&logo=cloudflare&logoColor=white",
 		name: "Cloudflare",
-		bgColor: "#E07A2F",
+		icon: SiCloudflare,
+		url: "https://www.cloudflare.com/",
+		core: true,
 	},
 	{
-		badge: "https://img.shields.io/badge/Azure-2C5DAA?style=for-the-badge&logo=microsoftazure&logoColor=white",
 		name: "Azure",
-		bgColor: "#2C5DAA",
+		icon: TbBrandAzure,
+		url: "https://azure.microsoft.com/",
 	},
 	{
-		badge: "https://img.shields.io/badge/Google%20Cloud-3A78D1?style=for-the-badge&logo=google-cloud&logoColor=white",
 		name: "Google Cloud",
-		bgColor: "#3A78D1",
+		icon: SiGooglecloud,
+		url: "https://cloud.google.com/",
 	},
 	{
-		badge: "https://img.shields.io/badge/VS%20Code-2FA4A9?style=for-the-badge&logo=visual-studio-code&logoColor=white",
-		name: "Visual Studio Code",
-		bgColor: "#2FA4A9",
+		name: "Oracle Cloud",
+		icon: GrOracle,
+		url: "https://www.oracle.com/cloud/",
+		core: true,
+	},
+	{
+		name: "VS Code",
+		icon: BiLogoVisualStudio,
+		url: "https://code.visualstudio.com/",
+		core: true,
 	},
 ];
+const selfHostedList: SkillItem[] = [
+	{
+		name: "Proxmox",
+		icon: SiProxmox,
+		url: "https://www.proxmox.com/",
+		core: true,
+	},
+	{
+		name: "Uptime Kuma",
+		icon: SiUptimekuma,
+		url: "https://uptime.kuma.pet/",
+	},
+	{
+		name: "Tailscale",
+		icon: SiTailscale,
+		url: "https://tailscale.com/",
+		core: true,
+	},
+	{
+		name: "Immich",
+		icon: SiImmich,
+		url: "https://immich.app/",
+	},
+	{
+		name: "Discord Bot",
+		icon: SiDiscorddotjs,
+		url: "https://docs.discord.com/developers/bots/overview",
+	},
+];
+
+const categories = [
+	{ id: "all", label: "All skills", items: [] },
+	{ id: "languages", label: "Languages", items: languagesList },
+	{ id: "stack", label: "Development", items: stackList },
+	{ id: "appSec", label: "AppSec", items: appSecList },
+	{ id: "technologies", label: "Platforms & tools", items: technologiesList },
+	{ id: "selfHosted", label: "Self-hosted", items: selfHostedList },
+] as const;
+
+const allSkills = categories
+	.slice(1)
+	.flatMap((category) => category.items.map((skill) => ({ ...skill, category: category.label })))
+	.sort((a, b) => a.name.localeCompare(b.name));
+const coreStack = allSkills.filter((skill) => skill.core).sort((a, b) => a.name.localeCompare(b.name));
+
+function SkillTile({ skill, featured = false }: { skill: SkillItem; featured?: boolean }) {
+	const className = `group relative block overflow-hidden rounded-md border border-foreground/15 bg-card p-2 sm:p-3 transition-[border-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-primary hover:shadow-md ${featured ? "sm:min-w-35 sm:flex-1" : ""}`;
+	const content = (
+		<div className="flex flex-col gap-0.5">
+			<div className="flex items-center justify-between gap-2">
+				<div className="flex min-w-0 items-center gap-1">
+					<span className="min-w-0 text-sm font-semibold text-card-foreground">{skill.name}</span>
+					{skill.url && <FaArrowUpRightFromSquare className="size-3 shrink-0" aria-hidden="true" />}
+				</div>
+				<skill.icon className="size-4 shrink-0" aria-hidden="true" />
+			</div>
+			{skill.category && <span className="text-xs leading-none text-foreground">{skill.category}</span>}
+		</div>
+	);
+
+	return skill.url ? (
+		<a
+			className={className}
+			href={skill.url}
+			target="_blank"
+			rel="noopener noreferrer"
+			aria-label={`Learn more about ${skill.name}`}
+		>
+			{content}
+		</a>
+	) : (
+		<div className={className}>{content}</div>
+	);
+}
+
 export default function Skillset() {
+	const sectionRef = useActiveSectionTitle(() => {
+		document.title = "Febkosq8 - Skillset";
+	});
+	const [activeCategory, setActiveCategory] = useState("all");
+	const activeCategoryLabel = categories.find((category) => category.id === activeCategory)?.label;
+	const visibleSkills =
+		activeCategory === "all" ? allSkills : allSkills.filter((skill) => skill.category === activeCategoryLabel);
+
 	return (
-		<div className="skillset flex min-h-fit-screen flex-col items-center justify-center p-5" id="skillset">
-			<h2 className="typography-heading-2 mb-10 flex" id="skillsetTitle">
-				Skillset
-			</h2>
-			<div className="grid grid-cols-12 gap-3">
-				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
-					<Card.Header>Languages</Card.Header>
-					<Card.Content>
-						<BadgeDisplay badgeList={languagesList} topic={"languages"} />
-					</Card.Content>
-				</Card>
-				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
-					<Card.Header>Stack</Card.Header>
-					<Card.Content>
-						<BadgeDisplay badgeList={stackList} topic={"stack"} />
-					</Card.Content>
-				</Card>
-				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
-					<Card.Header>AppSec</Card.Header>
-					<Card.Content>
-						<BadgeDisplay badgeList={appSecList} topic={"appSec"} />
-					</Card.Content>
-				</Card>
-				<Card className="col-span-12 row-span-3 flex flex-col justify-between">
-					<Card.Header>Platforms & Tools</Card.Header>
-					<Card.Content>
-						<BadgeDisplay badgeList={technologiesList} topic={"technologies"} />
-					</Card.Content>
-				</Card>
+		<div
+			ref={sectionRef}
+			className="skillset flex w-full min-h-fit-screen justify-center p-5"
+			id="skillset"
+			data-title-section
+		>
+			<div className="w-full max-w-6xl py-10">
+				<div className="flex flex-col gap-5 border-b border-border pb-8">
+					<div>
+						<p className="text-sm font-semibold text-primary uppercase lg:text-base">
+							<a
+								href="#skillset"
+								className="flex items-center gap-2 underline underline-offset-4 transition-colors hover:text-primary focus-visible:outline-hidden"
+							>
+								Skillset <FaTools />
+							</a>
+						</p>
+						<h2
+							className="mt-3 max-w-3xl text-3xl leading-tight font-semibold text-foreground lg:text-5xl"
+							id="skillsetTitle"
+						>
+							<TypingAnimation
+								strings={skillsetHeading}
+								placeholder="What I work with"
+								perTick={{ update: 2, unit: "character" }}
+							/>
+						</h2>
+					</div>
+					<p className="max-w-3xl text-base leading-7 text-foreground/80 sm:text-lg lg:text-xl lg:leading-8">
+						A practical toolkit for building web applications, testing their security, and shipping them reliably.
+					</p>
+				</div>
+
+				<div className="mt-8 w-full">
+					<Card hoverLift={false} className="mb-4 border-primary/60 bg-primary/15">
+						<div className="mb-4 flex items-end justify-between gap-4">
+							<div>
+								<p className="text-xs font-semibold tracking-wide text-primary uppercase">Core stack</p>
+								<h3 className="mt-1 text-lg font-semibold text-foreground">The tools I reach for most</h3>
+							</div>
+						</div>
+						<div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
+							{coreStack.map((skill) => (
+								<SkillTile key={skill.name} skill={skill} featured />
+							))}
+						</div>
+					</Card>
+
+					<div className="mb-4 flex flex-wrap gap-2 pb-1" role="tablist" aria-label="Skill categories">
+						{categories.map((category) => {
+							const isActive = category.id === activeCategory;
+							return (
+								<Button
+									key={category.id}
+									variant={isActive ? "default" : "outline"}
+									type="button"
+									role="tab"
+									aria-selected={isActive}
+									onClick={() => setActiveCategory(category.id)}
+									className={`shrink-0 rounded-full px-3 py-2 text-sm ${isActive ? "border-primary" : "border-foreground/20 bg-background hover:border-primary hover:text-primary"}`}
+								>
+									{category.label}
+								</Button>
+							);
+						})}
+					</div>
+
+					<div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4">
+						{visibleSkills.map((skill) => (
+							<SkillTile key={skill.name} skill={skill} />
+						))}
+					</div>
+				</div>
 			</div>
 		</div>
 	);

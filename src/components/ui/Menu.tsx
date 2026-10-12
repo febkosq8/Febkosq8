@@ -1,4 +1,4 @@
-import Pill from "@feb/components/ui/Pill";
+import Button from "@feb/components/ui/Button";
 import * as DropdownBaseMenu from "@radix-ui/react-dropdown-menu";
 import { cx } from "@rinzai/zen";
 import { ReactNode } from "react";
@@ -18,21 +18,25 @@ interface MenuComponent extends React.FC<MenuProps> {
 const MenuComponent: React.FC<MenuProps> = ({ className, active, buttonText, children }) => {
 	return (
 		<DropdownBaseMenu.Root>
-			<DropdownBaseMenu.Trigger
-				className={cx(
-					`inline-flex w-fit items-center justify-center gap-1 rounded-md p-2 text-xl font-bold text-stone-400 hover:bg-blue-800 hover:text-white focus:outline-hidden`,
-					active ? "bg-blue-600 text-white" : "",
-					className,
-				)}
-			>
-				{buttonText}
-				<FaChevronDown aria-hidden="true" />
+			<DropdownBaseMenu.Trigger asChild>
+				<Button
+					variant="ghost"
+					type="button"
+					className={cx(
+						"w-fit gap-1 p-2 text-xl font-bold text-foreground",
+						active ? "bg-primary text-primary-foreground" : "",
+						className,
+					)}
+				>
+					{buttonText}
+					<FaChevronDown aria-hidden="true" />
+				</Button>
 			</DropdownBaseMenu.Trigger>
 			<DropdownBaseMenu.Portal>
 				<DropdownBaseMenu.Content
 					loop={true}
 					sideOffset={14}
-					className="ring-opacity-5 w-fit origin-top-right divide-y divide-gray-100 rounded-md border-2 border-gray-600 bg-neutral-900 shadow-lg ring-1 ring-black focus:outline-hidden"
+					className="ring-opacity-5 z-50 w-fit origin-top-right divide-y divide-border rounded-md border border-border bg-popover text-popover-foreground shadow-lg ring-1 ring-foreground/10 focus:outline-hidden"
 				>
 					{children}
 				</DropdownBaseMenu.Content>
@@ -55,20 +59,27 @@ const MenuSub = ({ active, buttonText, children }: MenuSubProps) => {
 	return (
 		<DropdownBaseMenu.Sub>
 			<DropdownBaseMenu.SubTrigger asChild>
-				<Pill as={"div"} active={active} className="flex w-full items-center justify-between whitespace-nowrap">
+				<Button
+					variant="ghost"
+					type="button"
+					className={cx(
+						"w-full justify-between whitespace-nowrap px-3 py-2 text-xl font-bold",
+						active ? "bg-primary text-primary-foreground" : "",
+					)}
+				>
 					{buttonText}
 					<FaChevronRight className="ml-1" aria-hidden="true" />
-				</Pill>
+				</Button>
 			</DropdownBaseMenu.SubTrigger>
 			<DropdownBaseMenu.Portal>
 				<DropdownBaseMenu.SubContent
 					loop={true}
 					sideOffset={14}
 					arrowPadding={2}
-					className="ring-opacity-5 w-fit origin-top-right divide-y divide-gray-100 rounded-md border-2 border-gray-600 bg-neutral-900 shadow-lg ring-1 ring-black focus:outline-hidden"
+					className="ring-opacity-5 z-50 w-fit origin-top-right divide-y divide-border rounded-md border border-border bg-popover text-popover-foreground shadow-lg ring-1 ring-foreground/10 focus:outline-hidden"
 				>
 					{children}
-					<DropdownBaseMenu.Arrow className="size-2 fill-black dark:fill-stone-200" />
+					<DropdownBaseMenu.Arrow className="size-2 fill-popover" />
 				</DropdownBaseMenu.SubContent>
 			</DropdownBaseMenu.Portal>
 		</DropdownBaseMenu.Sub>
