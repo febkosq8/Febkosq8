@@ -167,8 +167,8 @@ importers:
   .:
     dependencies:
       '@febkosq8/arc':
-        specifier: 0.6.6
-        version: 0.6.6(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        specifier: 0.6.7
+        version: 0.6.7(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@rinzai/zen':
         specifier: 0.14.0
         version: 0.14.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -267,8 +267,8 @@ packages:
       '@types/react':
         optional: true
 
-  '@febkosq8/arc@0.6.6':
-    resolution: {integrity: sha512-IiBUOer97Yp6iKeN1RL19l3R7mG02820bhwUjG0hLUhMblUK82QYA/ut6ii8rlSUxojnpzmspfxEh5T21XD7eg==}
+  '@febkosq8/arc@0.6.7':
+    resolution: {integrity: sha512-WSuqiFQvjcZ9lHkLD7j1/iHoQ98RKPEI1L5kud3ORs0n9M0vm+go1XY38R/WJUh1fnU9KaKsBQcmJLFwj/is9Q==}
     peerDependencies:
       react: 19.3.1
       react-dom: 19.3.1
@@ -860,6 +860,10 @@ packages:
     resolution: {integrity: sha512-WkUDrojuJs0xkgGf2udWxa3yGBRxPtxUkB79i6aCZLRgc7PM8fZe9TosfPDcvEpQZbuFASnHYmRLBLUbmLOIIA==}
     engines: {node: '>= 12.0.0'}
 
+  luxon@3.7.2:
+    resolution: {integrity: sha512-vtEhXh/gNjI9Yg1u4jX/0YVPMvxzHuGgCm6tC5kZyb08yjGWGnqAjGJvcXbqQR2P3MyMEFnRbpcdFS6PBcLqew==}
+    engines: {node: '>=12'}
+
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
 
@@ -1118,10 +1122,11 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.3.0
 
-  '@febkosq8/arc@0.6.6(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@febkosq8/arc@0.6.7(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
       '@base-ui/react': 1.8.0(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@rinzai/zen': 0.14.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      luxon: 3.7.2
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
       react-icons: 5.7.0(react@19.3.1)
@@ -1499,6 +1504,8 @@ snapshots:
       lightningcss-linux-x64-musl: 1.33.0
       lightningcss-win32-arm64-msvc: 1.33.0
       lightningcss-win32-x64-msvc: 1.33.0
+
+  luxon@3.7.2: {}
 
   magic-string@0.30.21:
     dependencies:

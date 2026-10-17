@@ -14,7 +14,7 @@
 		"prepare": "husky"
 	},
 	"dependencies": {
-		"@febkosq8/arc": "0.6.6",
+		"@febkosq8/arc": "0.6.7",
 		"@rinzai/zen": "0.14.0",
 		"react": "19.3.1",
 		"react-dom": "19.3.1",
