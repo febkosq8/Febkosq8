@@ -1,7 +1,10 @@
 @import "tailwindcss" source("../src");
+@import "@febkosq8/arc/styles.css";
 
 @plugin "@tailwindcss/typography";
 @plugin "tailwindcss-animate";
+
+@source "../node_modules/@febkosq8/arc/dist";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -132,40 +135,6 @@
 	@apply text-sm text-muted-foreground;
 }
 
-.card-cursor-border {
-	--card-pointer-x: 50%;
-	--card-pointer-y: 50%;
-}
-
-.card-cursor-border::before {
-	position: absolute;
-	opacity: 0;
-	z-index: 20;
-	-webkit-mask:
-		linear-gradient(#000 0 0) content-box,
-		linear-gradient(#000 0 0);
-	-webkit-mask-composite: xor;
-	mask:
-		linear-gradient(#000 0 0) content-box,
-		linear-gradient(#000 0 0);
-	mask-composite: exclude;
-	transition: opacity 300ms ease-out;
-	inset: 0;
-	border-radius: inherit;
-	background: radial-gradient(
-		300px circle at var(--card-pointer-x) var(--card-pointer-y),
-		color-mix(in srgb, var(--primary) 55%, var(--foreground)),
-		transparent 68%
-	);
-	padding: 1px;
-	pointer-events: none;
-	content: "";
-}
-
-.card-cursor-border:hover::before {
-	opacity: 1;
-}
-
 .fun-background {
 	display: block;
 	position: fixed;
@@ -180,7 +149,7 @@
 	z-index: 20;
 }
 
-.fun .card {
+.fun .arc-card {
 	z-index: 30;
 }
 
@@ -194,7 +163,7 @@
 	pointer-events: none;
 }
 
-.fun .febkos .card,
+.fun .febkos .arc-card,
 .fun .febkos a,
 .fun .febkos button {
 	pointer-events: auto;
@@ -251,7 +220,7 @@
 		white-space: nowrap;
 	}
 
-	.theme-switcher-trigger {
+	.arc-theme-switcher > button {
 		gap: 0.25rem;
 		padding: 0.25rem;
 		height: 1.75rem;

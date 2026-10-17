@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import Button from "@feb/components/ui/Button";
-import TypingAnimation from "@feb/components/ui/TypingAnimation";
+import { Button, TypingAnimation } from "@febkosq8/arc";
 import { BsEmojiSunglasses, BsLightningChargeFill } from "react-icons/bs";
 import {
 	FaCircle,
@@ -680,11 +679,11 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 					<TypingAnimation
 						key={dialogueResetKey}
 						strings={prelude}
-						startWhenVisible={false}
-						perTick={{ update: 2, unit: "character" }}
-						delay={{ pause: 520 }}
+						waitTillVisible={false}
+						perTick={{ amount: 2, unit: "character" }}
+						msDelay={{ hold: 520 }}
 						loop={false}
-						postStringFinish="newline"
+						afterString="newline"
 					/>
 				</div>
 			)}
@@ -694,11 +693,11 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 						<TypingAnimation
 							key={dialogueResetKey}
 							strings={credits}
-							startWhenVisible={false}
-							perTick={{ update: 2, unit: "character" }}
-							delay={{ pause: 360 }}
+							waitTillVisible={false}
+							perTick={{ amount: 2, unit: "character" }}
+							msDelay={{ hold: 360 }}
 							loop={false}
-							postStringFinish="newline"
+							afterString="newline"
 						/>
 					</div>
 				</div>
@@ -710,7 +709,7 @@ export default function IconBomb({ count = 10 }: IconBombProps) {
 							key={particle.id}
 							type="button"
 							variant="ghost"
-							size="icon"
+							size="icon-md"
 							aria-label="Interactive background icon"
 							className={`fun-background__icon${handlingClickIds.has(particle.id) ? " fun-background__icon--handling" : ""}${enteringParticles.has(particle.id) ? " fun-background__icon--entering" : ""}${thresholdPoppingParticles.has(particle.id) ? " fun-background__icon--threshold-popping" : ""}`}
 							onPointerDown={() => handleParticlePointerDown(particle.id)}

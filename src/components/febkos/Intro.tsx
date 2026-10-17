@@ -1,5 +1,5 @@
-import Button from "@feb/components/ui/Button";
-import TypingAnimation from "@feb/components/ui/TypingAnimation";
+import { TypingAnimation } from "@febkosq8/arc";
+import ButtonLink from "@feb/components/ui/ButtonLink";
 import useActiveSectionTitle from "@feb/components/febkos/useActiveSectionTitle";
 
 const introName = ["Febin Koshy Philip"];
@@ -32,7 +32,7 @@ export default function Intro() {
 					<TypingAnimation
 						strings={introName}
 						placeholder="Febin Koshy Philip"
-						perTick={{ update: 2, unit: "character" }}
+						perTick={{ amount: 2, unit: "character" }}
 					/>
 				</h1>
 				<p className="mt-6 flex items-baseline gap-3 text-2xl text-primary lg:text-4xl">
@@ -44,12 +44,10 @@ export default function Intro() {
 					systems.
 				</p>
 				<div className="mt-8 flex flex-wrap gap-3">
-					<Button asChild>
-						<a href="#projects">View projects</a>
-					</Button>
-					<Button asChild variant="outline">
-						<a href="#about">About me</a>
-					</Button>
+					<ButtonLink href="#projects">View projects</ButtonLink>
+					<ButtonLink href="#about" variant="outline">
+						About me
+					</ButtonLink>
 				</div>
 			</div>
 		</div>

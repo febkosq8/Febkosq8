@@ -1,6 +1,4 @@
-import Card from "@feb/components/ui/Card";
-import Button from "@feb/components/ui/Button";
-import TypingAnimation from "@feb/components/ui/TypingAnimation";
+import { Button, Card, TypingAnimation } from "@febkosq8/arc";
 import { FaTools } from "react-icons/fa";
 import { FaArrowUpRightFromSquare, FaCss3, FaNetworkWired, FaShieldHalved } from "react-icons/fa6";
 import {
@@ -317,7 +315,7 @@ export default function Skillset() {
 							<TypingAnimation
 								strings={skillsetHeading}
 								placeholder="What I work with"
-								perTick={{ update: 2, unit: "character" }}
+								perTick={{ amount: 2, unit: "character" }}
 							/>
 						</h2>
 					</div>
@@ -347,7 +345,7 @@ export default function Skillset() {
 							return (
 								<Button
 									key={category.id}
-									variant={isActive ? "default" : "outline"}
+									variant={isActive ? "primary" : "outline-secondary"}
 									type="button"
 									role="tab"
 									aria-selected={isActive}

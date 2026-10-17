@@ -11,6 +11,7 @@ export default defineConfig({
 		outDir: "build",
 	},
 	resolve: {
+		dedupe: ["react", "react-dom"],
 		alias: {
 			"@feb": "/src",
 		},

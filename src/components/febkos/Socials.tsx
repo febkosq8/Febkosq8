@@ -1,6 +1,5 @@
-import Card from "@feb/components/ui/Card";
-import Button from "@feb/components/ui/Button";
-import TypingAnimation from "@feb/components/ui/TypingAnimation";
+import { Button, Card, TypingAnimation } from "@febkosq8/arc";
+import ButtonLink from "@feb/components/ui/ButtonLink";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import {
@@ -137,7 +136,7 @@ export default function Socials() {
 							<TypingAnimation
 								strings={socialsHeading}
 								placeholder="Let's connect"
-								perTick={{ update: 2, unit: "character" }}
+								perTick={{ amount: 2, unit: "character" }}
 							/>
 						</h2>
 					</div>
@@ -157,12 +156,10 @@ export default function Socials() {
 						<p className="text-sm leading-6 text-foreground/70">
 							A live view of my services and infrastructure, monitored with Uptime Kuma.
 						</p>
-						<Button asChild className="w-fit gap-2">
-							<a href="https://status.febkosq8.me/" target="_blank" rel="noreferrer">
-								View live status
-								<FaArrowUpRightFromSquare aria-hidden="true" />
-							</a>
-						</Button>
+						<ButtonLink href="https://status.febkosq8.me/" target="_blank" rel="noreferrer" className="w-fit gap-2">
+							View live status
+							<FaArrowUpRightFromSquare aria-hidden="true" />
+						</ButtonLink>
 					</Card.Content>
 				</Card>
 
@@ -179,27 +176,23 @@ export default function Socials() {
 								<p className="text-sm leading-6 text-foreground/60">{group.description}</p>
 								<div className="flex flex-wrap gap-2">
 									{group.links.map((link) => (
-										<Button
-											asChild
+										<ButtonLink
+											href={link.href}
+											target={link.href.startsWith("mailto:") ? undefined : "_blank"}
+											rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
 											variant="outline"
 											key={link.label}
 											className="h-10 gap-2 px-3 py-2 text-sm leading-none"
 										>
-											<a
-												href={link.href}
-												target={link.href.startsWith("mailto:") ? undefined : "_blank"}
-												rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
-											>
-												<span className="flex items-center text-base leading-none text-primary" aria-hidden="true">
-													{link.icon}
-												</span>
-												{link.label}
-											</a>
-										</Button>
+											<span className="flex items-center text-base leading-none text-primary" aria-hidden="true">
+												{link.icon}
+											</span>
+											{link.label}
+										</ButtonLink>
 									))}
 									{group.title === "Explore" && (
 										<Button
-											variant="outline"
+											variant="outline-secondary"
 											className="h-10 gap-2 px-3 py-2 text-sm leading-none"
 											onClick={() => setFunMode((enabled) => !enabled)}
 											onDoubleClick={() => {

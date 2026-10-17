@@ -1,9 +1,9 @@
 import Header from "@feb/components/febkos/Header";
 import Febkos from "@feb/pages/Febkos";
 import WrongPage from "@feb/pages/WrongPage";
-import Button from "@feb/components/ui/Button";
 import FunBackground from "@feb/components/ui/FunBackground";
 import IconBomb from "@feb/components/ui/IconBomb";
+import { Button } from "@febkosq8/arc";
 import { cx } from "@rinzai/zen";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Route, Routes, useLocation } from "react-router";
@@ -163,8 +163,8 @@ function App() {
 				<div className="fixed right-5 bottom-5 z-50 hidden flex-col gap-2 md:flex">
 					{navigationAvailability.up && (
 						<Button
-							variant="outline"
-							size="icon"
+							variant="outline-secondary"
+							size="icon-md"
 							className="rounded-full bg-background/90 shadow-lg backdrop-blur-sm"
 							onClick={() => navigateAdjacentSection("up")}
 							aria-label="Go to previous section"
@@ -175,8 +175,8 @@ function App() {
 					)}
 					{navigationAvailability.down && (
 						<Button
-							variant="outline"
-							size="icon"
+							variant="outline-secondary"
+							size="icon-md"
 							className="rounded-full bg-background/90 shadow-lg backdrop-blur-sm"
 							onClick={() => navigateAdjacentSection("down")}
 							aria-label="Go to next section"
