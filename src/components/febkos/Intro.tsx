@@ -1,5 +1,4 @@
-import { TypingAnimation } from "@febkosq8/arc";
-import ButtonLink from "@feb/components/ui/ButtonLink";
+import { PillLink, TypingAnimation } from "@febkosq8/arc";
 import useActiveSectionTitle from "@feb/components/febkos/useActiveSectionTitle";
 
 const introName = ["Febin Koshy Philip"];
@@ -44,10 +43,12 @@ export default function Intro() {
 					systems.
 				</p>
 				<div className="mt-8 flex flex-wrap gap-3">
-					<ButtonLink href="#projects">View projects</ButtonLink>
-					<ButtonLink href="#about" variant="outline">
+					<PillLink href="#projects" variant="primary">
+						View projects
+					</PillLink>
+					<PillLink href="#about" variant="outline">
 						About me
-					</ButtonLink>
+					</PillLink>
 				</div>
 			</div>
 		</div>

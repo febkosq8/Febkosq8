@@ -4,8 +4,7 @@ import JappanImg from "@feb/assets/febkos/Jappan.png";
 import LocalSaveImg from "@feb/assets/febkos/localSave.png";
 import smolURLImg from "@feb/assets/febkos/smolURL.png";
 import ToolBoxImg from "@feb/assets/febkos/ToolBox.png";
-import { Button, Card, TypingAnimation } from "@febkosq8/arc";
-import ButtonLink from "@feb/components/ui/ButtonLink";
+import { Button, Card, PillLink, TypingAnimation } from "@febkosq8/arc";
 import { cx } from "@rinzai/zen";
 import { useState } from "react";
 import useActiveSectionTitle from "@feb/components/febkos/useActiveSectionTitle";
@@ -213,16 +212,17 @@ export default function Projects() {
 									{item.actions.length > 0 && (
 										<div className="projectItemBtns flex flex-row flex-wrap gap-2">
 											{item.actions.map((action, index) => (
-												<ButtonLink
+												<PillLink
 													href={action.url}
 													target="_blank"
 													rel="noopener noreferrer"
 													key={`${index}_Project`}
 													variant="outline"
+													size="sm"
 													className="h-9 w-fit gap-1 border-white/70 bg-black/50 px-3 py-2 text-nowrap text-white hover:bg-white/20 hover:text-white"
 												>
 													{action.name}
-												</ButtonLink>
+												</PillLink>
 											))}
 										</div>
 									)}

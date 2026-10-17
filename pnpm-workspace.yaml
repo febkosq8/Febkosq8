@@ -1,4 +1,6 @@
 allowBuilds:
   "@swc/core": true
+# overrides:
+#   "@febkosq8/arc": "link:../arc"
 minimumReleaseAgeExclude:
   - "@febkosq8/arc"

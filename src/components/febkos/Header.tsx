@@ -1,4 +1,4 @@
-import { Button, LinkPill, Menu, ThemeSwitcher } from "@febkosq8/arc";
+import { Button, Menu, PillLink, ThemeSwitcher } from "@febkosq8/arc";
 import { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router";
@@ -145,9 +145,9 @@ export default function Header() {
 						{/* Desktop Navigation - Hidden on small screens */}
 						<div className="hidden items-center gap-2 md:flex">
 							{navigationItems.map((item) => (
-								<LinkPill key={item.label} active={currHref === item.href} href={item.href}>
+								<PillLink key={item.label} active={currHref === item.href} href={item.href}>
 									{item.label}
-								</LinkPill>
+								</PillLink>
 							))}
 						</div>
 						{/* Mobile Navigation - Dropdown menu for small screens */}

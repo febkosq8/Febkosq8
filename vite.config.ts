@@ -6,6 +6,7 @@ export default defineConfig({
 	publicDir: "public",
 	server: {
 		port: 3000,
+		fs: { allow: [".", "../arc"] },
 	},
 	build: {
 		outDir: "build",

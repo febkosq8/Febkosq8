@@ -1,5 +1,4 @@
-import { Button, Card, TypingAnimation } from "@febkosq8/arc";
-import ButtonLink from "@feb/components/ui/ButtonLink";
+import { Button, Card, PillLink, TypingAnimation } from "@febkosq8/arc";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import {
@@ -156,10 +155,16 @@ export default function Socials() {
 						<p className="text-sm leading-6 text-foreground/70">
 							A live view of my services and infrastructure, monitored with Uptime Kuma.
 						</p>
-						<ButtonLink href="https://status.febkosq8.me/" target="_blank" rel="noreferrer" className="w-fit gap-2">
+						<PillLink
+							href="https://status.febkosq8.me/"
+							target="_blank"
+							rel="noreferrer"
+							variant="primary"
+							className="w-fit gap-2"
+						>
 							View live status
 							<FaArrowUpRightFromSquare aria-hidden="true" />
-						</ButtonLink>
+						</PillLink>
 					</Card.Content>
 				</Card>
 
@@ -176,11 +181,12 @@ export default function Socials() {
 								<p className="text-sm leading-6 text-foreground/60">{group.description}</p>
 								<div className="flex flex-wrap gap-2">
 									{group.links.map((link) => (
-										<ButtonLink
+										<PillLink
 											href={link.href}
 											target={link.href.startsWith("mailto:") ? undefined : "_blank"}
 											rel={link.href.startsWith("mailto:") ? undefined : "noreferrer"}
 											variant="outline"
+											size="md"
 											key={link.label}
 											className="h-10 gap-2 px-3 py-2 text-sm leading-none"
 										>
@@ -188,11 +194,11 @@ export default function Socials() {
 												{link.icon}
 											</span>
 											{link.label}
-										</ButtonLink>
+										</PillLink>
 									))}
 									{group.title === "Explore" && (
 										<Button
-											variant="outline-secondary"
+											variant="outline-warning"
 											className="h-10 gap-2 px-3 py-2 text-sm leading-none"
 											onClick={() => setFunMode((enabled) => !enabled)}
 											onDoubleClick={() => {

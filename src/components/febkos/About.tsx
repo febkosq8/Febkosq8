@@ -1,5 +1,4 @@
-import { Card, TypingAnimation } from "@febkosq8/arc";
-import ButtonLink from "@feb/components/ui/ButtonLink";
+import { Card, PillLink, TypingAnimation } from "@febkosq8/arc";
 import useActiveSectionTitle from "@feb/components/febkos/useActiveSectionTitle";
 import { FaRegAddressCard } from "react-icons/fa";
 
@@ -48,7 +47,7 @@ export default function About() {
 							<p className="text-foreground/75">Securing the systems that keep air transport moving.</p>
 						</Card.Content>
 						<Card.Footer>
-							<ButtonLink
+							<PillLink
 								href="https://www.sita.aero"
 								target="_blank"
 								rel="noreferrer"
@@ -57,7 +56,7 @@ export default function About() {
 								className="rounded-full"
 							>
 								SITA
-							</ButtonLink>
+							</PillLink>
 						</Card.Footer>
 					</Card>
 					<Card className={aboutCardClass}>
@@ -67,7 +66,7 @@ export default function About() {
 							<p className="text-foreground/75">Advanced Computer Science</p>
 						</Card.Content>
 						<Card.Footer>
-							<ButtonLink
+							<PillLink
 								href="https://le.ac.uk"
 								target="_blank"
 								rel="noreferrer"
@@ -76,7 +75,7 @@ export default function About() {
 								className="rounded-full"
 							>
 								University of Leicester
-							</ButtonLink>
+							</PillLink>
 						</Card.Footer>
 					</Card>
 					<Card className={aboutCardClass}>
@@ -86,7 +85,7 @@ export default function About() {
 							<p className="text-foreground/75">Computer Science and Engineering with a Cybersecurity Specialization</p>
 						</Card.Content>
 						<Card.Footer>
-							<ButtonLink
+							<PillLink
 								href="https://www.kluniversity.in"
 								target="_blank"
 								rel="noreferrer"
@@ -95,7 +94,7 @@ export default function About() {
 								className="rounded-full"
 							>
 								KL University
-							</ButtonLink>
+							</PillLink>
 						</Card.Footer>
 					</Card>
 					<Card className={aboutCardClass}>
@@ -105,7 +104,7 @@ export default function About() {
 							<p className="text-foreground/75">A member of the Fall 2019 cohort.</p>
 						</Card.Content>
 						<Card.Footer>
-							<ButtonLink
+							<PillLink
 								href="https://universityinnovation.org/wiki/Fellow:Febin_Koshy_Philip"
 								target="_blank"
 								rel="noreferrer"
@@ -114,7 +113,7 @@ export default function About() {
 								className="rounded-full"
 							>
 								UIF Wiki
-							</ButtonLink>
+							</PillLink>
 						</Card.Footer>
 					</Card>
 					<Card className={aboutCardClass}>
@@ -124,7 +123,7 @@ export default function About() {
 							<p className="text-foreground/75">Creating gaming montages from daily gameplay</p>
 						</Card.Content>
 						<Card.Footer>
-							<ButtonLink
+							<PillLink
 								href="https://www.youtube.com/@Febkosq8DoesStuff"
 								target="_blank"
 								rel="noreferrer"
@@ -133,7 +132,7 @@ export default function About() {
 								className="rounded-full"
 							>
 								@Febkosq8DoesStuff
-							</ButtonLink>
+							</PillLink>
 						</Card.Footer>
 					</Card>
 					<Card className={aboutCardClass}>
@@ -143,7 +142,7 @@ export default function About() {
 							<p className="text-foreground/75">Building, experimenting, and learning beyond the day job.</p>
 						</Card.Content>
 						<Card.Footer>
-							<ButtonLink
+							<PillLink
 								href="https://steamcommunity.com/id/febkosq8"
 								target="_blank"
 								rel="noreferrer"
@@ -152,7 +151,7 @@ export default function About() {
 								className="rounded-full"
 							>
 								Steam
-							</ButtonLink>
+							</PillLink>
 						</Card.Footer>
 					</Card>
 				</div>
