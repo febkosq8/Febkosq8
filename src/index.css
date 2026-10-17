@@ -4,8 +4,6 @@
 @plugin "@tailwindcss/typography";
 @plugin "tailwindcss-animate";
 
-@source "../node_modules/@febkosq8/arc/dist";
-
 @custom-variant dark (&:is(.dark *));
 
 :root {
