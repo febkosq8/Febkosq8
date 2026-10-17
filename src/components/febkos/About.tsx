@@ -1,12 +1,10 @@
-import Button from "@feb/components/ui/Button";
-import Card from "@feb/components/ui/Card";
-import TypingAnimation from "@feb/components/ui/TypingAnimation";
+import { Card, PillLink, TypingAnimation } from "@febkosq8/arc";
 import useActiveSectionTitle from "@feb/components/febkos/useActiveSectionTitle";
 import { FaRegAddressCard } from "react-icons/fa";
 
 const aboutCardClass =
-	"flex h-full w-full min-h-56 flex-col [&_.card-header]:border-0! [&_.card-header]:p-0! [&_.card-header]:text-sm! [&_.card-header]:font-semibold [&_.card-header]:uppercase [&_.card-header]:text-primary [&_.card-content]:mt-5! [&_.card-content]:flex! [&_.card-content]:flex-col [&_.card-content]:gap-1 [&_.card-content]:p-0! [&_.card-content]:text-base! [&_.card-content]:leading-6 [&_.card-footer]:mt-auto! [&_.card-footer]:border-0! [&_.card-footer]:p-0!";
-const aboutHeading = ["Security-minded builder,\ncurious by default."];
+	"flex h-full w-full min-h-56 flex-col [&_.arc-card-header]:border-0! [&_.arc-card-header]:p-0! [&_.arc-card-header]:text-sm! [&_.arc-card-header]:font-semibold [&_.arc-card-header]:uppercase [&_.arc-card-header]:text-primary [&_.arc-card-content]:mt-5! [&_.arc-card-content]:flex! [&_.arc-card-content]:flex-col [&_.arc-card-content]:gap-1 [&_.arc-card-content]:p-0! [&_.arc-card-content]:text-base! [&_.arc-card-content]:leading-6 [&_.arc-card-footer]:mt-auto! [&_.arc-card-footer]:border-0! [&_.arc-card-footer]:p-0!";
+const aboutHeading = ["Security-minded builder,\ncurious by default"];
 export default function About() {
 	const sectionRef = useActiveSectionTitle(() => {
 		document.title = "Febkosq8 - About";
@@ -29,7 +27,8 @@ export default function About() {
 							<TypingAnimation
 								strings={aboutHeading}
 								placeholder={aboutHeading[0]}
-								perTick={{ update: 2, unit: "character" }}
+								perTick={{ amount: 2, unit: "character" }}
+								trailingDot
 							/>
 						</h2>
 					</div>
@@ -48,11 +47,16 @@ export default function About() {
 							<p className="text-foreground/75">Securing the systems that keep air transport moving.</p>
 						</Card.Content>
 						<Card.Footer>
-							<Button asChild size="sm" variant="outline" className="rounded-full">
-								<a href="https://www.sita.aero" target="_blank" rel="noreferrer">
-									SITA
-								</a>
-							</Button>
+							<PillLink
+								href="https://www.sita.aero"
+								target="_blank"
+								rel="noreferrer"
+								size="sm"
+								variant="outline"
+								className="rounded-full"
+							>
+								SITA
+							</PillLink>
 						</Card.Footer>
 					</Card>
 					<Card className={aboutCardClass}>
@@ -62,11 +66,16 @@ export default function About() {
 							<p className="text-foreground/75">Advanced Computer Science</p>
 						</Card.Content>
 						<Card.Footer>
-							<Button asChild size="sm" variant="outline" className="rounded-full">
-								<a href="https://le.ac.uk" target="_blank" rel="noreferrer">
-									University of Leicester
-								</a>
-							</Button>
+							<PillLink
+								href="https://le.ac.uk"
+								target="_blank"
+								rel="noreferrer"
+								size="sm"
+								variant="outline"
+								className="rounded-full"
+							>
+								University of Leicester
+							</PillLink>
 						</Card.Footer>
 					</Card>
 					<Card className={aboutCardClass}>
@@ -76,11 +85,16 @@ export default function About() {
 							<p className="text-foreground/75">Computer Science and Engineering with a Cybersecurity Specialization</p>
 						</Card.Content>
 						<Card.Footer>
-							<Button asChild size="sm" variant="outline" className="rounded-full">
-								<a href="https://www.kluniversity.in" target="_blank" rel="noreferrer">
-									KL University
-								</a>
-							</Button>
+							<PillLink
+								href="https://www.kluniversity.in"
+								target="_blank"
+								rel="noreferrer"
+								size="sm"
+								variant="outline"
+								className="rounded-full"
+							>
+								KL University
+							</PillLink>
 						</Card.Footer>
 					</Card>
 					<Card className={aboutCardClass}>
@@ -90,15 +104,16 @@ export default function About() {
 							<p className="text-foreground/75">A member of the Fall 2019 cohort.</p>
 						</Card.Content>
 						<Card.Footer>
-							<Button asChild size="sm" variant="outline" className="rounded-full">
-								<a
-									href="https://universityinnovation.org/wiki/Fellow:Febin_Koshy_Philip"
-									target="_blank"
-									rel="noreferrer"
-								>
-									UIF Wiki
-								</a>
-							</Button>
+							<PillLink
+								href="https://universityinnovation.org/wiki/Fellow:Febin_Koshy_Philip"
+								target="_blank"
+								rel="noreferrer"
+								size="sm"
+								variant="outline"
+								className="rounded-full"
+							>
+								UIF Wiki
+							</PillLink>
 						</Card.Footer>
 					</Card>
 					<Card className={aboutCardClass}>
@@ -108,11 +123,16 @@ export default function About() {
 							<p className="text-foreground/75">Creating gaming montages from daily gameplay</p>
 						</Card.Content>
 						<Card.Footer>
-							<Button asChild size="sm" variant="outline" className="rounded-full">
-								<a href="https://www.youtube.com/@Febkosq8DoesStuff" target="_blank" rel="noreferrer">
-									@Febkosq8DoesStuff
-								</a>
-							</Button>
+							<PillLink
+								href="https://www.youtube.com/@Febkosq8DoesStuff"
+								target="_blank"
+								rel="noreferrer"
+								size="sm"
+								variant="outline"
+								className="rounded-full"
+							>
+								@Febkosq8DoesStuff
+							</PillLink>
 						</Card.Footer>
 					</Card>
 					<Card className={aboutCardClass}>
@@ -122,11 +142,16 @@ export default function About() {
 							<p className="text-foreground/75">Building, experimenting, and learning beyond the day job.</p>
 						</Card.Content>
 						<Card.Footer>
-							<Button asChild size="sm" variant="outline" className="rounded-full">
-								<a href="https://steamcommunity.com/id/febkosq8" target="_blank" rel="noreferrer">
-									Steam
-								</a>
-							</Button>
+							<PillLink
+								href="https://steamcommunity.com/id/febkosq8"
+								target="_blank"
+								rel="noreferrer"
+								size="sm"
+								variant="outline"
+								className="rounded-full"
+							>
+								Steam
+							</PillLink>
 						</Card.Footer>
 					</Card>
 				</div>

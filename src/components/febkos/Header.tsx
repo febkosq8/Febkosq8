@@ -1,7 +1,4 @@
-import LinkPill from "@feb/components/ui/LinkPill";
-import Button from "@feb/components/ui/Button";
-import { Menu } from "@feb/components/ui/Menu";
-import ThemeSwitcher from "@feb/components/ui/ThemeSwitcher";
+import { Button, Menu, PillLink, ThemeSwitcher } from "@febkosq8/arc";
 import { useEffect, useState } from "react";
 import { FaBars } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router";
@@ -132,8 +129,8 @@ export default function Header() {
 					<Button
 						className="chaos-header-exit"
 						type="button"
-						variant="outline"
-						size="icon"
+						variant="outline-secondary"
+						size="icon-md"
 						aria-label="Exit chaos mission"
 						title="Exit chaos mission"
 						onClick={() => navigate("/")}
@@ -148,9 +145,9 @@ export default function Header() {
 						{/* Desktop Navigation - Hidden on small screens */}
 						<div className="hidden items-center gap-2 md:flex">
 							{navigationItems.map((item) => (
-								<LinkPill key={item.label} active={currHref === item.href} href={item.href}>
+								<PillLink key={item.label} active={currHref === item.href} href={item.href}>
 									{item.label}
-								</LinkPill>
+								</PillLink>
 							))}
 						</div>
 						{/* Mobile Navigation - Dropdown menu for small screens */}
