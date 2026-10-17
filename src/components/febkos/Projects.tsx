@@ -2,6 +2,7 @@ import DefectListGeneratorImg from "@feb/assets/febkos/DefectListGenerator.png";
 import GStatTrackerImg from "@feb/assets/febkos/GStatTracker.png";
 import JappanImg from "@feb/assets/febkos/Jappan.png";
 import LocalSaveImg from "@feb/assets/febkos/localSave.png";
+import ArcImg from "@feb/assets/febkos/ARC.png";
 import smolURLImg from "@feb/assets/febkos/smolURL.png";
 import ToolBoxImg from "@feb/assets/febkos/ToolBox.png";
 import { Button, Card, PillLink, TypingAnimation } from "@febkosq8/arc";
@@ -9,8 +10,44 @@ import { cx } from "@rinzai/zen";
 import { useState } from "react";
 import useActiveSectionTitle from "@feb/components/febkos/useActiveSectionTitle";
 import { FaCode, FaDiscord, FaGithub, FaInfoCircle, FaNpm } from "react-icons/fa";
+import { SiStorybook } from "react-icons/si";
 const projectsHeading = ["Things I've built"];
 const projectItems = [
+	{
+		imgSrc: ArcImg,
+		title: "A.R.C",
+		description: "Reusable React component library powering the UI of all my websites.",
+		actions: [
+			{
+				name: (
+					<>
+						View on
+						<FaNpm className="h-5 w-5" />
+					</>
+				),
+				url: "https://www.npmjs.com/package/@febkosq8/arc",
+			},
+			{
+				name: (
+					<>
+						View Storybook
+						<SiStorybook className="h-5 w-5" />
+					</>
+				),
+				url: "https://arc.febkosq8.me/",
+			},
+			{
+				name: (
+					<>
+						View on
+						<FaGithub className="h-5 w-5" />
+					</>
+				),
+				url: "https://github.com/febkosq8/arc",
+			},
+		],
+		tech: ["React", "TypeScript", "Tailwind CSS", "NPM"],
+	},
 	{
 		imgSrc: DefectListGeneratorImg,
 		title: "Defect List Generator",
