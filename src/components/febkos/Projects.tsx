@@ -104,6 +104,15 @@ const projectItems = [
 				url: "https://discord.com/api/oauth2/authorize?client_id=732230135671029831&permissions=8&scope=applications.commands%20bot",
 			},
 			{
+				name: (
+					<>
+						View on
+						<FaGithub className="h-5 w-5" />
+					</>
+				),
+				url: "https://github.com/febkosq8/jappan",
+			},
+			{
 				name: "Know More",
 				url: "https://jappan.febkosq8.me",
 			},
