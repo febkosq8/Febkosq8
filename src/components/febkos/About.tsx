@@ -48,7 +48,7 @@ export default function About() {
 						</Card.Content>
 						<Card.Footer>
 							<PillLink
-								href="https://www.aboutamazon.com"
+								href="https://www.aboutamazon.co.uk"
 								target="_blank"
 								rel="noreferrer"
 								size="sm"
