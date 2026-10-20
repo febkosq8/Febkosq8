@@ -44,18 +44,18 @@ export default function About() {
 						<Card.Header>Work</Card.Header>
 						<Card.Content>
 							<p className="font-semibold">Security Engineer</p>
-							<p className="text-foreground/75">Securing the systems that keep air transport moving.</p>
+							<p className="text-foreground/75">Part of the AppSec team for Amazon Stores.</p>
 						</Card.Content>
 						<Card.Footer>
 							<PillLink
-								href="https://www.sita.aero"
+								href="https://www.aboutamazon.com"
 								target="_blank"
 								rel="noreferrer"
 								size="sm"
 								variant="outline"
 								className="rounded-full"
 							>
-								SITA
+								Amazon
 							</PillLink>
 						</Card.Footer>
 					</Card>
