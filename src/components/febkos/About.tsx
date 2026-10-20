@@ -44,7 +44,7 @@ export default function About() {
 						<Card.Header>Work</Card.Header>
 						<Card.Content>
 							<p className="font-semibold">Security Engineer</p>
-							<p className="text-foreground/75">Part of the AppSec team for Amazon Stores.</p>
+							<p className="text-foreground/75">Part of the AppSec team for Amazon Stores</p>
 						</Card.Content>
 						<Card.Footer>
 							<PillLink
@@ -101,7 +101,7 @@ export default function About() {
 						<Card.Header>Leadership</Card.Header>
 						<Card.Content>
 							<p className="font-semibold">University Innovation Fellow</p>
-							<p className="text-foreground/75">A member of the Fall 2019 cohort.</p>
+							<p className="text-foreground/75">A member of the Fall 2019 cohort</p>
 						</Card.Content>
 						<Card.Footer>
 							<PillLink
@@ -139,7 +139,7 @@ export default function About() {
 						<Card.Header>Off-hours</Card.Header>
 						<Card.Content>
 							<p className="font-semibold">Gaming and homelabbing</p>
-							<p className="text-foreground/75">Building, experimenting, and learning beyond the day job.</p>
+							<p className="text-foreground/75">Building, experimenting, and learning beyond the day job</p>
 						</Card.Content>
 						<Card.Footer>
 							<PillLink
