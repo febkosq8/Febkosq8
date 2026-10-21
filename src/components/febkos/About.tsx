@@ -44,7 +44,7 @@ export default function About() {
 						<Card.Header>Work</Card.Header>
 						<Card.Content>
 							<p className="font-semibold">Security Engineer</p>
-							<p className="text-foreground/75">Part of the AppSec team for Amazon Stores</p>
+							<p className="text-foreground/75">Part of Amazon's SDO organization, supporting the AppStar EMEA team</p>
 						</Card.Content>
 						<Card.Footer>
 							<PillLink
