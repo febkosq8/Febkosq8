@@ -3,7 +3,10 @@
 	"private": false,
 	"description": "It's for me, by me",
 	"homepage": "www.febkosq8.me",
-	"repository": "https://github.com/febkosq8/febkosq8",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/febkosq8/febkosq8.git"
+	},
 	"version": "2.1.0",
 	"type": "module",
 	"packageManager": "pnpm@12.15.0",
