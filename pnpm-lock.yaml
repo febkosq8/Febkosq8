@@ -167,8 +167,8 @@ importers:
   .:
     dependencies:
       '@febkosq8/arc':
-        specifier: 0.8.1
-        version: 0.8.1(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        specifier: 0.8.3
+        version: 0.8.3(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@rinzai/zen':
         specifier: 0.14.0
         version: 0.14.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -267,8 +267,8 @@ packages:
       '@types/react':
         optional: true
 
-  '@febkosq8/arc@0.8.1':
-    resolution: {integrity: sha512-zLcX2Z3XPL4d/CKHDuk5jdHsCMImdynLKfuxlGC9+NYm0AcBzAWUW53ExR4sfm2F3ERT4NKFswU6R5v2vebxBQ==}
+  '@febkosq8/arc@0.8.3':
+    resolution: {integrity: sha512-E3wK3YRZVprC8qkoKbiLydWj/RuoUIOliCkBGMBeWN8mjFhTO6l+nuig/TluudiW5hBlh4Nrc27LRGnnWnr3eA==}
     peerDependencies:
       react: 19.3.1
       react-dom: 19.3.1
@@ -1148,7 +1148,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.3.0
 
-  '@febkosq8/arc@0.8.1(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@febkosq8/arc@0.8.3(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
       '@base-ui/react': 1.9.0(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@rinzai/zen': 0.14.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
