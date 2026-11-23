@@ -170,8 +170,8 @@ importers:
         specifier: 0.9.0
         version: 0.9.0(@types/react@19.3.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@rinzai/zen':
-        specifier: 0.17.0
-        version: 0.17.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        specifier: 0.18.0
+        version: 0.18.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react:
         specifier: 19.3.1
         version: 19.3.1
@@ -328,6 +328,12 @@ packages:
 
   '@rinzai/zen@0.17.0':
     resolution: {integrity: sha512-sLzthe872uIOidWQapyTg0739GADT9M/Pg6ouuf596KvF9I9K4PXDFExddITZa/8j7s6fW3WSStqWdkcJoa+3Q==}
+    peerDependencies:
+      react: ^19.2.0
+      react-dom: ^19.2.0
+
+  '@rinzai/zen@0.18.0':
+    resolution: {integrity: sha512-NpZzLksZc6jszqZYDAyajYV9562YvHKyHnTJgmmf/wzE0kzQOpFq7gcPVsvBZOubOwHBVOwHMK1En9A7otT4LQ==}
     peerDependencies:
       react: ^19.2.0
       react-dom: ^19.2.0
@@ -1185,6 +1191,11 @@ snapshots:
   '@remix-run/route-pattern@0.22.1': {}
 
   '@rinzai/zen@0.17.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+    dependencies:
+      react: 19.3.1
+      react-dom: 19.3.1(react@19.3.1)
+
+  '@rinzai/zen@0.18.0(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
